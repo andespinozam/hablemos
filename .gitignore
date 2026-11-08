@@ -1,0 +1,8 @@
+node_modules
+dist
+dev-dist
+coverage
+.claude
+*.local
+*.log
+.DS_Store
