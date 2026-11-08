@@ -1,0 +1,18 @@
+{
+  "words": [
+    { "id": "gato", "word": "gato", "article": "un", "emoji": "🐱", "level": 1 },
+    { "id": "perro", "word": "perro", "article": "un", "emoji": "🐶", "level": 1 },
+    { "id": "pelota", "word": "pelota", "article": "una", "emoji": "⚽", "level": 1 },
+    { "id": "casa", "word": "casa", "article": "una", "emoji": "🏠", "level": 1 },
+    { "id": "sol", "word": "sol", "article": "el", "emoji": "☀️", "level": 1 },
+    { "id": "luna", "word": "luna", "article": "la", "emoji": "🌙", "level": 1 },
+    { "id": "pato", "word": "pato", "article": "un", "emoji": "🦆", "level": 1 },
+    { "id": "mano", "word": "mano", "article": "una", "emoji": "✋", "level": 1 },
+    { "id": "zapato", "word": "zapato", "article": "un", "emoji": "👟", "level": 2 },
+    { "id": "platano", "word": "plátano", "article": "un", "emoji": "🍌", "level": 2 },
+    { "id": "mariposa", "word": "mariposa", "article": "una", "emoji": "🦋", "level": 2 },
+    { "id": "elefante", "word": "elefante", "article": "un", "emoji": "🐘", "level": 2 },
+    { "id": "bicicleta", "word": "bicicleta", "article": "una", "emoji": "🚲", "level": 2 },
+    { "id": "helado", "word": "helado", "article": "un", "emoji": "🍦", "level": 2 }
+  ]
+}

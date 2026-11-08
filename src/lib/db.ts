@@ -1,4 +1,5 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
+import type { Rating } from './scoring';
 
 export interface ChildProfile {
   id: string;
@@ -11,25 +12,69 @@ export interface ChildProfile {
   createdAt: number;
 }
 
-interface HablemosDB extends DBSchema {
-  profiles: {
-    key: string;
-    value: ChildProfile;
-  };
+export interface SessionRecord {
+  id: string;
+  profileId: string;
+  startedAt: number;
+  endedAt?: number;
+  activityIds: string[];
 }
+
+export interface ResultRecord {
+  id: string;
+  sessionId: string;
+  profileId: string;
+  activityId: string;
+  itemId: string;
+  /** Palabra u objetivo trabajado. */
+  target: string;
+  /** Área de lenguaje (para el seguimiento por área). */
+  area: string;
+  /** Fonema objetivo, si lo hay (para el seguimiento por fonema). */
+  phoneme?: string;
+  /** Nivel de la actividad al momento de jugar. */
+  level: number;
+  rating: Rating;
+  /** 1, 0.5 o 0 según la calificación. */
+  score: number;
+  at: number;
+}
+
+export interface LevelRecord {
+  /** `${profileId}:${activityId}` */
+  key: string;
+  profileId: string;
+  activityId: string;
+  level: number;
+  updatedAt: number;
+}
+
+interface HablemosDB extends DBSchema {
+  profiles: { key: string; value: ChildProfile };
+  sessions: { key: string; value: SessionRecord; indexes: { byProfile: string } };
+  results: { key: string; value: ResultRecord; indexes: { byProfile: string } };
+  levels: { key: string; value: LevelRecord; indexes: { byProfile: string } };
+}
+
+export type HablemosDatabase = IDBPDatabase<HablemosDB>;
 
 export const DB_NAME = 'hablemos';
 /** Al cambiar el esquema: subir este número y agregar un bloque `if (oldVersion < N)`. Nunca editar los anteriores. */
-export const DB_VERSION = 1;
+export const DB_VERSION = 2;
 
-let dbPromise: Promise<IDBPDatabase<HablemosDB>> | null = null;
+let dbPromise: Promise<HablemosDatabase> | null = null;
 
-export function getDb(): Promise<IDBPDatabase<HablemosDB>> {
+export function getDb(): Promise<HablemosDatabase> {
   if (!dbPromise) {
     dbPromise = openDB<HablemosDB>(DB_NAME, DB_VERSION, {
       upgrade(db, oldVersion) {
         if (oldVersion < 1) {
           db.createObjectStore('profiles', { keyPath: 'id' });
+        }
+        if (oldVersion < 2) {
+          db.createObjectStore('sessions', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+          db.createObjectStore('results', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+          db.createObjectStore('levels', { keyPath: 'key' }).createIndex('byProfile', 'profileId');
         }
       },
     });

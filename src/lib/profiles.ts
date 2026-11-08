@@ -1,6 +1,7 @@
 import { ageInYears } from './age';
 import { getDb, type ChildProfile } from './db';
 import { newId } from './ids';
+import { deleteProgress } from './progress';
 
 export const AVATARS = ['🐻', '🐰', '🐱', '🐶', '🦊', '🐼', '🦁', '🐸', '🐵', '🐯', '🐨', '🦄'];
 export const MAX_NAME_LENGTH = 20;
@@ -62,8 +63,8 @@ export async function saveProfile(
   return profile;
 }
 
-/** Elimina el perfil. (Desde la Fase 2 también borrará sus sesiones y resultados.) */
+/** Elimina el perfil y todo su progreso (sesiones, resultados y niveles). */
 export async function deleteProfile(id: string): Promise<void> {
-  const db = await getDb();
-  await db.delete('profiles', id);
+  await deleteProgress(id);
+  await (await getDb()).delete('profiles', id);
 }

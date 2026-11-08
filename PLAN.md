@@ -16,13 +16,13 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 2 — Motor de actividades, voz, refuerzos y almacenamiento
 
-- [ ] Modelo de actividad, ítem y sesión; registro de actividades
-- [ ] Voz con `speechSynthesis`: selección es-419 > es-MX > es-US > es-EC, carga asíncrona, botón "🔊 repetir"
-- [ ] Refuerzos positivos: estrellas, animaciones, sonidos con Web Audio
-- [ ] Panel discreto del adulto con 3 estados de calificación
-- [ ] Sesión guiada de 3-4 actividades y celebración final
-- [ ] Guardar sesiones y resultados; eliminar un perfil borra también sus datos
-- [ ] Puntaje (1 / 0.5 / 0) y adaptación de nivel con pruebas
+- [x] Modelo de actividad, ítem y sesión; registro de actividades
+- [x] Voz con `speechSynthesis`: selección es-419 > es-MX > es-US > es-EC, carga asíncrona, botón "🔊 repetir"
+- [x] Refuerzos positivos: estrellas, animaciones, sonidos con Web Audio
+- [x] Panel discreto del adulto con 3 estados de calificación
+- [x] Sesión guiada de 3-4 actividades y celebración final
+- [x] Guardar sesiones y resultados; eliminar un perfil borra también sus datos
+- [x] Puntaje (1 / 0.5 / 0) y adaptación de nivel con pruebas
 
 ## Fase 3 — Actividades 1 a 4
 

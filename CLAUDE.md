@@ -41,6 +41,18 @@ npm run icons     # regenera los PNG de public/icons
 - Sesión guiada de 10-15 min: 3-4 actividades según el nivel; pantalla final de celebración. Sin pantallas de espera ni cronómetros visibles.
 - Sin lectura obligatoria: todo se entiende con imágenes y voz. Imágenes: emojis y SVG originales; nada de personajes con derechos de autor.
 
+
+## Motor de actividades (Fase 2)
+
+- Cada actividad es un `Activity` (`src/activities/types.ts`) registrado en `src/activities/registry.ts`: `buildItems(level, count, rng)` devuelve ítems y `ItemView` los dibuja. Para agregar una actividad: archivo en `src/activities/`, contenido en `src/content/*.json` y una línea en el registro. El motor no se toca.
+- `adultRated: true` → califica el adulto con su panel; `false` → la actividad llama `submit(rating)` por su cuenta.
+- `SessionRunner` planifica 3-4 actividades (`lib/sessionPlan.ts`), dice las instrucciones, guarda cada resultado y adapta el nivel al terminar (`lib/progress.ts`, `lib/level.ts`). Solo adaptan las actividades con >= 3 ítems en la sesión.
+- Si el adulto marca "Aún no": sin sonido ni mensaje de error; se repite el modelo a velocidad 0.7 y se ofrece "Otra vez" / "Seguir". Ese reintento no se califica. Cada ejercicio completado da una estrella; nunca se pierden.
+- **No agregar sonidos de error** a `lib/sounds.ts`. El audio solo inicia tras un toque (`unlockAudio()` en "Jugar").
+- Almacenes IndexedDB (v2): `profiles`, `sessions`, `results`, `levels`, con índice `byProfile`. `deleteProfile` borra también su progreso.
+- Voz (`lib/speech.ts`): `speak()` nunca lanza ni espera para siempre; sin voz en español usa `lang es-419` del sistema.
+- `activities/warmup.tsx` ("Repite conmigo") es una actividad mínima de calentamiento que ejercita el motor mientras llegan las actividades 1-11.
+
 ## Perfiles y adultos
 
 - Varios perfiles: nombre/apodo, fecha de nacimiento, avatar. Ningún otro dato personal.

@@ -7,6 +7,7 @@ import { AdultZone } from './screens/AdultZone';
 import { ChildHome } from './screens/ChildHome';
 import { ProfileForm } from './screens/ProfileForm';
 import { ProfilePicker } from './screens/ProfilePicker';
+import { SessionRunner } from './screens/SessionRunner';
 
 export function App() {
   const route = useRoute();
@@ -90,7 +91,11 @@ export function App() {
   }
 
   if (route === 'inicio' && active) {
-    return <ChildHome profile={active} onExit={() => go('')} />;
+    return <ChildHome profile={active} onPlay={() => go('jugar')} onExit={() => go('')} />;
+  }
+
+  if (route === 'jugar' && active) {
+    return <SessionRunner profile={active} onExit={() => go('inicio')} />;
   }
 
   return (

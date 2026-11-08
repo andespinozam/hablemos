@@ -306,3 +306,151 @@ p {
     display: none !important;
   }
 }
+
+/* ---------- Sesión guiada ---------- */
+.avatar--huge {
+  font-size: clamp(6rem, 18vw, 10rem);
+}
+.btn--big {
+  min-height: 96px;
+  padding: 16px 48px;
+  font-size: var(--fs-big);
+}
+
+.session {
+  /* Alto de pantalla completo: la zona del niño crece y el panel del adulto queda abajo. */
+  min-height: 100dvh;
+}
+.session__top {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+}
+.session__stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dots {
+  display: flex;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 4px solid var(--line);
+  background: var(--surface);
+}
+.dot--now {
+  border-color: var(--primary);
+}
+.dot--done {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.item-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+  text-align: center;
+}
+.item-emoji {
+  font-size: clamp(7rem, 26vmin, 15rem);
+  line-height: 1;
+}
+.item-text {
+  font-size: var(--fs-huge);
+  font-weight: 900;
+  margin: 0;
+}
+.item-title {
+  margin: 0;
+}
+
+/* Refuerzo positivo. */
+.burst {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap);
+}
+.burst__stars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+.burst__text {
+  font-size: var(--fs-huge);
+  font-weight: 900;
+  margin: 0;
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.2) rotate(-20deg);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.15) rotate(6deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+.burst__star,
+.star-pop {
+  animation: pop 0.6s ease-out both;
+}
+.burst__star--0 {
+  animation-delay: 0.05s;
+}
+.burst__star--1 {
+  animation-delay: 0.15s;
+}
+.burst__star--2 {
+  animation-delay: 0.25s;
+}
+.star-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 640px;
+}
+
+/* Panel del adulto: discreto, pero con botones táctiles de tamaño normal. */
+.adult-panel {
+  background: #eaf0fb;
+  border: 2px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+}
+.adult-panel__target {
+  margin: 0;
+  flex: 1 1 220px;
+}
+.adult-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+.adult-panel .btn {
+  font-size: 1.05rem;
+  padding: 8px 20px;
+}
