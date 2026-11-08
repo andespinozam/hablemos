@@ -2,6 +2,8 @@
 
 App web instalable (PWA) para **estimular el lenguaje de niños de 3 a 5 años**, en español latino. Se usa en tablet (o teléfono) con un adulto al lado. Funciona **sin internet** y **todos los datos se quedan en el dispositivo**: no hay cuentas, anuncios, analítica ni llamadas de red.
 
+**Pruébala:** <https://andespinozam.github.io/hablemos/>
+
 > **Esta herramienta apoya la estimulación en casa y no reemplaza la valoración de un fonoaudiólogo.**
 
 ## Qué incluye
@@ -88,7 +90,7 @@ La app es un sitio estático: cualquier hosting con **HTTPS** sirve. Las rutas s
 1. `npm test` y `npm run build` sin errores.
 2. ~~Elegir una licencia~~ Hecho: el proyecto usa la licencia **MIT** (archivo `LICENSE`).
 3. Revisar el contenido clínico con un fonoaudiólogo (listas de fonemas por edad, señales de alerta, umbrales de nivel).
-4. Publicar, abrir la dirección **con HTTPS** y comprobar: se instala en la pantalla de inicio, funciona sin internet (abrir una vez con conexión, luego modo avión) y el respaldo se descarga.
+4. ~~Publicar~~ Hecho: <https://andespinozam.github.io/hablemos/>. Falta comprobar en un dispositivo real que se instala en la pantalla de inicio y que funciona sin internet (abrir una vez con conexión, luego modo avión).
 5. Probar en una tablet Android y en un iPad reales.
 
 ### Seguridad

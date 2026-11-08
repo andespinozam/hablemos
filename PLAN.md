@@ -72,7 +72,7 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 - [ ] Probar en una **tablet Android y un iPad reales** (Safari): gestos táctiles y arrastre con el dedo, sonido y voces del sistema, instalación en pantalla de inicio, wake lock.
 - [ ] Revisar con un fonoaudiólogo el contenido clínico: listas de fonemas por edad, señales de alerta, umbrales de nivel (80 % / 40 %) y de nivel recomendado (60 % / 75 %).
-- [ ] Publicar en GitHub Pages o Netlify (HTTPS) y probar el modo sin conexión ahí.
+- [x] Publicado en GitHub Pages: <https://andespinozam.github.io/hablemos/> (la acción corrió las 278 pruebas en Linux/UTC y desplegó; service worker activo, sin violaciones de la política de seguridad). **Falta** probar el modo sin conexión y el wake lock en un dispositivo real: el navegador de pruebas rechazó el wake lock por no tener foco.
 - [x] Precarga solo de las fuentes latinas (hecho: 21 → 18 archivos, 552 → 490 KiB)
 - [x] Licencia MIT (archivo `LICENSE`)
 - [ ] Probar la lógica de fechas en zonas con horario de verano y desfase positivo. En Windows, Node solo respeta `TZ=UTC`; el código no usa funciones UTC ni `Date` desde texto (auditado), pero conviene confirmarlo con `TZ=Pacific/Auckland npm test` en Linux/macOS o en la integración continua.
