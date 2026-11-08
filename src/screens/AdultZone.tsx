@@ -86,7 +86,7 @@ export function AdultZone({ profiles, loadError, onChanged, onExit }: Props) {
         </div>
 
         {profiles.length === 0 ? (
-          <p style={{ marginTop: 16 }}>Aún no hay perfiles. Agrega al primer niño para empezar.</p>
+          <p style={{ marginTop: 16 }}>Aún no hay perfiles. Agrega al primer niño para empezar. Si es tu primera vez, lee antes la Guía para adultos.</p>
         ) : (
           <ul className="list" style={{ marginTop: 16 }}>
             {profiles.map((p) => (
@@ -151,6 +151,9 @@ export function AdultZone({ profiles, loadError, onChanged, onExit }: Props) {
       </section>
 
       <nav className="row" aria-label="Más opciones">
+        <button type="button" className={profiles.length === 0 ? 'btn btn--accent' : 'btn btn--ghost'} onClick={() => go('adultos/guia')}>
+          📖 Guía para adultos
+        </button>
         <button type="button" className="btn btn--ghost" onClick={() => go('adultos/respaldo')}>
           💾 Respaldo
         </button>

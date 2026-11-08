@@ -102,6 +102,11 @@ npm run icons     # regenera los PNG de public/icons
 - **Cómo verificar sin conexión de verdad**: `npm run build`, servir con `npm run preview`, abrir la app, esperar a que el service worker active (`navigator.serviceWorker.controller`), **apagar el servidor** y recargar. Tras cambiar el build, borrar el service worker y la caché del navegador antes de probar (el viejo sigue sirviendo).
 - **Auditoría de accesibilidad**: `axe-core` es devDependency. En el navegador: inyectar `/node_modules/axe-core/axe.min.js` desde el servidor de desarrollo y correr `axe.run(document)` en cada pantalla. Estado actual: 0 violaciones salvo `meta-viewport` en el niño.
 - **Pantallas angostas**: reglas `@media (max-width: 520px)` al final de `global.css` reducen botones sin bajar de 72 px. Al agregar una actividad, medir `scrollHeight` vs `innerHeight` en 375x812, 768x1024 y 1024x768.
+## Guía para adultos y README (Fase 8)
+
+- `screens/Guide.tsx` + `content/guide.json` (ruta `adultos/guia`). Las descripciones de las 11 actividades salen de `guide.json` (`activities`, por id): **al agregar una actividad hay que describirla ahí** o `screens/guide.test.ts` falla. Esa prueba también exige que los números de la guía (80 %, 40 %, 3 sesiones, 34 ejercicios, 4 semanas, 3 segundos) coincidan con el código.
+- El índice de la guía usa botones con `scrollIntoView`, **no enlaces `#`** (el hash es de las rutas).
+- `README.md` documenta instalación, comandos, despliegue y cómo agregar la app a la pantalla de inicio en Android e iPad. Mantenerlo al día si cambian los comandos o el despliegue. Lo pendiente está al final de `PLAN.md`.
 - Palabras evitadas por regionalismo: calcetín/media, banano/guineo. Se usa "carro", "bus", "uvas".
 
 ## Perfiles y adultos

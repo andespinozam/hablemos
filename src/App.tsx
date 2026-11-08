@@ -8,6 +8,7 @@ import { AlertsScreen } from './screens/AlertsScreen';
 import { AssessmentHome } from './screens/AssessmentHome';
 import { AssessmentLauncher } from './screens/AssessmentLauncher';
 import { Backup } from './screens/Backup';
+import { Guide } from './screens/Guide';
 import { AdultZone } from './screens/AdultZone';
 import { ChildHome } from './screens/ChildHome';
 import { ProfileForm } from './screens/ProfileForm';
@@ -33,6 +34,7 @@ export function titleFor(route: string): string {
       reporte: 'Reporte',
       respaldo: 'Respaldo',
       alertas: 'Señales de alerta',
+      guia: 'Guía para adultos',
       desconocida: 'Zona de adultos',
     };
     return `${names[adult.name]} · Hablemos`;
@@ -153,6 +155,8 @@ export function App() {
         return <Backup onImported={reload} />;
       case 'alertas':
         return <AlertsScreen />;
+      case 'guia':
+        return <Guide />;
       case 'home':
         return <AdultZone profiles={profiles} loadError={loadError} onChanged={reload} onExit={() => go('')} />;
     }

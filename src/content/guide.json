@@ -1,0 +1,163 @@
+{
+  "intro": "Hablemos son juegos cortos para estimular el lenguaje de niños de 3 a 5 años. Se usa en tablet o teléfono, siempre con un adulto al lado. Esta guía explica cómo sacarle provecho.",
+  "sections": [
+    {
+      "id": "empezar",
+      "title": "Para empezar",
+      "bullets": [
+        "Entra a la Zona de adultos (mantén presionado el botón 3 segundos o resuelve la suma) y agrega un perfil: nombre o apodo, fecha de nacimiento y un avatar. No se pide ningún otro dato.",
+        "Recomendado: haz primero la Evaluación inicial (en Seguimiento → Evaluación). Dura unos 15 minutos y sirve para empezar cada actividad en el nivel adecuado.",
+        "Después, el niño puede jugar solo con tu compañía: elige su avatar y toca ▶ Jugar."
+      ]
+    },
+    {
+      "id": "sesion",
+      "title": "Cómo es una sesión",
+      "paragraphs": [
+        "Cada sesión dura entre 10 y 15 minutos y mezcla 3 o 4 actividades. La app elige primero las que menos se han practicado y que corresponden a la edad del niño. No hay cronómetro ni pantallas de espera."
+      ],
+      "bullets": [
+        "Siéntate junto al niño. Las instrucciones se dicen en voz alta y también se pueden repetir con el botón 🔊 Repetir.",
+        "Busca un lugar tranquilo y sube el volumen. Si el niño se cansa, toca \"Terminar sesión\" en tu panel: lo hecho se guarda.",
+        "La pantalla no se apaga mientras se juega.",
+        "Cuando termina, hay una celebración con estrellas. Nunca se pierden estrellas ni suena un sonido de error."
+      ]
+    },
+    {
+      "id": "tu-papel",
+      "title": "Tu papel: calificar con tres botones",
+      "paragraphs": [
+        "En algunas actividades el niño tiene que decir algo en voz alta. La app no puede saber si lo dijo bien: lo decides tú con el panel que aparece abajo, que muestra la palabra u objetivo y tres botones."
+      ],
+      "bullets": [
+        "Lo logró: lo dijo o lo hizo solo, sin ayuda (vale 100 %).",
+        "Con ayuda: lo logró después de oírlo de nuevo, de que lo dijeras juntos o con una pista (vale 50 %).",
+        "Aún no: no lo logró por ahora (vale 0 %). No pasa nada: la app repite el modelo con calma y ofrece intentar otra vez.",
+        "La app NO califica la pronunciación. Tus botones son la única medida de las actividades de decir palabras.",
+        "Si el niño se equivoca, no digas \"no\" ni \"está mal\". Repite tú la palabra bien, despacio y con una sonrisa, y deja que lo intente otra vez."
+      ]
+    },
+    {
+      "id": "actividades",
+      "title": "Las 11 actividades"
+    },
+    {
+      "id": "niveles",
+      "title": "Niveles que se ajustan solos",
+      "bullets": [
+        "Cada actividad tiene dos niveles. Sube de nivel cuando el niño logra el 80 % o más en 3 sesiones seguidas.",
+        "Baja de nivel, o se repite si ya está en el 1, cuando en una sesión logra menos del 40 %.",
+        "La evaluación inicial fija el nivel de partida. Las evaluaciones nunca cambian los niveles después."
+      ]
+    },
+    {
+      "id": "evaluacion",
+      "title": "Evaluación y reevaluación",
+      "bullets": [
+        "La evaluación inicial tiene 34 ejercicios en 7 áreas: vocabulario receptivo, vocabulario expresivo, órdenes, conceptos, frases, fonemas según la edad y discriminación auditiva. Durante la evaluación no corrijas ni ayudes.",
+        "Cada 4 semanas la app sugiere una reevaluación con los mismos ejercicios en otro orden, y la compara con la inicial. Verás un aviso en la Zona de adultos.",
+        "Si detienes una evaluación a la mitad no cuenta; podrás empezar otra."
+      ]
+    },
+    {
+      "id": "seguimiento",
+      "title": "Seguimiento, reporte y respaldo",
+      "bullets": [
+        "Seguimiento: logro por área y por fonema, tendencia por semana y días seguidos de práctica.",
+        "Reporte: una hoja por niño para imprimir o guardar como PDF (botón 🖨️). Sirve para llevarla a una consulta con el fonoaudiólogo.",
+        "Respaldo: descarga un archivo con todos los datos y recupéralo en otra tablet o si se borraron. El archivo incluye nombres y fechas de nacimiento: guárdalo con cuidado.",
+        "Haz un respaldo de vez en cuando. Los datos viven solo en este dispositivo."
+      ]
+    },
+    {
+      "id": "privacidad",
+      "title": "Privacidad",
+      "paragraphs": [
+        "Hablemos no tiene cuentas, anuncios, analítica ni llamadas de red cuando se usa: todo funciona sin internet y los datos se quedan en el dispositivo. Eliminar un perfil borra también todo su progreso."
+      ]
+    },
+    {
+      "id": "alertas",
+      "title": "Cuándo consultar a un profesional",
+      "paragraphs": [
+        "Esta herramienta apoya la estimulación en casa y no reemplaza la valoración de un fonoaudiólogo. Si ves alguna señal de alerta (por ejemplo, a los 3 años casi nadie entiende al niño, no une dos palabras, no sigue órdenes simples o retrocede en lo que ya decía), consulta a un profesional."
+      ]
+    }
+  ],
+  "activities": {
+    "escucha-senala": {
+      "what": "El niño escucha una palabra y toca el dibujo correcto entre 3 o 4. Trabaja la comprensión de vocabulario.",
+      "adult": "Se califica sola. No señales la respuesta: si se equivoca, la opción se atenúa y la app repite con calma."
+    },
+    "sigue-orden": {
+      "what": "Órdenes de uno o dos pasos, como \"pon la pelota en la caja\". El niño toca el objeto y luego el lugar.",
+      "adult": "Se califica sola. En el nivel 2 los dos pasos se pueden hacer en cualquier orden."
+    },
+    "conceptos": {
+      "what": "Grande y pequeño, uno y muchos, dentro y fuera, arriba y abajo, con dibujos para tocar.",
+      "adult": "Se califica sola."
+    },
+    "mini-cuento": {
+      "what": "Dos cuentos cortos ilustrados, con preguntas de quién, qué y dónde.",
+      "adult": "Se califica sola. Puedes comentar el cuento con el niño al terminar."
+    },
+    "que-es-esto": {
+      "what": "El niño ve un dibujo y dice qué es. Trabaja el vocabulario expresivo.",
+      "adult": "Tú calificas. El botón 👂 Escucha da el modelo: si lo usó, marca \"Con ayuda\"."
+    },
+    "categorias": {
+      "what": "Arrastrar cada objeto a su grupo: animales, comida, ropa, cuerpo, casa o vehículos. También se puede tocar el objeto y luego el grupo.",
+      "adult": "Se califica sola. Tras dos errores, la app señala el siguiente objeto y su grupo."
+    },
+    "arma-frase": {
+      "what": "Fichas con imagen y palabra para armar frases de 2 a 4 palabras (quién, qué hace, qué).",
+      "adult": "Se califica sola. Al terminar, la app dice la frase completa."
+    },
+    "praxias": {
+      "what": "Juegos de boca: soplar la vela o el molino, mover la lengua arriba, abajo y a los lados, labios en O y en I, y el beso. Una cara animada muestra el movimiento y la voz cuenta.",
+      "adult": "Tú calificas. La app no evalúa el movimiento: observa si lo imita."
+    },
+    "onomatopeyas": {
+      "what": "El niño escucha el sonido de un animal o una cosa (guau, miau, chu-chu) y lo imita.",
+      "adult": "Tú calificas. Haz el sonido junto con él."
+    },
+    "palabras-fonema": {
+      "what": "Palabras con un sonido objetivo al inicio, en medio o al final. La app elige los sonidos según la edad y lo que más cuesta, y resalta el sonido en la palabra.",
+      "adult": "Tú calificas. El botón \"Escucha por partes\" dice la palabra por sílabas."
+    },
+    "discriminacion": {
+      "what": "¿Igual o diferente?, ritmos de golpes cortos y largos, y contar las partes de una palabra con palmadas.",
+      "adult": "Se califica sola. En las palmadas, tras dos intentos la app cuenta junto con el niño."
+    }
+  },
+  "troubleshooting": [
+    {
+      "q": "No se escucha la voz, o suena en otro idioma",
+      "a": "La app usa las voces de tu dispositivo y prefiere español latinoamericano. Revisa que el volumen esté alto y el modo silencio apagado (en iPad, el interruptor lateral o el Centro de control). Si no hay voz en español, instálala en los ajustes de accesibilidad o de voz del sistema; mientras tanto la app usa la más parecida disponible."
+    },
+    {
+      "q": "No suenan los sonidos de las estrellas",
+      "a": "Los sonidos solo empiezan después de tocar ▶ Jugar. Comprueba el volumen y el modo silencio."
+    },
+    {
+      "q": "Se perdieron los datos",
+      "a": "Si tienes un respaldo, recupéralo en Zona de adultos → Respaldo. Para que no vuelva a pasar, haz respaldos de vez en cuando. En iPad, agrega la app a la pantalla de inicio: Safari puede borrar los datos de sitios web que no se usan en varios días."
+    },
+    {
+      "q": "La app no abre sin internet",
+      "a": "Abre la app una vez con internet para que se guarde en el dispositivo. Después funciona sin conexión. Si la instalaste hace poco, espera unos segundos a que termine de guardarse."
+    },
+    {
+      "q": "Quiero usar la app en otra tablet",
+      "a": "Haz un respaldo en la tablet vieja, abre Hablemos en la nueva y recupéralo desde Zona de adultos → Respaldo."
+    },
+    {
+      "q": "Se cierra la zona de adultos sola",
+      "a": "Es normal: la zona se vuelve a bloquear al salir. Así el niño no entra por accidente."
+    },
+    {
+      "q": "El niño se frustra",
+      "a": "Termina la sesión y vuelve en otro momento. Las sesiones cortas y alegres funcionan mejor que las largas. Celebra los intentos, no solo los aciertos."
+    }
+  ]
+}

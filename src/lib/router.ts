@@ -29,6 +29,7 @@ export type AdultRoute =
   | { name: 'reporte'; id: string }
   | { name: 'respaldo' }
   | { name: 'alertas' }
+  | { name: 'guia' }
   | { name: 'desconocida' };
 
 /** Interpreta una ruta de la zona de adultos; null si la ruta no es de esa zona. */
@@ -39,6 +40,7 @@ export function parseAdultRoute(route: string): AdultRoute | null {
   if (a === 'nuevo' && !b) return { name: 'nuevo' };
   if (a === 'respaldo' && !b) return { name: 'respaldo' };
   if (a === 'alertas' && !b) return { name: 'alertas' };
+  if (a === 'guia' && !b) return { name: 'guia' };
   if (b && !c) {
     if (a === 'editar') return { name: 'editar', id: b };
     if (a === 'seguimiento') return { name: 'seguimiento', id: b };

@@ -65,5 +65,13 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 8 — Guía de uso y README
 
-- [ ] Pantalla "Guía para adultos"
-- [ ] README: instalación, desarrollo, despliegue, "Agregar a pantalla de inicio" en Android/iPad
+- [x] Pantalla "Guía para adultos" (`adultos/guia`, contenido en `src/content/guide.json`)
+- [x] README: instalación, desarrollo, despliegue, "Agregar a pantalla de inicio" en Android/iPad
+
+## Pendiente tras las 8 fases
+
+- [ ] Probar en una **tablet Android y un iPad reales** (Safari): gestos táctiles y arrastre con el dedo, sonido y voces del sistema, instalación en pantalla de inicio, wake lock.
+- [ ] Revisar con un fonoaudiólogo el contenido clínico: listas de fonemas por edad, señales de alerta, umbrales de nivel (80 % / 40 %) y de nivel recomendado (60 % / 75 %).
+- [ ] Publicar en GitHub Pages o Netlify (HTTPS) y probar el modo sin conexión ahí.
+- [ ] Opcional: precargar solo las fuentes latinas (hoy también se precargan cirílico y vietnamita, ~60 KB sin uso).
+- [ ] Definir la licencia del proyecto.
