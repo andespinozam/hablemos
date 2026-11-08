@@ -1,0 +1,58 @@
+{
+  "words": [
+    { "id": "gato", "word": "gato", "article": "el", "emoji": "🐱", "category": "animales", "level": 1 },
+    { "id": "perro", "word": "perro", "article": "el", "emoji": "🐶", "category": "animales", "level": 1 },
+    { "id": "pato", "word": "pato", "article": "el", "emoji": "🦆", "category": "animales", "level": 1 },
+    { "id": "vaca", "word": "vaca", "article": "la", "emoji": "🐮", "category": "animales", "level": 1 },
+    { "id": "caballo", "word": "caballo", "article": "el", "emoji": "🐴", "category": "animales", "level": 1 },
+    { "id": "pez", "word": "pez", "article": "el", "emoji": "🐟", "category": "animales", "level": 1 },
+    { "id": "mariposa", "word": "mariposa", "article": "la", "emoji": "🦋", "category": "animales", "level": 2 },
+    { "id": "elefante", "word": "elefante", "article": "el", "emoji": "🐘", "category": "animales", "level": 2 },
+    { "id": "leon", "word": "león", "article": "el", "emoji": "🦁", "category": "animales", "level": 2 },
+    { "id": "conejo", "word": "conejo", "article": "el", "emoji": "🐰", "category": "animales", "level": 2 },
+
+    { "id": "manzana", "word": "manzana", "article": "la", "emoji": "🍎", "category": "comida", "level": 1 },
+    { "id": "pan", "word": "pan", "article": "el", "emoji": "🍞", "category": "comida", "level": 1 },
+    { "id": "leche", "word": "leche", "article": "la", "emoji": "🥛", "category": "comida", "level": 1 },
+    { "id": "helado", "word": "helado", "article": "el", "emoji": "🍦", "category": "comida", "level": 1 },
+    { "id": "galleta", "word": "galleta", "article": "la", "emoji": "🍪", "category": "comida", "level": 1 },
+    { "id": "huevo", "word": "huevo", "article": "el", "emoji": "🥚", "category": "comida", "level": 1 },
+    { "id": "uvas", "word": "uvas", "article": "las", "emoji": "🍇", "category": "comida", "level": 2 },
+    { "id": "naranja", "word": "naranja", "article": "la", "emoji": "🍊", "category": "comida", "level": 2 },
+    { "id": "queso", "word": "queso", "article": "el", "emoji": "🧀", "category": "comida", "level": 2 },
+
+    { "id": "zapato", "word": "zapato", "article": "el", "emoji": "👟", "category": "ropa", "level": 1 },
+    { "id": "camisa", "word": "camisa", "article": "la", "emoji": "👕", "category": "ropa", "level": 1 },
+    { "id": "gorra", "word": "gorra", "article": "la", "emoji": "🧢", "category": "ropa", "level": 1 },
+    { "id": "pantalon", "word": "pantalón", "article": "el", "emoji": "👖", "category": "ropa", "level": 1 },
+    { "id": "vestido", "word": "vestido", "article": "el", "emoji": "👗", "category": "ropa", "level": 2 },
+    { "id": "sombrero", "word": "sombrero", "article": "el", "emoji": "👒", "category": "ropa", "level": 2 },
+    { "id": "guantes", "word": "guantes", "article": "los", "emoji": "🧤", "category": "ropa", "level": 2 },
+
+    { "id": "mano", "word": "mano", "article": "la", "emoji": "✋", "category": "cuerpo", "level": 1 },
+    { "id": "ojo", "word": "ojo", "article": "el", "emoji": "👁️", "category": "cuerpo", "level": 1 },
+    { "id": "boca", "word": "boca", "article": "la", "emoji": "👄", "category": "cuerpo", "level": 1 },
+    { "id": "nariz", "word": "nariz", "article": "la", "emoji": "👃", "category": "cuerpo", "level": 1 },
+    { "id": "oreja", "word": "oreja", "article": "la", "emoji": "👂", "category": "cuerpo", "level": 1 },
+    { "id": "pie", "word": "pie", "article": "el", "emoji": "🦶", "category": "cuerpo", "level": 1 },
+    { "id": "diente", "word": "diente", "article": "el", "emoji": "🦷", "category": "cuerpo", "level": 2 },
+
+    { "id": "cama", "word": "cama", "article": "la", "emoji": "🛏️", "category": "casa", "level": 1 },
+    { "id": "silla", "word": "silla", "article": "la", "emoji": "🪑", "category": "casa", "level": 1 },
+    { "id": "puerta", "word": "puerta", "article": "la", "emoji": "🚪", "category": "casa", "level": 1 },
+    { "id": "libro", "word": "libro", "article": "el", "emoji": "📖", "category": "casa", "level": 1 },
+    { "id": "llave", "word": "llave", "article": "la", "emoji": "🔑", "category": "casa", "level": 2 },
+    { "id": "reloj", "word": "reloj", "article": "el", "emoji": "⏰", "category": "casa", "level": 2 },
+    { "id": "luz", "word": "luz", "article": "la", "emoji": "💡", "category": "casa", "level": 2 },
+    { "id": "telefono", "word": "teléfono", "article": "el", "emoji": "📞", "category": "casa", "level": 2 },
+
+    { "id": "carro", "word": "carro", "article": "el", "emoji": "🚗", "category": "transporte", "level": 1 },
+    { "id": "bus", "word": "bus", "article": "el", "emoji": "🚌", "category": "transporte", "level": 1 },
+    { "id": "avion", "word": "avión", "article": "el", "emoji": "✈️", "category": "transporte", "level": 1 },
+    { "id": "barco", "word": "barco", "article": "el", "emoji": "⛵", "category": "transporte", "level": 1 },
+    { "id": "tren", "word": "tren", "article": "el", "emoji": "🚆", "category": "transporte", "level": 1 },
+    { "id": "bicicleta", "word": "bicicleta", "article": "la", "emoji": "🚲", "category": "transporte", "level": 2 },
+    { "id": "moto", "word": "moto", "article": "la", "emoji": "🏍️", "category": "transporte", "level": 2 },
+    { "id": "helicoptero", "word": "helicóptero", "article": "el", "emoji": "🚁", "category": "transporte", "level": 2 }
+  ]
+}

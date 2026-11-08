@@ -1,0 +1,79 @@
+{
+  "stories": [
+    {
+      "id": "gato-jardin", "level": 1, "title": "El gato en el jardín",
+      "pages": [
+        { "text": "Michi es un gato. Michi está en el jardín.", "scene": "🐱🌳" },
+        { "text": "Michi ve una mariposa.", "scene": "🐱🦋" }
+      ],
+      "questions": [
+        { "kind": "quien", "prompt": "¿Quién está en el jardín?", "correct": "gato", "options": [{ "id": "gato", "label": "el gato", "emoji": "🐱" }, { "id": "perro", "label": "el perro", "emoji": "🐶" }, { "id": "pez", "label": "el pez", "emoji": "🐟" }] },
+        { "kind": "donde", "prompt": "¿Dónde está Michi?", "correct": "jardin", "options": [{ "id": "jardin", "label": "el jardín", "emoji": "🌳" }, { "id": "casa", "label": "la casa", "emoji": "🏠" }, { "id": "cama", "label": "la cama", "emoji": "🛏️" }] },
+        { "kind": "que", "prompt": "¿Qué ve Michi?", "correct": "mariposa", "options": [{ "id": "mariposa", "label": "una mariposa", "emoji": "🦋" }, { "id": "pelota", "label": "una pelota", "emoji": "⚽" }, { "id": "helado", "label": "un helado", "emoji": "🍦" }] }
+      ]
+    },
+    {
+      "id": "ana-come", "level": 1, "title": "Ana come",
+      "pages": [
+        { "text": "Ana es una niña. Ana está en la cocina.", "scene": "👧🍳" },
+        { "text": "Ana come una manzana.", "scene": "👧🍎" }
+      ],
+      "questions": [
+        { "kind": "quien", "prompt": "¿Quién come una manzana?", "correct": "nina", "options": [{ "id": "nina", "label": "la niña", "emoji": "👧" }, { "id": "nino", "label": "el niño", "emoji": "👦" }, { "id": "bebe", "label": "el bebé", "emoji": "👶" }] },
+        { "kind": "donde", "prompt": "¿Dónde está Ana?", "correct": "cocina", "options": [{ "id": "cocina", "label": "la cocina", "emoji": "🍳" }, { "id": "parque", "label": "el parque", "emoji": "🛝" }, { "id": "escuela", "label": "la escuela", "emoji": "🏫" }] },
+        { "kind": "que", "prompt": "¿Qué come Ana?", "correct": "manzana", "options": [{ "id": "manzana", "label": "una manzana", "emoji": "🍎" }, { "id": "pan", "label": "pan", "emoji": "🍞" }, { "id": "helado", "label": "un helado", "emoji": "🍦" }] }
+      ]
+    },
+    {
+      "id": "perro-pelota", "level": 1, "title": "El perro y la pelota",
+      "pages": [
+        { "text": "Toto es un perro. Toto está en el parque.", "scene": "🐶🛝" },
+        { "text": "Toto juega con una pelota.", "scene": "🐶⚽" }
+      ],
+      "questions": [
+        { "kind": "quien", "prompt": "¿Quién juega con la pelota?", "correct": "perro", "options": [{ "id": "perro", "label": "el perro", "emoji": "🐶" }, { "id": "gato", "label": "el gato", "emoji": "🐱" }, { "id": "pato", "label": "el pato", "emoji": "🦆" }] },
+        { "kind": "donde", "prompt": "¿Dónde está Toto?", "correct": "parque", "options": [{ "id": "parque", "label": "el parque", "emoji": "🛝" }, { "id": "casa", "label": "la casa", "emoji": "🏠" }, { "id": "mar", "label": "el mar", "emoji": "🌊" }] },
+        { "kind": "que", "prompt": "¿Con qué juega Toto?", "correct": "pelota", "options": [{ "id": "pelota", "label": "una pelota", "emoji": "⚽" }, { "id": "libro", "label": "un libro", "emoji": "📖" }, { "id": "carro", "label": "un carro", "emoji": "🚗" }] }
+      ]
+    },
+    {
+      "id": "dia-lluvia", "level": 2, "title": "Día de lluvia",
+      "pages": [
+        { "text": "Hoy llueve. Luis está en su casa.", "scene": "🌧️🏠" },
+        { "text": "Luis se pone sus botas.", "scene": "👦🥾" },
+        { "text": "Luego Luis sale a jugar en los charcos.", "scene": "👦💦" }
+      ],
+      "questions": [
+        { "kind": "quien", "prompt": "¿Quién sale a jugar?", "correct": "nino", "options": [{ "id": "nino", "label": "el niño", "emoji": "👦" }, { "id": "nina", "label": "la niña", "emoji": "👧" }, { "id": "abuelo", "label": "el abuelo", "emoji": "👴" }] },
+        { "kind": "que", "prompt": "¿Qué se pone Luis?", "correct": "botas", "options": [{ "id": "botas", "label": "las botas", "emoji": "🥾" }, { "id": "gorra", "label": "la gorra", "emoji": "🧢" }, { "id": "guantes", "label": "los guantes", "emoji": "🧤" }] },
+        { "kind": "donde", "prompt": "¿Dónde está Luis cuando llueve?", "correct": "casa", "options": [{ "id": "casa", "label": "la casa", "emoji": "🏠" }, { "id": "escuela", "label": "la escuela", "emoji": "🏫" }, { "id": "parque", "label": "el parque", "emoji": "🛝" }] }
+      ]
+    },
+    {
+      "id": "mercado", "level": 2, "title": "Al mercado",
+      "pages": [
+        { "text": "Mamá y Sofi van al mercado.", "scene": "👩👧🛒" },
+        { "text": "Sofi ve muchas frutas.", "scene": "👧🍎🍇" },
+        { "text": "Mamá compra uvas y Sofi lleva la bolsa.", "scene": "👩🍇" }
+      ],
+      "questions": [
+        { "kind": "quien", "prompt": "¿Quién compra las uvas?", "correct": "mama", "options": [{ "id": "mama", "label": "mamá", "emoji": "👩" }, { "id": "papa", "label": "papá", "emoji": "👨" }, { "id": "abuela", "label": "la abuela", "emoji": "👵" }] },
+        { "kind": "que", "prompt": "¿Qué compra mamá?", "correct": "uvas", "options": [{ "id": "uvas", "label": "uvas", "emoji": "🍇" }, { "id": "pan", "label": "pan", "emoji": "🍞" }, { "id": "leche", "label": "leche", "emoji": "🥛" }] },
+        { "kind": "donde", "prompt": "¿A dónde van mamá y Sofi?", "correct": "mercado", "options": [{ "id": "mercado", "label": "al mercado", "emoji": "🛒" }, { "id": "escuela", "label": "a la escuela", "emoji": "🏫" }, { "id": "playa", "label": "a la playa", "emoji": "🏖️" }] }
+      ]
+    },
+    {
+      "id": "pajarito", "level": 2, "title": "El pajarito",
+      "pages": [
+        { "text": "Un pajarito vive en un árbol.", "scene": "🐦🌳" },
+        { "text": "Tiene hambre y busca comida.", "scene": "🐦🌾" },
+        { "text": "El pajarito come semillas y canta feliz.", "scene": "🐦🎵" }
+      ],
+      "questions": [
+        { "kind": "quien", "prompt": "¿Quién vive en el árbol?", "correct": "pajarito", "options": [{ "id": "pajarito", "label": "el pajarito", "emoji": "🐦" }, { "id": "pez", "label": "el pez", "emoji": "🐟" }, { "id": "conejo", "label": "el conejo", "emoji": "🐰" }] },
+        { "kind": "donde", "prompt": "¿Dónde vive el pajarito?", "correct": "arbol", "options": [{ "id": "arbol", "label": "el árbol", "emoji": "🌳" }, { "id": "mar", "label": "el mar", "emoji": "🌊" }, { "id": "casa", "label": "la casa", "emoji": "🏠" }] },
+        { "kind": "que", "prompt": "¿Qué hace el pajarito al final?", "correct": "canta", "options": [{ "id": "canta", "label": "canta", "emoji": "🎵" }, { "id": "duerme", "label": "duerme", "emoji": "😴" }, { "id": "nada", "label": "nada", "emoji": "🏊" }] }
+      ]
+    }
+  ]
+}

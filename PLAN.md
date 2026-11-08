@@ -26,10 +26,10 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 3 — Actividades 1 a 4
 
-- [ ] 1 Escucha y señala
-- [ ] 2 Sigue la orden
-- [ ] 3 Conceptos
-- [ ] 4 Mini cuento
+- [x] 1 Escucha y señala
+- [x] 2 Sigue la orden
+- [x] 3 Conceptos
+- [x] 4 Mini cuento
 
 ## Fase 4 — Actividades 5 a 7
 

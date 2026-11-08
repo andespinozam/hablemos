@@ -454,3 +454,128 @@ p {
   font-size: 1.05rem;
   padding: 8px 20px;
 }
+
+/* ---------- Actividades de elegir y tocar ---------- */
+.item-text--sm {
+  font-size: var(--fs-big);
+}
+.item-emoji--scene {
+  font-size: clamp(5rem, 20vmin, 11rem);
+}
+
+.choices,
+.order__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.choice {
+  min-width: var(--tap-min);
+  min-height: var(--tap-min);
+  width: clamp(130px, 24vmin, 220px);
+  height: clamp(130px, 24vmin, 220px);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  font: inherit;
+  background: var(--surface);
+  border: 5px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition:
+    transform 0.12s ease,
+    opacity 0.2s ease;
+}
+.choice:active {
+  transform: translateY(3px);
+}
+.choice__emoji {
+  font-size: clamp(4rem, 15vmin, 8rem);
+  line-height: 1;
+}
+/* Lo descartado se atenúa suavemente: sin rojo, sin sonido, sin mensaje. */
+.choice--dim {
+  opacity: 0.3;
+  box-shadow: none;
+  cursor: default;
+}
+.choice--selected {
+  border-color: var(--primary);
+  background: #e3ecff;
+  transform: scale(1.06);
+}
+@keyframes beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+.choice--hint {
+  border-color: var(--accent);
+  animation: beat 1.1s ease-in-out infinite;
+}
+.choice--place {
+  flex-direction: column;
+}
+.place__in {
+  position: absolute;
+  bottom: 4px;
+  right: 8px;
+  font-size: clamp(1.8rem, 6vmin, 3rem);
+  display: flex;
+}
+
+.order {
+  gap: 20px;
+}
+
+/* Conceptos: tamaño, cantidad y escenas. */
+.visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  line-height: 1;
+}
+.visual--big {
+  font-size: clamp(5rem, 18vmin, 9rem);
+}
+.visual--small {
+  font-size: clamp(1.8rem, 6vmin, 3rem);
+}
+.visual--mid {
+  font-size: clamp(3rem, 10vmin, 5rem);
+}
+.visual--many {
+  flex-wrap: wrap;
+  font-size: clamp(1.6rem, 5vmin, 2.6rem);
+  gap: 2px;
+}
+.visual--scene {
+  padding: 4px;
+}
+
+.story-recap {
+  font-size: clamp(2.5rem, 8vmin, 4.5rem);
+  line-height: 1;
+}
+
+/* Escenas de conceptos: botones más grandes para ver bien la posición. */
+.choice--scene {
+  width: clamp(190px, 36vmin, 320px);
+  height: clamp(190px, 36vmin, 320px);
+}
+/* Actividad "Sigue la orden": los lugares se distinguen de los objetos. */
+.choice--place {
+  background: #fff1cc;
+  border-style: dashed;
+  border-color: #d9a21b;
+}

@@ -1,0 +1,18 @@
+{
+  "objects": [
+    { "id": "pelota", "word": "pelota", "article": "la", "emoji": "⚽" },
+    { "id": "osito", "word": "osito", "article": "el", "emoji": "🧸" },
+    { "id": "manzana", "word": "manzana", "article": "la", "emoji": "🍎" },
+    { "id": "libro", "word": "libro", "article": "el", "emoji": "📖" },
+    { "id": "carro", "word": "carro", "article": "el", "emoji": "🚗" },
+    { "id": "zapato", "word": "zapato", "article": "el", "emoji": "👟" },
+    { "id": "flor", "word": "flor", "article": "la", "emoji": "🌸" },
+    { "id": "gorra", "word": "gorra", "article": "la", "emoji": "🧢" }
+  ],
+  "places": [
+    { "id": "caja", "word": "caja", "article": "la", "emoji": "📦" },
+    { "id": "cama", "word": "cama", "article": "la", "emoji": "🛏️" },
+    { "id": "silla", "word": "silla", "article": "la", "emoji": "🪑" },
+    { "id": "canasta", "word": "canasta", "article": "la", "emoji": "🧺" }
+  ]
+}

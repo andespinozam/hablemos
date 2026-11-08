@@ -31,8 +31,8 @@ export interface Item {
 
 export interface ItemViewProps {
   item: Item;
-  /** Dice un texto en voz alta (cancela lo que suene). */
-  say: (text: string) => void;
+  /** Dice un texto en voz alta (cancela lo que suene). `rate` más bajo = más lento. */
+  say: (text: string, rate?: number) => void;
   /**
    * Cierra el ítem con una calificación. Las actividades que califican solas
    * (p. ej. señalar) la llaman; en las que califica el adulto la llama su panel.
@@ -53,6 +53,8 @@ export interface Activity {
   intro: string;
   /** true: el adulto califica con su panel. false: la actividad califica con `submit`. */
   adultRated: boolean;
+  /** Ítems por sesión (por defecto `ITEMS_PER_ACTIVITY`). */
+  itemCount?: number;
   buildItems(level: number, count: number, rng: Rng): Item[];
   ItemView: ComponentType<ItemViewProps>;
 }

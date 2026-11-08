@@ -51,7 +51,16 @@ npm run icons     # regenera los PNG de public/icons
 - **No agregar sonidos de error** a `lib/sounds.ts`. El audio solo inicia tras un toque (`unlockAudio()` en "Jugar").
 - Almacenes IndexedDB (v2): `profiles`, `sessions`, `results`, `levels`, con índice `byProfile`. `deleteProfile` borra también su progreso.
 - Voz (`lib/speech.ts`): `speak()` nunca lanza ni espera para siempre; sin voz en español usa `lang es-419` del sistema.
-- `activities/warmup.tsx` ("Repite conmigo") es una actividad mínima de calentamiento que ejercita el motor mientras llegan las actividades 1-11.
+- **Ids de actividad:** son permanentes (se guardan en sesiones y resultados). Nunca reutilizar ni renombrar uno; los informes deben tolerar ids que ya no existen (p. ej. `warmup`, una actividad provisional de la Fase 2).
+
+## Actividades 1-4 (Fase 3)
+
+- Ids: `escucha-senala`, `sigue-orden`, `conceptos`, `mini-cuento`. Todas califican solas (`adultRated: false`): acierto a la primera = "Lo logró"; acierto tras equivocarse = "Con ayuda". **Nunca producen "Aún no"**: equivocarse solo atenúa la opción, repite la instrucción con calma y, tras 2 errores, hace "latir" la correcta (`lib/choice.ts`, `components/ChoiceBoard.tsx`).
+- Contenido en `src/content/`: `vocab.json` (con categorías, reutilizable por la actividad 6), `orders.json`, `concepts.json`, `stories.json`. `activities.test.ts` valida que cada ítem sea coherente (respuesta correcta entre las opciones, ids únicos, mínimo por categoría/nivel): al ampliar el JSON, correr `npm test`.
+- Nivel 2: vocabulario con distractores de la misma categoría y 4 opciones; órdenes de 2 pasos (en cualquier orden); conceptos dentro/fuera y arriba/abajo (SVG en `components/Visuals.tsx`); cuentos de 3 páginas.
+- Mini cuento: dos cuentos por sesión (`itemCount: 6`); cada pregunta es un ítem con su propio resultado y la 1.ª de cada cuento trae las páginas. Su `prompt` es la 1.ª página porque el motor dice `item.prompt` al abrir el ítem.
+- `ItemView` se remonta por ítem (`key`), así que su estado local empieza limpio en cada ejercicio.
+- Palabras evitadas por regionalismo: calcetín/media, banano/guineo. Se usa "carro", "bus", "uvas".
 
 ## Perfiles y adultos
 

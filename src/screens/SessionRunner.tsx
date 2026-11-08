@@ -64,7 +64,8 @@ export function SessionRunner({ profile, onExit }: Props) {
           const activity = getActivity(id);
           if (!activity) return [];
           const level = Math.min(levels[id] ?? 1, activity.maxLevel);
-          return [{ activity, level, items: activity.buildItems(level, ITEMS_PER_ACTIVITY, Math.random) }];
+          const count = activity.itemCount ?? ITEMS_PER_ACTIVITY;
+          return [{ activity, level, items: activity.buildItems(level, count, Math.random) }];
         });
         if (steps.length === 0) throw new Error('Sin actividades');
         const session = await startSession(profile.id, ids);
@@ -220,13 +221,16 @@ export function SessionRunner({ profile, onExit }: Props) {
           </div>
         )}
 
-        {pos.stage === 'item' && item && <step.activity.ItemView item={item} say={say} submit={submit} />}
+        {/* `key`: cada ítem empieza con su estado limpio. */}
+        {pos.stage === 'item' && item && (
+          <step.activity.ItemView key={`${pos.a}-${item.id}`} item={item} say={say} submit={submit} />
+        )}
 
         {pos.stage === 'praise' && <StarBurst text={praise} />}
 
         {pos.stage === 'retry' && item && (
           <div className="item-center">
-            <step.activity.ItemView item={item} say={say} submit={() => undefined} />
+            <step.activity.ItemView key={`retry-${pos.a}-${item.id}`} item={item} say={say} submit={() => undefined} />
             <div className="row row--center">
               <button type="button" className="btn btn--accent" onClick={() => say(`Vamos otra vez, con calma. ${item.target}.`, SLOW_RATE)}>
                 🔁 Otra vez
