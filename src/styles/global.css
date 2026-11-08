@@ -1547,3 +1547,10 @@ ul.profile-grid .profile-tile {
   margin: 0;
   color: var(--ink-soft);
 }
+
+.child-rec {
+  margin-top: 8px;
+}
+.rec-row {
+  flex-wrap: wrap;
+}

@@ -90,6 +90,14 @@ describe('contenido de la guía', () => {
     expect(t).toMatch(/como sonido, no como nombre de letra/);
   });
 
+  it('la guía explica la grabación del niño y que el respaldo no la incluye por defecto', () => {
+    expect(text('pronunciacion')).toMatch(/Grabar al niño/);
+    expect(text('pronunciacion')).toMatch(/solo en el dispositivo/);
+    expect(text('seguimiento')).toMatch(/NO entran en el respaldo salvo que marques/);
+    expect(text('seguimiento')).toMatch(/Reemplazar todo/);
+    expect(text('privacidad')).toMatch(/grabaciones de su voz/);
+  });
+
   it('aclara que la app no califica la pronunciación, y repite la nota de alcance', () => {
     expect(text('tu-papel')).toMatch(/NO califica la pronunciación/);
     expect(text('alertas')).toContain(DISCLAIMER);

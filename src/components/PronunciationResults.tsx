@@ -1,5 +1,6 @@
 import { formatDate } from './ReassessmentBanner';
-import type { PronunciationRecord } from '../lib/db';
+import type { LadderRecord, PronunciationRecord } from '../lib/db';
+import { LADDER_STEPS } from '../lib/ladder';
 import {
   CLASSIFICATION_LABEL,
   POSITION_LABEL,
@@ -31,10 +32,12 @@ const PROCESS_LEVEL = { 'no-observado': 'No se observó', ocasional: 'Ocasional'
 
 interface Props {
   records: readonly PronunciationRecord[];
+  /** Si se pasan, se agrega el resumen por sonido con su escalón (Reporte). */
+  ladders?: readonly LadderRecord[];
 }
 
 /** Resultado de la evaluación de pronunciación más reciente, y su comparación con la primera. */
-export function PronunciationResults({ records }: Props) {
+export function PronunciationResults({ records, ladders }: Props) {
   const latest = latestPronunciation(records);
   if (!latest) return null;
   const first = firstPronunciation(records);
@@ -60,6 +63,42 @@ export function PronunciationResults({ records }: Props) {
           </li>
         ))}
       </ul>
+
+      {ladders && (
+        <>
+          <h3>Resumen por sonido</h3>
+          <table className="table">
+            <caption className="sr-only">Resumen por sonido: clasificación, sustitución y escalón</caption>
+            <thead>
+              <tr>
+                <th scope="col">Sonido</th>
+                <th scope="col">Clasificación</th>
+                <th scope="col">Dice en su lugar</th>
+                <th scope="col">Constancia</th>
+                <th scope="col">Escalera</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sounds.map((s) => {
+                const l = ladders.find((x) => x.phonemeId === s.phonemeId);
+                return (
+                  <tr key={s.phonemeId}>
+                    <th scope="row">{s.name}</th>
+                    <td>
+                      <ClassLabel value={s.classification} />
+                    </td>
+                    <td>{(l?.substitution ?? s.substitution) ? `“${l?.substitution ?? s.substitution}”` : '—'}</td>
+                    <td>{s.consistency ?? '—'}</td>
+                    <td>
+                      {l ? (l.state === 'done' ? 'Terminada' : `Escalón ${l.step + 1} de ${LADDER_STEPS.length} (${LADDER_STEPS[l.step].short})`) : '—'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </>
+      )}
 
       <h3>Por sonido y posición</h3>
       <table className="table">

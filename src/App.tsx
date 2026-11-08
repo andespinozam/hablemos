@@ -8,6 +8,7 @@ import { AlertsScreen } from './screens/AlertsScreen';
 import { AssessmentHome } from './screens/AssessmentHome';
 import { AssessmentLauncher } from './screens/AssessmentLauncher';
 import { Backup } from './screens/Backup';
+import { ChildRecordings } from './screens/ChildRecordings';
 import { Guide } from './screens/Guide';
 import { RecordVoice } from './screens/RecordVoice';
 import { VoiceHome } from './screens/VoiceHome';
@@ -38,6 +39,7 @@ export function titleFor(route: string): string {
       evaluar: 'Evaluando',
       pronunciacion: 'Pronunciación',
       escalera: 'Escalera de pronunciación',
+      grabaciones: 'Grabaciones del niño',
       pronunciar: 'Evaluando pronunciación',
       reporte: 'Reporte',
       respaldo: 'Respaldo',
@@ -160,6 +162,11 @@ export function App() {
         const profile = profileOf(adultRoute.id);
         if (!profile) break;
         return <PronunciationHome profile={profile} />;
+      }
+      case 'grabaciones': {
+        const profile = profileOf(adultRoute.id);
+        if (!profile) break;
+        return <ChildRecordings profile={profile} />;
       }
       case 'escalera': {
         const profile = profileOf(adultRoute.id);

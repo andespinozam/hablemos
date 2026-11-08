@@ -141,7 +141,7 @@ export function Report({ profile }: { profile: ChildProfile }) {
               {pronunciation.some((r) => r.completedAt !== undefined) && (
                 <section className="report-section">
                   <h2>Evaluación de pronunciación</h2>
-                  <PronunciationResults records={pronunciation} />
+                  <PronunciationResults records={pronunciation} ladders={ladders} />
                 </section>
               )}
 

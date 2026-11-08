@@ -17,6 +17,7 @@ describe('parseAdultRoute', () => {
     expect(parseAdultRoute('adultos/voz')).toEqual({ name: 'voz' });
     expect(parseAdultRoute('adultos/grabar')).toEqual({ name: 'grabar' });
     expect(parseAdultRoute('adultos/pronunciacion/abc')).toEqual({ name: 'pronunciacion', id: 'abc' });
+    expect(parseAdultRoute('adultos/grabaciones/abc')).toEqual({ name: 'grabaciones', id: 'abc' });
     expect(parseAdultRoute('adultos/escalera/abc')).toEqual({ name: 'escalera', id: 'abc' });
     expect(parseAdultRoute('adultos/pronunciar/abc/r1')).toEqual({ name: 'pronunciar', id: 'abc', recordId: 'r1' });
     expect(parseAdultRoute('adultos/evaluar/abc/baseline')).toEqual({ name: 'evaluar', id: 'abc', kind: 'baseline' });

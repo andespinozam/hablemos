@@ -109,6 +109,10 @@ La app habla con la voz del sistema. Si quieres una voz propia y consistente:
 
 `npm run audio:list` muestra cuántos textos tienen ya audio. El nombre de cada clip es `audioKey(texto)` (texto normalizado → hash estable): al cambiar la redacción de un texto hay que grabarlo de nuevo.
 
+## Grabar al niño
+
+En la evaluación de pronunciación (y en la actividad "Mi sonido", desde el escalón del sonido) hay un botón para grabar al niño y escucharlo junto al modelo del adulto. Las grabaciones viven **solo en el dispositivo** (IndexedDB), se gestionan en **Seguimiento → Grabaciones** (escuchar, borrar una o todas) y se borran al eliminar el perfil. Exigen micrófono con **https o localhost**.
+
 ## Agregar a la pantalla de inicio
 
 Abre la app **una vez con internet** para que se guarde en el dispositivo. Después funciona sin conexión.
@@ -135,10 +139,10 @@ Al publicar una versión nueva, el dispositivo la descarga en segundo plano la p
 
 ## Datos y privacidad
 
-- Los perfiles, sesiones, resultados y evaluaciones (incluida la de pronunciación) se guardan en el navegador del dispositivo (IndexedDB). No se envían a ningún servidor.
+- Los perfiles, sesiones, resultados, evaluaciones (incluida la de pronunciación), escaleras y grabaciones de voz se guardan en el navegador del dispositivo (IndexedDB). No se envían a ningún servidor.
 - Un perfil solo tiene nombre o apodo, fecha de nacimiento y un avatar.
 - Eliminar un perfil borra también todo su progreso.
-- El **respaldo** es un archivo JSON con esos datos (incluye nombres y fechas de nacimiento): guárdalo con cuidado. **Todavía no incluye las evaluaciones de pronunciación ni las escaleras de sonidos** (se agregarán en el respaldo v2, Fase 12): si las necesitas, imprime el reporte.
+- El **respaldo** es un archivo JSON con esos datos (incluye nombres y fechas de nacimiento): guárdalo con cuidado. Incluye las evaluaciones de pronunciación y las escaleras de sonidos. Las **grabaciones de la voz del niño** NO se incluyen salvo que marques la casilla al descargarlo (el archivo se hace mucho más grande). Los respaldos de versiones anteriores (v1) se siguen importando.
 
 ## Calidad y pruebas
 

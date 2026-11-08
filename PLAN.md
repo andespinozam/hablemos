@@ -78,7 +78,7 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 - [x] Resultados por sonido y posición (estado, sustitución, constante/variable); clasificación esperable / a estimular / consolidado; orden de trabajo
 - [x] Reevaluación a los 28 días (mismos ítems, otro orden) y comparación; resultado en Seguimiento y Reporte
 - [x] Guía, README y pruebas al día
-- Nota: el respaldo JSON v1 aún NO incluye `pronunciation` (pendiente para el respaldo v2 de la Fase 12); borrar un perfil sí la borra.
+- Nota: el respaldo v2 (Fase 12) ya incluye `pronunciation` y `ladders`.
 
 ## Fase 10 — Módulo de pronunciación
 
@@ -96,11 +96,11 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 12 — Grabar al niño, seguimiento y cierre
 
-- [ ] El niño se graba y se escucha junto al modelo; solo en el dispositivo, borrable, fuera del respaldo salvo opción explícita
-- [ ] Reporte con sustituciones por sonido, progreso en la escalera y comparación entre evaluaciones
-- [ ] Respaldo JSON v2 con los datos nuevos (incluye `pronunciation`) y migración probada
-- [ ] Pruebas: clasificación, orden de trabajo, selección por posición, escalera, pares por sustitución, `audioKey`, fallback de voz
-- [ ] README y Guía para adultos al día
+- [x] El niño se graba y se escucha junto al modelo; solo en el dispositivo, borrable, fuera del respaldo salvo opción explícita
+- [x] Reporte con sustituciones por sonido, progreso en la escalera y comparación entre evaluaciones
+- [x] Respaldo JSON v2 con los datos nuevos (incluye `pronunciation`) y migración probada
+- [x] Pruebas: clasificación, orden de trabajo, selección por posición, escalera, pares por sustitución, `audioKey`, fallback de voz
+- [x] README y Guía para adultos al día
 
 ## Pendiente tras las 8 fases
 
@@ -110,3 +110,5 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 - [x] Precarga solo de las fuentes latinas (hecho: 21 → 18 archivos, 552 → 490 KiB)
 - [x] Licencia MIT (archivo `LICENSE`)
 - [ ] Probar la lógica de fechas en zonas con horario de verano y desfase positivo. En Windows, Node solo respeta `TZ=UTC`; el código no usa funciones UTC ni `Date` desde texto (auditado), pero conviene confirmarlo con `TZ=Pacific/Auckland npm test` en Linux/macOS o en la integración continua.
+- [ ] Probar en un dispositivo real: grabación con micrófono (voz del adulto y del niño, mp4 en iPad), `npm run audio:process` con ffmpeg y los clips Opus sin conexión.
+- [ ] Revisar con un fonoaudiólogo: clasificación de pronunciación (consolidado >= 80 %), sustituciones frecuentes, escalera y aproximaciones de sonidos aislados.

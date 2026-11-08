@@ -104,7 +104,7 @@ export async function applyAdaptation(
 /** Borra todo lo del niño: sesiones, resultados y niveles (el perfil lo borra `deleteProfile`). */
 export async function deleteProgress(profileId: string): Promise<void> {
   const db = await getDb();
-  const tx = db.transaction(['sessions', 'results', 'levels', 'assessments', 'pronunciation', 'ladders'], 'readwrite');
+  const tx = db.transaction(['sessions', 'results', 'levels', 'assessments', 'pronunciation', 'ladders', 'childRecordings'], 'readwrite');
   const stores = [
     tx.objectStore('sessions'),
     tx.objectStore('results'),
@@ -112,6 +112,7 @@ export async function deleteProgress(profileId: string): Promise<void> {
     tx.objectStore('assessments'),
     tx.objectStore('pronunciation'),
     tx.objectStore('ladders'),
+    tx.objectStore('childRecordings'),
   ] as const;
   await Promise.all(
     stores.map(async (store) => {

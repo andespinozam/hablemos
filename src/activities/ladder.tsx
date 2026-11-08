@@ -1,3 +1,4 @@
+import { ChildRecorder } from '../components/ChildRecorder';
 import { MouthGuide } from '../components/MouthGuide';
 import { LADDER_ACTIVITY_ID, LADDER_STEPS, activeLadders, exercisesFor, type LadderExercise } from '../lib/ladder';
 import { getPhoneme } from '../lib/phonemes';
@@ -7,7 +8,7 @@ import type { Activity, Item, ItemViewProps } from './types';
 const BIG_MOUTH_STEPS = new Set([0, 1, 2]);
 
 function LadderView({ item, say }: ItemViewProps) {
-  const d = item.data as unknown as LadderExercise;
+  const d = item.data as unknown as LadderExercise & { profileId?: string };
   const stepId = LADDER_STEPS[d.step].id;
   const big = BIG_MOUTH_STEPS.has(d.step);
   return (
@@ -33,6 +34,8 @@ function LadderView({ item, say }: ItemViewProps) {
       <button type="button" className="btn btn--accent btn--big" onClick={() => say(d.prompt)}>
         🔊 Escuchar
       </button>
+      {/* Desde el escalón del sonido, el niño puede grabarse y oírse junto al modelo. */}
+      {d.step >= 2 && d.profileId && <ChildRecorder key={item.id} childView profileId={d.profileId} text={d.shown} source="escalera" />}
     </div>
   );
 }
@@ -63,7 +66,7 @@ export const ladder: Activity = {
           target: `${name} · ${LADDER_STEPS[ex.step].short}: ${ex.shown}`,
           prompt: ex.prompt,
           model: ex.model,
-          data: ex as unknown as Record<string, unknown>,
+          data: { ...ex, profileId: l.profileId } as unknown as Record<string, unknown>,
         });
       }
     }

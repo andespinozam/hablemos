@@ -29,6 +29,7 @@ export function Backup({ onImported }: Props) {
   const [pending, setPending] = useState<Pending | null>(null);
   const [confirmReplace, setConfirmReplace] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [withRecordings, setWithRecordings] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
   const [storage, setStorage] = useState<StorageStatus | null>(null);
   useEffect(() => {
@@ -38,11 +39,15 @@ export function Backup({ onImported }: Props) {
   const doExport = async () => {
     setBusy(true);
     try {
-      const backup = await exportBackup();
+      const backup = await exportBackup(Date.now(), { includeRecordings: withRecordings });
+      const rec = backup.data.childRecordings;
       download(JSON.stringify(backup, null, 2), backupFileName(new Date()));
       setMessage({
         kind: 'ok',
-        text: `Respaldo creado: ${backup.data.profiles.length} perfil(es), ${backup.data.results.length} resultados.`,
+        text:
+          `Respaldo creado: ${backup.data.profiles.length} perfil(es), ${backup.data.results.length} resultados, ` +
+          `${backup.data.pronunciation.length} evaluaciones de pronunciación` +
+          (rec ? ` y ${rec.length} grabaciones del niño.` : '.'),
       });
     } catch (e) {
       console.error(e);
@@ -105,9 +110,6 @@ export function Backup({ onImported }: Props) {
       <p className="note" role="note">
         {BACKUP_PRIVACY}
       </p>
-      <p className="note" role="note">
-        Por ahora el respaldo no incluye las evaluaciones de pronunciación ni las escaleras de sonidos; para conservarlas, imprime el reporte del niño.
-      </p>
 
       {message && (
         <p className={message.kind === 'ok' ? 'notice' : 'notice notice--due'} role={message.kind === 'error' ? 'alert' : 'status'}>
@@ -137,7 +139,20 @@ export function Backup({ onImported }: Props) {
 
       <section className="card" aria-labelledby="export-title">
         <h2 id="export-title">Guardar un respaldo</h2>
-        <p>Descarga un archivo con todos los perfiles, sesiones, resultados y evaluaciones de este dispositivo.</p>
+        <p>
+          Descarga un archivo con todos los perfiles, sesiones, resultados, evaluaciones (incluida la de pronunciación) y escaleras de
+          sonidos de este dispositivo.
+        </p>
+        <div className="field">
+          <label className="pron-radio" htmlFor="with-rec">
+            <input id="with-rec" type="checkbox" checked={withRecordings} onChange={(e) => setWithRecordings(e.target.checked)} />
+            <span>Incluir las grabaciones de la voz del niño</span>
+          </label>
+          <p className="chart-note">
+            Por defecto NO se incluyen: son la voz de un niño y el archivo se hace mucho más grande. Si las incluyes, guarda el archivo con
+            más cuidado todavía.
+          </p>
+        </div>
         <button type="button" className="btn btn--good" onClick={() => void doExport()} disabled={busy}>
           💾 Descargar respaldo
         </button>
@@ -167,7 +182,9 @@ export function Backup({ onImported }: Props) {
               </p>
               <p style={{ margin: '4px 0' }}>
                 {pending.summary.profiles} perfil(es): {pending.summary.names.join(', ') || '—'} · {pending.summary.sessions} sesiones ·{' '}
-                {pending.summary.results} resultados · {pending.summary.assessments} evaluaciones
+                {pending.summary.results} resultados · {pending.summary.assessments} evaluaciones · {pending.summary.pronunciation} de
+                pronunciación · {pending.summary.ladders} escaleras
+                {pending.summary.childRecordings > 0 && <> · {pending.summary.childRecordings} grabaciones del niño</>}
               </p>
               <div className="row">
                 <button type="button" className="btn btn--accent" onClick={() => void doImport('merge')} disabled={busy}>
@@ -179,7 +196,7 @@ export function Backup({ onImported }: Props) {
                   </button>
                 ) : (
                   <>
-                    <span role="alert">Se borrarán los datos actuales de este dispositivo.</span>
+                    <span role="alert">Se borrarán los datos actuales de este dispositivo, incluidas las grabaciones del niño (si el respaldo no las trae).</span>
                     <button type="button" className="btn btn--danger" onClick={() => void doImport('replace')} disabled={busy}>
                       Sí, reemplazar
                     </button>

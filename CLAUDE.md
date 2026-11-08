@@ -123,7 +123,7 @@ npm run audio:process  # grabaciones -> public/audio/*.opus + manifest.json (nec
 - `content/ladder.json`: `say` (cómo decir el SONIDO, aproximación para la voz del sistema; la Fase 11 la reemplaza por grabaciones), `mouth` (pose para `components/MouthGuide.tsx`), `cue` y `warmups` (r y rr: ejercicios previos de lengua sin presión). Al agregar un fonema, agregar su entrada (hay prueba).
 - Actividades nuevas (ids permanentes): `pares-minimos` (califica sola, sin "Aún no"; `content/minimal-pairs.json` viene de `seed/pares_minimos_v2.json`; `lib/minimalPairs.ts` prefiere los pares que coinciden con la sustitución registrada; la r suave usa los pares l/rr) y `escalera-sonido` (califica el adulto; solo entra si hay escaleras activas y **siempre entra** en ese caso: `planSession(..., must)`). `Activity.isAvailable?(ctx)` y `BuildContext.ladders/ladderLast` son los ganchos nuevos.
 - La sustitución observada se guarda en la escalera (de la evaluación o escrita por el adulto en `adultos/escalera/:id`, que gana) y alimenta el reporte y los pares.
-- El respaldo JSON v1 todavía NO incluye `pronunciation` ni `ladders` (Fase 12). No usar emojis de Emoji 13+ tampoco en botones (p. ej. 🪜).
+- El respaldo v2 (Fase 12) sí incluye `pronunciation` y `ladders`. No usar emojis de Emoji 13+ tampoco en botones (p. ej. 🪜).
 
 ## Voz grabada (Fase 11)
 
@@ -133,6 +133,13 @@ npm run audio:process  # grabaciones -> public/audio/*.opus + manifest.json (nec
 - **Todo texto nuevo que diga la app debe pasar por `speak`.** Las frases fijas y derivadas viven en `lib/phrases.ts` (`retryPhrase`, `lookAgain`, `FINISH_PHRASE`…) para que `lib/audioTexts.ts` (recolector: muestrea los ejercicios con muchas semillas + escalera + palabras de fonemas) las conozca. Lo que se escape se anota en uso (`voice.noteMissing`) y aparece con ★ en el diagnóstico. La frase final ya no lleva el nombre del niño, para poder grabarla una vez.
 - IndexedDB v6: almacén `recordings` (clave `audioKey`, bytes en ArrayBuffer). No es dato del niño; no está en el respaldo.
 - Scripts `scripts/audio-*.mjs` cargan los módulos TS de la app con Vite (`scripts/_load.mjs`); la lógica pura de procesado está en `lib/audioProcess.ts` (con pruebas). Pantallas: `adultos/voz` (diagnóstico, exportar ZIP, borrar) y `adultos/grabar` (modo grabación). ZIP sin compresión propio: `lib/zip.ts`.
+
+## Grabar al niño, respaldo v2 y cierre (Fase 12)
+
+- **IndexedDB v7**: almacén `childRecordings` (id, perfil, `text` = lo que dijo/modelo, `source`, bytes en ArrayBuffer). `lib/childRecordingsStore.ts`. Viven solo en el dispositivo; `deleteProgress`/`deleteProfile` las borran; pantalla `adultos/grabaciones/:id` para escuchar (niño o modelo + niño), borrar una o todas.
+- `components/ChildRecorder.tsx` (con `lib/mic.ts`, envoltorio de MediaRecorder con tope de 15 s) graba al niño en la evaluación de pronunciación y en el escalón de sonido de la escalera. "Modelo y niño" = `speak(text)` (clip del adulto o voz del sistema) y luego el audio del niño. Nunca se sube nada.
+- **Respaldo v2** (`BACKUP_VERSION = 2`): agrega `pronunciation` y `ladders`; los v1 se importan igual (listas vacías, hay prueba con un archivo v1 literal). Las grabaciones del niño solo entran con `exportBackup(now, { includeRecordings: true })` (casilla explícita en Respaldo), en base64 (`lib/base64.ts`); se validan y decodifican ANTES de abrir la transacción. "Reemplazar" borra también `childRecordings` (si el respaldo no las trae). Las grabaciones del adulto (`recordings`) nunca van en el respaldo (se exportan en ZIP).
+- El Reporte trae "Resumen por sonido" (clasificación, sustitución, constancia y escalón) además de las tablas por posición y la comparación entre la primera y la última evaluación.
 
 ## Publicación
 

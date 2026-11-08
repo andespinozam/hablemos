@@ -69,7 +69,8 @@
         "Se hace en bloques de unos 5 minutos. Puedes pausar en cualquier momento y retomar otro día: lo marcado queda guardado en el dispositivo.",
         "El resultado muestra cada sonido por posición, con la sustitución y si fue constante o variable, y lo clasifica como esperable para su edad, a estimular o consolidado (80 % o más). Propone un orden de trabajo: primero sonidos tempranos que aún no logra, luego los de su edad y al final los tardíos como metas suaves y opcionales.",
         "Cada 4 semanas se sugiere reevaluar con las mismas palabras en otro orden y comparar. Los resultados también salen en Seguimiento y en el Reporte. Son orientativos: no son un diagnóstico.",
-        "Los sonidos \"a estimular\" reciben una escalera de 6 escalones (Seguimiento > Pronunciación > Escalera de pronunciación): escuchar el modelo, mirar la boca, sonido aislado, sílaba, palabra y frase corta. Se trabajan hasta 3 sonidos a la vez, empezando por los tempranos. Se sube de escalón con \"Lo logró\" en 3 sesiones distintas. Ahí también puedes corregir qué sonido dice en lugar del correcto: se usa para elegir los pares de palabras y sale en el reporte."
+        "Los sonidos \"a estimular\" reciben una escalera de 6 escalones (Seguimiento > Pronunciación > Escalera de pronunciación): escuchar el modelo, mirar la boca, sonido aislado, sílaba, palabra y frase corta. Se trabajan hasta 3 sonidos a la vez, empezando por los tempranos. Se sube de escalón con \"Lo logró\" en 3 sesiones distintas. Ahí también puedes corregir qué sonido dice en lugar del correcto: se usa para elegir los pares de palabras y sale en el reporte.",
+        "Grabar al niño: en la evaluación de pronunciación (y, desde el escalón del sonido, en la actividad \"Mi sonido\") puedes grabar a tu hijo diciendo la palabra y escucharlo junto al modelo (primero tu voz o la voz del sistema, enseguida el niño) para que él mismo note la diferencia. Las grabaciones se guardan solo en el dispositivo; en Seguimiento > Grabaciones puedes escucharlas, borrar una o borrarlas todas. No salen del dispositivo y no entran en el respaldo salvo que lo elijas."
       ]
     },
     {
@@ -87,9 +88,10 @@
       "id": "seguimiento",
       "title": "Seguimiento, reporte y respaldo",
       "bullets": [
-        "Seguimiento: logro por área y por fonema, tendencia por semana y días seguidos de práctica.",
-        "Reporte: una hoja por niño para imprimir o guardar como PDF (botón 🖨️). Sirve para llevarla a una consulta con el fonoaudiólogo.",
-        "Respaldo: descarga un archivo con todos los datos y recupéralo en otra tablet o si se borraron. El archivo incluye nombres y fechas de nacimiento: guárdalo con cuidado.",
+        "Seguimiento: logro por área y por fonema, tendencia por semana y días seguidos de práctica, y la pronunciación (clasificación por sonido, escalera y comparación entre evaluaciones).",
+        "Reporte: una hoja por niño para imprimir o guardar como PDF (botón 🖨️), con las sustituciones por sonido, el escalón de cada uno y la comparación entre evaluaciones. Sirve para llevarla a una consulta con el fonoaudiólogo.",
+        "Respaldo: descarga un archivo con todos los datos (incluidas las evaluaciones de pronunciación y las escaleras) y recupéralo en otra tablet o si se borraron. El archivo incluye nombres y fechas de nacimiento: guárdalo con cuidado.",
+        "Las grabaciones de la voz del niño NO entran en el respaldo salvo que marques la casilla \"Incluir las grabaciones de la voz del niño\" (el archivo se hace mucho más grande). Al recuperar un respaldo con \"Reemplazar todo\" se borran las grabaciones del niño que no estén en el archivo.",
         "Haz un respaldo de vez en cuando. Los datos viven solo en este dispositivo."
       ]
     },
@@ -97,7 +99,8 @@
       "id": "privacidad",
       "title": "Privacidad",
       "paragraphs": [
-        "Hablemos no tiene cuentas, anuncios, analítica ni llamadas de red cuando se usa: todo funciona sin internet y los datos se quedan en el dispositivo. Eliminar un perfil borra también todo su progreso."
+        "Hablemos no tiene cuentas, anuncios, analítica ni llamadas de red cuando se usa: todo funciona sin internet y los datos se quedan en el dispositivo. Eliminar un perfil borra también todo su progreso y las grabaciones de su voz.",
+        "Las grabaciones de la voz del niño y de tu propia voz se guardan solo en el dispositivo. Las del niño se pueden borrar en Seguimiento > Grabaciones."
       ]
     },
     {

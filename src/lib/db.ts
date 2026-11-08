@@ -127,6 +127,24 @@ export interface RecordingRecord {
   at: number;
 }
 
+/** Dónde se grabó al niño. */
+export type ChildRecordingSource = 'evaluacion' | 'escalera';
+
+/**
+ * Grabación de la voz de un niño (para compararla con el modelo). Vive solo en el dispositivo,
+ * se borra desde la zona de adultos y NO entra en el respaldo salvo que se pida explícitamente.
+ */
+export interface ChildRecordingRecord {
+  id: string;
+  profileId: string;
+  /** Lo que se le pidió decir (palabra, sílaba o frase): también es el modelo del adulto. */
+  text: string;
+  source: ChildRecordingSource;
+  mime: string;
+  data: ArrayBuffer;
+  at: number;
+}
+
 export interface ResultRecord {
   id: string;
   sessionId: string;
@@ -165,13 +183,14 @@ interface HablemosDB extends DBSchema {
   pronunciation: { key: string; value: PronunciationRecord; indexes: { byProfile: string } };
   ladders: { key: string; value: LadderRecord; indexes: { byProfile: string } };
   recordings: { key: string; value: RecordingRecord };
+  childRecordings: { key: string; value: ChildRecordingRecord; indexes: { byProfile: string } };
 }
 
 export type HablemosDatabase = IDBPDatabase<HablemosDB>;
 
 export const DB_NAME = 'hablemos';
 /** Al cambiar el esquema: subir este número y agregar un bloque `if (oldVersion < N)`. Nunca editar los anteriores. */
-export const DB_VERSION = 6;
+export const DB_VERSION = 7;
 
 let dbPromise: Promise<HablemosDatabase> | null = null;
 
@@ -198,6 +217,9 @@ export function getDb(): Promise<HablemosDatabase> {
         }
         if (oldVersion < 6) {
           db.createObjectStore('recordings', { keyPath: 'key' });
+        }
+        if (oldVersion < 7) {
+          db.createObjectStore('childRecordings', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
         }
       },
     });

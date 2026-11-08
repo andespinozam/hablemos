@@ -10,6 +10,7 @@ import {
   responseOf,
   substitutionOptions,
 } from '../lib/pronunciation';
+import { ChildRecorder } from '../components/ChildRecorder';
 import { syncLaddersFromEvaluation } from '../lib/ladderStore';
 import { getPronunciation, saveResponse } from '../lib/pronunciationStore';
 import { go } from '../lib/router';
@@ -311,6 +312,8 @@ export function PronunciationRunner({ profile, recordId }: Props) {
             ))}
           </div>
         )}
+
+        {!picking && <ChildRecorder key={item.id} profileId={profile.id} text={item.word} source="evaluacion" />}
 
         {existing && !picking && (
           <p className="chart-note">

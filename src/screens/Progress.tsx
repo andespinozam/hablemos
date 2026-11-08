@@ -44,6 +44,9 @@ export function Progress({ profile }: { profile: ChildProfile }) {
         <button type="button" className="btn btn--accent" onClick={() => go(`adultos/pronunciacion/${profile.id}`)}>
           🗣️ Pronunciación
         </button>
+        <button type="button" className="btn btn--ghost" onClick={() => go(`adultos/grabaciones/${profile.id}`)}>
+          🎙️ Grabaciones
+        </button>
         <button type="button" className="btn btn--ghost" onClick={() => go(`adultos/reporte/${profile.id}`)}>
           🖨️ Reporte
         </button>

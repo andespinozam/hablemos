@@ -74,6 +74,7 @@ describe('titleFor', () => {
     expect(titleFor('adultos/respaldo')).toBe('Respaldo · Hablemos');
     expect(titleFor('adultos/seguimiento/x')).toBe('Seguimiento · Hablemos');
     expect(titleFor('adultos/evaluar/x/baseline')).toBe('Evaluando · Hablemos');
+    expect(titleFor('adultos/grabaciones/x')).toBe('Grabaciones del niño · Hablemos');
     expect(titleFor('adultos/voz')).toBe('Voz grabada · Hablemos');
     expect(titleFor('adultos/grabar')).toBe('Grabar la voz · Hablemos');
     expect(titleFor('adultos/escalera/x')).toBe('Escalera de pronunciación · Hablemos');

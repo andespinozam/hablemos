@@ -46,7 +46,7 @@ describe('exportBackup', () => {
   });
   it('con la base vacía exporta listas vacías', async () => {
     const b = await exportBackup();
-    expect(b.data).toEqual({ profiles: [], sessions: [], results: [], levels: [], assessments: [] });
+    expect(b.data).toEqual({ profiles: [], sessions: [], results: [], levels: [], assessments: [], pronunciation: [], ladders: [] });
   });
 });
 
