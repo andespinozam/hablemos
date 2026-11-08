@@ -1,8 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { formatAge } from '../lib/age';
+import { reassessmentStatus, type ReassessmentState } from '../lib/assessment';
+import { listAssessments } from '../lib/assessmentStore';
 import type { ChildProfile } from '../lib/db';
 import { deleteProfile } from '../lib/profiles';
 import { go } from '../lib/router';
+import { DISCLAIMER } from '../lib/texts';
 
 interface Props {
   profiles: ChildProfile[];
@@ -11,13 +14,29 @@ interface Props {
   onExit: () => void;
 }
 
-export const DISCLAIMER =
-  'Esta herramienta apoya la estimulación en casa y no reemplaza la valoración de un fonoaudiólogo.';
+function statusText(s: ReassessmentState | undefined): string | null {
+  if (!s) return null;
+  if (s.state === 'none') return '📝 Sin evaluación inicial';
+  if (s.state === 'due') return '⏰ Reevaluación sugerida';
+  return null;
+}
 
 export function AdultZone({ profiles, loadError, onChanged, onExit }: Props) {
   const [confirmId, setConfirmId] = useState<string | null>(null);
   const [error, setError] = useState('');
+  const [status, setStatus] = useState<Record<string, ReassessmentState>>({});
   const today = new Date();
+
+  // Aviso por niño: sin evaluación inicial, o reevaluación sugerida (cada 4 semanas).
+  useEffect(() => {
+    let alive = true;
+    Promise.all(profiles.map(async (p) => [p.id, reassessmentStatus(await listAssessments(p.id), Date.now())] as const))
+      .then((pairs) => alive && setStatus(Object.fromEntries(pairs)))
+      .catch((e) => console.error(e));
+    return () => {
+      alive = false;
+    };
+  }, [profiles]);
 
   const remove = async (id: string) => {
     try {
@@ -79,11 +98,17 @@ export function AdultZone({ profiles, loadError, onChanged, onExit }: Props) {
                   <strong>{p.name}</strong>
                   <br />
                   <small>{formatAge(p.birthDate, today)}</small>
+                  {statusText(status[p.id]) && (
+                    <>
+                      <br />
+                      <small className="badge">{statusText(status[p.id])}</small>
+                    </>
+                  )}
                 </span>
                 <span className="spacer" />
                 {confirmId === p.id ? (
                   <>
-                    <span role="alert">¿Eliminar a {p.name}?</span>
+                    <span role="alert">¿Eliminar a {p.name} y todo su progreso?</span>
                     <button type="button" className="btn btn--danger btn--small" onClick={() => void remove(p.id)}>
                       Sí, eliminar
                     </button>
@@ -93,6 +118,14 @@ export function AdultZone({ profiles, loadError, onChanged, onExit }: Props) {
                   </>
                 ) : (
                   <>
+                    <button
+                      type="button"
+                      className="btn btn--accent btn--small"
+                      onClick={() => go(`adultos/seguimiento/${p.id}`)}
+                      aria-label={`Seguimiento de ${p.name}`}
+                    >
+                      📊 Seguimiento
+                    </button>
                     <button
                       type="button"
                       className="btn btn--ghost btn--small"
@@ -117,9 +150,17 @@ export function AdultZone({ profiles, loadError, onChanged, onExit }: Props) {
         )}
       </section>
 
+      <nav className="row" aria-label="Más opciones">
+        <button type="button" className="btn btn--ghost" onClick={() => go('adultos/respaldo')}>
+          💾 Respaldo
+        </button>
+        <button type="button" className="btn btn--ghost" onClick={() => go('adultos/alertas')}>
+          ⚠️ Señales de alerta
+        </button>
+      </nav>
+
       <p className="note">
         Los datos se guardan solo en este dispositivo. La app no usa cuentas, anuncios ni conexión a internet.
-        Próximamente: evaluación, seguimiento, reportes y respaldo.
       </p>
     </main>
   );

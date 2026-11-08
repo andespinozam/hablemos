@@ -8,6 +8,8 @@ interface Props {
   rateDisabled: boolean;
   onRate: (rating: Rating) => void;
   onEnd: () => void;
+  /** Texto del botón de salida. */
+  endLabel?: string;
 }
 
 const RATING_CLASS: Record<Rating, string> = {
@@ -17,7 +19,7 @@ const RATING_CLASS: Record<Rating, string> = {
 };
 
 /** Panel discreto para el adulto: objetivo y calificación. La app NO califica la pronunciación. */
-export function AdultPanel({ target, canRate, rateDisabled, onRate, onEnd }: Props) {
+export function AdultPanel({ target, canRate, rateDisabled, onRate, onEnd, endLabel = 'Terminar sesión' }: Props) {
   return (
     <aside className="adult-panel no-print" aria-label="Panel para el adulto">
       <p className="adult-panel__target">
@@ -31,7 +33,7 @@ export function AdultPanel({ target, canRate, rateDisabled, onRate, onEnd }: Pro
             </button>
           ))}
         <button type="button" className="btn btn--ghost btn--small" onClick={onEnd}>
-          Terminar sesión
+          {endLabel}
         </button>
       </div>
     </aside>

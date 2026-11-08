@@ -18,3 +18,33 @@ export function useRoute(): string {
 export function go(path: string): void {
   window.location.hash = `/${path}`;
 }
+
+export type AdultRoute =
+  | { name: 'home' }
+  | { name: 'nuevo' }
+  | { name: 'editar'; id: string }
+  | { name: 'seguimiento'; id: string }
+  | { name: 'evaluacion'; id: string }
+  | { name: 'evaluar'; id: string; kind: 'baseline' | 'reassessment' }
+  | { name: 'reporte'; id: string }
+  | { name: 'respaldo' }
+  | { name: 'alertas' }
+  | { name: 'desconocida' };
+
+/** Interpreta una ruta de la zona de adultos; null si la ruta no es de esa zona. */
+export function parseAdultRoute(route: string): AdultRoute | null {
+  if (route !== 'adultos' && !route.startsWith('adultos/')) return null;
+  const [, a, b, c] = route.split('/');
+  if (!a) return { name: 'home' };
+  if (a === 'nuevo' && !b) return { name: 'nuevo' };
+  if (a === 'respaldo' && !b) return { name: 'respaldo' };
+  if (a === 'alertas' && !b) return { name: 'alertas' };
+  if (b && !c) {
+    if (a === 'editar') return { name: 'editar', id: b };
+    if (a === 'seguimiento') return { name: 'seguimiento', id: b };
+    if (a === 'evaluacion') return { name: 'evaluacion', id: b };
+    if (a === 'reporte') return { name: 'reporte', id: b };
+  }
+  if (a === 'evaluar' && b && (c === 'baseline' || c === 'reassessment')) return { name: 'evaluar', id: b, kind: c };
+  return { name: 'desconocida' };
+}

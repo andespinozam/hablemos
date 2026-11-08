@@ -1,0 +1,38 @@
+{
+  "intro": "Estas señales son orientativas y no son un diagnóstico. Cada niño aprende a su ritmo, pero si observas alguna de ellas de forma repetida, conviene que un profesional lo valore.",
+  "general": [
+    "Retrocede: deja de decir palabras o frases que ya decía.",
+    "No sigue órdenes simples de un paso (por ejemplo, \"dame la pelota\").",
+    "No responde cuando lo llaman o parece no oír bien.",
+    "Casi no intenta comunicarse: no señala, no mira, no usa gestos ni sonidos para pedir algo.",
+    "Se frustra mucho porque no logra hacerse entender.",
+    "Se atasca o repite sonidos o sílabas con esfuerzo durante más de 6 meses."
+  ],
+  "byAge": [
+    {
+      "age": 3,
+      "signs": [
+        "Casi nadie entiende lo que dice, ni siquiera la familia cercana.",
+        "No une dos palabras (por ejemplo, \"más agua\" o \"mamá ven\").",
+        "Dice muy pocas palabras para su edad."
+      ]
+    },
+    {
+      "age": 4,
+      "signs": [
+        "Las personas que no son de la familia no lo entienden la mayor parte del tiempo.",
+        "No arma frases de tres o cuatro palabras.",
+        "No contesta preguntas simples como \"¿qué es?\", \"¿quién?\" o \"¿dónde?\"."
+      ]
+    },
+    {
+      "age": 5,
+      "signs": [
+        "Le cuesta contar lo que hizo con frases ordenadas.",
+        "Cambia o omite muchos sonidos y casi no se le entiende.",
+        "Le cuesta seguir órdenes de dos pasos."
+      ]
+    }
+  ],
+  "advice": "Si ves alguna de estas señales, habla con el pediatra o consulta a un fonoaudiólogo (terapeuta de lenguaje). Cuanto antes se valore, más oportunidades hay de apoyar al niño."
+}

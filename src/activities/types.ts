@@ -22,6 +22,8 @@ export interface Item {
   target: string;
   /** Instrucción que se dice en voz alta y se muestra en texto breve. */
   prompt: string;
+  /** Nivel del ítem si difiere del de la actividad (las evaluaciones mezclan niveles). */
+  level?: number;
   /** Lo que se dice al repetir el modelo con calma tras un "Aún no" (por defecto, `target`). */
   model?: string;
   /** Área si difiere de la de la actividad. */

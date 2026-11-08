@@ -3,6 +3,8 @@ import {
   markWord,
   pickPhonemes,
   pickWords,
+  type Phoneme,
+  type PhonemeWord,
   type Position,
   type Segment,
 } from '../lib/phonemes';
@@ -52,6 +54,20 @@ function PhonemeWordView({ item, say }: ItemViewProps) {
   );
 }
 
+/** Un ítem de palabra para un fonema (lo usan la actividad y la evaluación). */
+export function phonemeItem(ph: Phoneme, w: PhonemeWord): Item {
+  const data: WordData = { emoji: w.emoji, syllables: w.syllables, segments: markWord(w.word, ph.patterns) };
+  return {
+    id: `${ph.id}-${w.word}`,
+    target: ph.kind === 'syllables' ? `${w.syllables.join('-')} (${ph.name})` : `${w.word} · ${ph.name} ${POSITION_LABEL[w.position]}`,
+    prompt: `Mira. Dilo conmigo: ${w.word}.`,
+    model: w.word,
+    phoneme: ph.id,
+    area: 'fonemas',
+    data: data as unknown as Record<string, unknown>,
+  };
+}
+
 /** Actividad 10: Palabras con fonema objetivo (inicio / medio / final), con listas por fonema. */
 export const phonemeWords: Activity = {
   id: 'palabras-fonema',
@@ -76,16 +92,7 @@ export const phonemeWords: Activity = {
       for (const { ph, words } of lists) {
         const w = words[i];
         if (!w || items.length >= count) continue;
-        const data: WordData = { emoji: w.emoji, syllables: w.syllables, segments: markWord(w.word, ph.patterns) };
-        items.push({
-          id: `${ph.id}-${w.word}`,
-          target: ph.kind === 'syllables' ? `${w.syllables.join('-')} (${ph.name})` : `${w.word} · ${ph.name} ${POSITION_LABEL[w.position]}`,
-          prompt: `Mira. Dilo conmigo: ${w.word}.`,
-          model: w.word,
-          phoneme: ph.id,
-          area: 'fonemas',
-          data: data as unknown as Record<string, unknown>,
-        });
+        items.push(phonemeItem(ph, w));
       }
     }
     return items;

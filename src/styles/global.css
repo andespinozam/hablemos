@@ -1040,3 +1040,198 @@ p {
 .beat--long {
   width: calc(var(--b) * 2.8);
 }
+
+/* ---------- Zona de adultos: seguimiento, evaluación, reporte ---------- */
+.notice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: #e8f5ee;
+  border: 2px solid #9fd3b4;
+  font-size: 1.1rem;
+}
+.notice--info {
+  background: #e7f0ff;
+  border-color: #a9c4f5;
+}
+.notice--due {
+  background: #fff1cc;
+  border-color: #e6b94a;
+}
+.badge {
+  color: var(--ink);
+  font-weight: 800;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+}
+.stat {
+  background: var(--surface);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+}
+.stat strong {
+  font-size: 2.4rem;
+  line-height: 1;
+}
+.stat small {
+  color: var(--ink-soft);
+}
+
+.chart {
+  margin: 0;
+}
+.chart svg {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+}
+.chart-note {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+.chart__label {
+  fill: var(--ink);
+  font-size: 15px;
+  font-weight: 700;
+}
+.chart__value {
+  fill: var(--ink);
+  font-size: 15px;
+  font-weight: 900;
+}
+.chart__axis {
+  fill: var(--ink-soft);
+  font-size: 13px;
+  font-weight: 700;
+}
+.chart__track {
+  fill: var(--chart-track);
+}
+.chart__bar {
+  fill: var(--chart-current);
+}
+.chart__bar--baseline {
+  fill: var(--chart-baseline);
+}
+.chart__grid {
+  stroke: var(--chart-grid);
+  stroke-width: 1;
+}
+.chart__line {
+  stroke: var(--chart-current);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.chart__dot {
+  fill: var(--chart-current);
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1.05rem;
+}
+.table th,
+.table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+}
+.table thead th {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+.meter {
+  display: inline-block;
+  width: 90px;
+  height: 10px;
+  border-radius: 5px;
+  background: var(--chart-track);
+  vertical-align: middle;
+  overflow: hidden;
+}
+.meter span {
+  display: block;
+  height: 100%;
+  background: var(--chart-current);
+  border-radius: 5px;
+}
+
+.alerts h3 {
+  font-size: 1.2rem;
+  margin: 14px 0 4px;
+}
+.alerts ul {
+  margin: 0 0 8px;
+  padding-left: 1.3em;
+}
+
+.report__head h1 {
+  font-size: var(--fs-big);
+}
+.report-section {
+  margin-bottom: 8px;
+}
+.report__foot {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+/* ---------- Impresión del reporte ---------- */
+@page {
+  margin: 14mm;
+}
+@media print {
+  html,
+  body,
+  #root {
+    height: auto;
+    background: #fff;
+    color: #000;
+  }
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .screen {
+    max-width: none;
+    padding: 0;
+    min-height: 0;
+  }
+  .card,
+  .stat {
+    box-shadow: none;
+    border: 1px solid #c9d3ea;
+  }
+  .report-section,
+  .card,
+  figure,
+  table {
+    break-inside: avoid;
+  }
+  .report h2 {
+    break-after: avoid;
+  }
+  .chart svg {
+    max-width: 100%;
+  }
+  .note {
+    border-left-color: #999;
+  }
+}

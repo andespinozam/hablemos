@@ -46,13 +46,13 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 6 — Evaluación, seguimiento, reportes y respaldo
 
-- [ ] Línea base guiada por áreas y nivel recomendado
-- [ ] Seguimiento por área y fonema, tendencia semanal, rachas
-- [ ] Reevaluación cada 4 semanas y comparación con la línea base
-- [ ] Gráficos SVG
-- [ ] Reporte imprimible por niño
-- [ ] Exportar e importar respaldo JSON
-- [ ] Nota de alcance y señales de alerta
+- [x] Línea base guiada por áreas y nivel recomendado
+- [x] Seguimiento por área y fonema, tendencia semanal, rachas
+- [x] Reevaluación cada 4 semanas y comparación con la línea base
+- [x] Gráficos SVG
+- [x] Reporte imprimible por niño
+- [x] Exportar e importar respaldo JSON
+- [x] Nota de alcance y señales de alerta
 
 ## Fase 7 — Accesibilidad, pruebas, offline y despliegue
 

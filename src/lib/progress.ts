@@ -1,4 +1,4 @@
-import { getDb, type LevelRecord, type ResultRecord, type SessionRecord } from './db';
+import { getDb, type LevelRecord, type ResultRecord, type SessionKind, type SessionRecord } from './db';
 import { newId } from './ids';
 import { MIN_ITEMS_FOR_ADAPT, adaptLevel, sessionRatios, type LevelOutcome } from './level';
 import { scoreOf, type Rating } from './scoring';
@@ -7,8 +7,10 @@ export async function startSession(
   profileId: string,
   activityIds: string[],
   now: number = Date.now(),
+  kind: SessionKind = 'practice',
 ): Promise<SessionRecord> {
   const session: SessionRecord = { id: newId(), profileId, startedAt: now, activityIds };
+  if (kind !== 'practice') session.kind = kind;
   await (await getDb()).put('sessions', session);
   return session;
 }
@@ -80,7 +82,11 @@ export async function applyAdaptation(
   maxLevels: Record<string, number>,
   now: number = Date.now(),
 ): Promise<AdaptationResult[]> {
-  const results = await listResults(profileId);
+  // Las evaluaciones no cuentan para subir o bajar de nivel: solo la práctica.
+  const assessmentIds = new Set(
+    (await listSessions(profileId)).filter((s) => s.kind === 'baseline' || s.kind === 'reassessment').map((s) => s.id),
+  );
+  const results = (await listResults(profileId)).filter((r) => !assessmentIds.has(r.sessionId));
   const outcomes: AdaptationResult[] = [];
   const activityIds = [...new Set(results.filter((r) => r.sessionId === sessionId).map((r) => r.activityId))];
 
@@ -98,8 +104,13 @@ export async function applyAdaptation(
 /** Borra todo lo del niño: sesiones, resultados y niveles (el perfil lo borra `deleteProfile`). */
 export async function deleteProgress(profileId: string): Promise<void> {
   const db = await getDb();
-  const tx = db.transaction(['sessions', 'results', 'levels'], 'readwrite');
-  const stores = [tx.objectStore('sessions'), tx.objectStore('results'), tx.objectStore('levels')] as const;
+  const tx = db.transaction(['sessions', 'results', 'levels', 'assessments'], 'readwrite');
+  const stores = [
+    tx.objectStore('sessions'),
+    tx.objectStore('results'),
+    tx.objectStore('levels'),
+    tx.objectStore('assessments'),
+  ] as const;
   await Promise.all(
     stores.map(async (store) => {
       for (const key of await store.index('byProfile').getAllKeys(profileId)) await store.delete(key);

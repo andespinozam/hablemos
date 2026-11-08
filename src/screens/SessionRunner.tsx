@@ -5,7 +5,9 @@ import { AdultPanel } from '../components/AdultPanel';
 import { RepeatButton } from '../components/RepeatButton';
 import { StarBurst, randomPraise } from '../components/Stars';
 import { ageInYears } from '../lib/age';
-import type { ChildProfile } from '../lib/db';
+import { buildAssessmentPlan, groupIntoSteps, shuffleForReassessment } from '../lib/assessmentPlan';
+import { completeAssessment, createAssessment } from '../lib/assessmentStore';
+import type { AssessmentItem, ChildProfile } from '../lib/db';
 import { summarizePhonemes } from '../lib/phonemeStats';
 import {
   addResult,
@@ -31,6 +33,15 @@ interface Step {
 interface Plan {
   sessionId: string;
   steps: Step[];
+  /** Solo en evaluaciones. */
+  assessmentId?: string;
+}
+
+/** Si se pasa, la sesión es una evaluación en lugar de práctica libre. */
+export interface AssessmentMode {
+  kind: 'baseline' | 'reassessment';
+  /** Ítems de la evaluación inicial a repetir (solo reevaluación). */
+  items?: AssessmentItem[];
 }
 
 const PRAISE_MS = 1600;
@@ -44,10 +55,11 @@ export function retryText(item: Item): string {
 interface Props {
   profile: ChildProfile;
   onExit: () => void;
+  assessment?: AssessmentMode;
 }
 
 /** Sesión guiada: 3-4 actividades según la edad y el nivel, y una celebración final. */
-export function SessionRunner({ profile, onExit }: Props) {
+export function SessionRunner({ profile, onExit, assessment }: Props) {
   const [plan, setPlan] = useState<Plan | null>(null);
   const [error, setError] = useState('');
   const [pos, setPos] = useState<Position>(START);
@@ -79,6 +91,29 @@ export function SessionRunner({ profile, onExit }: Props) {
         ]);
         const age = Math.max(ageInYears(profile.birthDate, new Date()) ?? 3, 3);
         const ctx: BuildContext = { age, phonemes: summarizePhonemes(results) };
+        if (assessment) {
+          // Evaluación: ítems fijos por área. La reevaluación repite los mismos ítems en otro orden.
+          const items =
+            assessment.kind === 'baseline'
+              ? buildAssessmentPlan(age, Math.random)
+              : shuffleForReassessment(assessment.items ?? [], Math.random);
+          const groups = groupIntoSteps(items);
+          const evalSteps: Step[] = groups.flatMap((g) => {
+            const activity = getActivity(g.activityId);
+            return activity ? [{ activity, level: 1, items: g.items.map((x) => x.item) }] : [];
+          });
+          if (evalSteps.length === 0) throw new Error('Evaluación vacía');
+          const session = await startSession(profile.id, groups.map((g) => g.activityId), Date.now(), assessment.kind);
+          const record = await createAssessment({
+            profileId: profile.id,
+            kind: assessment.kind,
+            sessionId: session.id,
+            ageYears: age,
+            items: groups.flatMap((g) => g.items),
+          });
+          setPlan({ sessionId: session.id, steps: evalSteps, assessmentId: record.id });
+          return;
+        }
         const ids = planSession(ACTIVITIES, { age, lastPracticed });
         const steps: Step[] = ids.flatMap((id) => {
           const activity = getActivity(id);
@@ -95,7 +130,7 @@ export function SessionRunner({ profile, onExit }: Props) {
         setError('No pudimos preparar los juegos. Pide ayuda a un adulto.');
       }
     })();
-  }, [profile.id, profile.birthDate]);
+  }, [profile.id, profile.birthDate, assessment]);
 
   useEffect(
     () => () => {
@@ -115,22 +150,33 @@ export function SessionRunner({ profile, onExit }: Props) {
     else if (pos.stage === 'retry' && item) say(retryText(item), SLOW_RATE);
   }, [step, item, pos.stage, say]);
 
-  const finish = useCallback(async () => {
-    if (finished.current || !plan) return;
-    finished.current = true;
-    try {
-      await finishSession(plan.sessionId);
-      const maxLevels = Object.fromEntries(plan.steps.map((s) => [s.activity.id, s.activity.maxLevel]));
-      await applyAdaptation(profile.id, plan.sessionId, maxLevels);
-    } catch (e) {
-      console.error(e);
-    }
-  }, [plan, profile.id]);
+  const finish = useCallback(
+    async (completed: boolean) => {
+      if (finished.current || !plan) return;
+      finished.current = true;
+      try {
+        await finishSession(plan.sessionId);
+        if (plan.assessmentId) {
+          // Una evaluación a medias queda registrada pero no cuenta ni cambia niveles.
+          if (completed) {
+            const maxLevels = Object.fromEntries(ACTIVITIES.map((a) => [a.id, a.maxLevel]));
+            await completeAssessment(plan.assessmentId, maxLevels);
+          }
+        } else {
+          const maxLevels = Object.fromEntries(plan.steps.map((s) => [s.activity.id, s.activity.maxLevel]));
+          await applyAdaptation(profile.id, plan.sessionId, maxLevels);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    [plan, profile.id],
+  );
 
   // Al llegar al final: guardar, adaptar niveles y celebrar.
   useEffect(() => {
     if (pos.stage !== 'done') return;
-    void finish();
+    void finish(true);
     playSound('fanfare');
     say(`¡Terminaste! ¡Qué bien jugaste, ${profile.name}!`);
   }, [pos.stage, finish, say, profile.name]);
@@ -157,7 +203,7 @@ export function SessionRunner({ profile, onExit }: Props) {
         target: item.target,
         area: item.area ?? step.activity.area,
         phoneme: item.phoneme,
-        level: step.level,
+        level: item.level ?? step.level,
         rating,
       }).catch((e) => console.error(e));
 
@@ -179,7 +225,7 @@ export function SessionRunner({ profile, onExit }: Props) {
   const endEarly = async () => {
     cancelSpeech();
     if (timer.current !== null) window.clearTimeout(timer.current);
-    await finish();
+    await finish(false);
     onExit();
   };
 
@@ -273,6 +319,7 @@ export function SessionRunner({ profile, onExit }: Props) {
         rateDisabled={pos.stage !== 'item'}
         onRate={submit}
         onEnd={() => void endEarly()}
+        endLabel={plan.assessmentId ? 'Detener evaluación' : 'Terminar sesión'}
       />
     </main>
   );

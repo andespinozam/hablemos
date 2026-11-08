@@ -26,3 +26,11 @@
 
   --font: 'Nunito Variable', 'Nunito', ui-rounded, 'Arial Rounded MT Bold', system-ui, sans-serif;
 }
+
+/* Gráficos: pareja validada (CVD ΔE > 30, contraste >= 3:1). Azul = actual, naranja = inicial. */
+:root {
+  --chart-current: #2f6fed;
+  --chart-baseline: #c2570c;
+  --chart-grid: #dfe6f5;
+  --chart-track: #e9eef9;
+}
