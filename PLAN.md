@@ -89,10 +89,10 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 11 — Voz grabada
 
-- [ ] `speak(text, rate)` sigue siendo el único punto de salida; `audioKey(text)` + `/audio/manifest.json`; si hay clip lo reproduce (reintento lento con `playbackRate` ~0.9), si no usa `speechSynthesis`
-- [ ] Scripts `npm run audio:list` y `npm run audio:process` (ffmpeg: recorte, ~-16 LUFS, Opus 64 kbps)
-- [ ] Modo grabación en la zona de adultos (MediaRecorder, mimeType detectado, reescuchar/regrabar/saltar, IndexedDB, ZIP) y diagnóstico de textos sin audio
-- [ ] CSP `media-src 'self' blob:`, precache del service worker, prueba con build + preview y sin conexión
+- [x] `speak(text, rate)` sigue siendo el único punto de salida; `audioKey(text)` + `/audio/manifest.json`; si hay clip lo reproduce (reintento lento con `playbackRate` ~0.9), si no usa `speechSynthesis`
+- [x] Scripts `npm run audio:list` y `npm run audio:process` (ffmpeg: recorte, ~-16 LUFS, Opus 64 kbps)
+- [x] Modo grabación en la zona de adultos (MediaRecorder, mimeType detectado, reescuchar/regrabar/saltar, IndexedDB, ZIP) y diagnóstico de textos sin audio
+- [x] CSP `media-src 'self' blob:`, precache del service worker, prueba con build + preview y sin conexión
 
 ## Fase 12 — Grabar al niño, seguimiento y cierre
 

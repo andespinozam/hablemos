@@ -1531,3 +1531,19 @@ ul.profile-grid .profile-tile {
     animation: none !important;
   }
 }
+
+/* ---------- Voz grabada (zona de adultos) ---------- */
+.rec-card {
+  display: grid;
+  gap: 12px;
+}
+.rec-text {
+  margin: 0;
+  font-size: var(--fs-big);
+  font-weight: 900;
+  line-height: 1.25;
+}
+.rec-how {
+  margin: 0;
+  color: var(--ink-soft);
+}

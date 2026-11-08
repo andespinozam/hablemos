@@ -9,7 +9,7 @@ export function Star({ size = 64, className = '' }: { size?: number; className?:
   );
 }
 
-const PRAISES = ['¡Muy bien!', '¡Bravo!', '¡Qué bien lo haces!', '¡Eso es!', '¡Genial!', '¡Excelente!'];
+import { PRAISES } from '../lib/phrases';
 
 export function randomPraise(rng: () => number = Math.random): string {
   return PRAISES[Math.floor(rng() * PRAISES.length)];

@@ -117,6 +117,16 @@ export interface LadderRecord {
   completedAt?: number;
 }
 
+/** Grabación de voz del adulto para un texto (clave `audioKey`). Vive solo en el dispositivo. */
+export interface RecordingRecord {
+  key: string;
+  text: string;
+  mime: string;
+  /** Bytes del audio (ArrayBuffer: más fiable que Blob en Safari antiguo). */
+  data: ArrayBuffer;
+  at: number;
+}
+
 export interface ResultRecord {
   id: string;
   sessionId: string;
@@ -154,13 +164,14 @@ interface HablemosDB extends DBSchema {
   assessments: { key: string; value: AssessmentRecord; indexes: { byProfile: string } };
   pronunciation: { key: string; value: PronunciationRecord; indexes: { byProfile: string } };
   ladders: { key: string; value: LadderRecord; indexes: { byProfile: string } };
+  recordings: { key: string; value: RecordingRecord };
 }
 
 export type HablemosDatabase = IDBPDatabase<HablemosDB>;
 
 export const DB_NAME = 'hablemos';
 /** Al cambiar el esquema: subir este número y agregar un bloque `if (oldVersion < N)`. Nunca editar los anteriores. */
-export const DB_VERSION = 5;
+export const DB_VERSION = 6;
 
 let dbPromise: Promise<HablemosDatabase> | null = null;
 
@@ -184,6 +195,9 @@ export function getDb(): Promise<HablemosDatabase> {
         }
         if (oldVersion < 5) {
           db.createObjectStore('ladders', { keyPath: 'key' }).createIndex('byProfile', 'profileId');
+        }
+        if (oldVersion < 6) {
+          db.createObjectStore('recordings', { keyPath: 'key' });
         }
       },
     });

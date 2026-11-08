@@ -10,7 +10,7 @@ App web instalable (PWA) para **estimular el lenguaje de niños de 3 a 5 años**
 
 - **11 actividades** con voz y retroalimentación solo positiva: escucha y señala, sigue la orden, conceptos, mini cuento, ¿qué es esto?, categorías (arrastrar), arma la frase, praxias orofaciales, onomatopeyas, palabras con fonema objetivo (36 listas, 552 palabras) y discriminación auditiva.
 - **Sesiones guiadas** de 10 a 15 minutos con niveles que se ajustan solos.
-- **Zona de adultos** protegida por una puerta (mantener presionado 3 s o una suma): perfiles, evaluación inicial y reevaluación cada 4 semanas, evaluación de pronunciación por sonido y posición (en bloques de ~5 minutos, pausables), escalera de 6 escalones por sonido con animación de la boca, seguimiento por área y por fonema, reporte imprimible, respaldo en JSON, señales de alerta y una guía de uso.
+- **Zona de adultos** protegida por una puerta (mantener presionado 3 s o una suma): perfiles, evaluación inicial y reevaluación cada 4 semanas, evaluación de pronunciación por sonido y posición (en bloques de ~5 minutos, pausables), escalera de 6 escalones por sonido con animación de la boca, grabación de tu propia voz para reemplazar la voz del sistema, seguimiento por área y por fonema, reporte imprimible, respaldo en JSON, señales de alerta y una guía de uso.
 - Pensada para niños: botones de al menos 72 px, horizontal y vertical, sin lectura obligatoria, sin texto seleccionable en las zonas de juego, la pantalla no se apaga mientras se juega.
 
 El detalle de decisiones y convenciones está en [CLAUDE.md](CLAUDE.md) y el avance por fases en [PLAN.md](PLAN.md).
@@ -35,6 +35,8 @@ Abre <http://localhost:5173>. Comandos disponibles:
 | `npm run build` | Revisa los tipos y genera `dist/` (con el service worker) |
 | `npm run preview` | Sirve `dist/` en <http://localhost:4173> para probar la versión de producción |
 | `npm run icons` | Regenera los íconos PNG de `public/icons` a partir de `public/favicon.svg` |
+| `npm run audio:list` | Extrae todos los textos que la app puede decir (`audio-work/guion.csv` y `.json`) y la cobertura de `public/audio` |
+| `npm run audio:process` | Convierte las grabaciones (carpeta o `--in archivo.zip`) a Opus 64 kbps con ffmpeg (recorta silencios, ~-16 LUFS) en `public/audio` y regenera `manifest.json` |
 
 ### Probarla en una tablet de verdad
 
@@ -96,6 +98,16 @@ La app es un sitio estático: cualquier hosting con **HTTPS** sirve. Las rutas s
 ### Seguridad
 
 El `index.html` compilado lleva una **política de contenido (CSP) estricta**: la app no puede conectarse a ningún servidor externo. Si algún día agregas un recurso externo (una fuente, un script), tendrás que cambiarla en `vite.config.ts`. La política solo se aplica al compilar, no en `npm run dev`: **prueba siempre con `npm run build && npm run preview`**.
+
+## Voz grabada (opcional)
+
+La app habla con la voz del sistema. Si quieres una voz propia y consistente:
+
+1. **Zona de adultos → Voz grabada → Grabar los pendientes.** Graba cada texto (por prioridad) con el micrófono. Exige **https o localhost** y permiso de micrófono; en iPad graba mp4 y en Chrome webm. Se guarda en el dispositivo y la app ya la usa.
+2. **Exportar grabaciones (ZIP)**, descomprimirlo en `audio-work/grabaciones` (o usar `--in archivo.zip`) y correr `npm run audio:process` (necesita **ffmpeg** instalado). Genera `public/audio/*.opus` y `manifest.json`.
+3. `npm run build` y publicar. Los clips se precargan: funcionan sin conexión. Lo que no tenga clip sigue con la voz del sistema.
+
+`npm run audio:list` muestra cuántos textos tienen ya audio. El nombre de cada clip es `audioKey(texto)` (texto normalizado → hash estable): al cambiar la redacción de un texto hay que grabarlo de nuevo.
 
 ## Agregar a la pantalla de inicio
 

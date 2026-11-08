@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
+import { tryAgainWhere } from '../lib/phrases';
 import categoriesContent from '../content/categories.json';
 import { ratingForMistakes } from '../lib/orders';
 import { shuffle } from '../lib/random';
@@ -124,7 +125,7 @@ function SortingView({ item, say, submit }: ItemViewProps) {
     setState(out.state);
     if (out.kind === 'wrong') {
       // Sin sonido ni mensaje de error: el objeto vuelve y se pregunta con calma.
-      say(`Probemos otra vez. ¿Dónde va ${obj.article} ${obj.word}?`);
+      say(tryAgainWhere(obj.article, obj.word));
     } else if (out.complete) {
       done.current = true;
       const rating = ratingForMistakes(out.state.mistakes);

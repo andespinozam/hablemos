@@ -1,4 +1,9 @@
-/** Voz con speechSynthesis: español latino, lenta (~0.85), con carga asíncrona de voces. */
+/**
+ * Voz: `speak` es el ÚNICO punto de salida de voz de la app. Si hay un clip grabado del texto
+ * (`voice.ts`) lo toca; si no, usa speechSynthesis (español latino, lenta ~0.85, con carga
+ * asíncrona de voces).
+ */
+import { playClip, stopClip } from './voice';
 
 export const SPEECH_RATE = 0.85;
 export const SLOW_RATE = 0.7;
@@ -47,10 +52,13 @@ let latest = 0;
  * (o de inmediato si no hay voz): nunca se queda esperando ni lanza errores.
  */
 export async function speak(text: string, rate: number = SPEECH_RATE): Promise<void> {
-  if (!isSpeechSupported() || !text) return;
-  const synth = window.speechSynthesis;
+  if (!text) return;
   const mine = ++latest;
-  synth.cancel();
+  if (isSpeechSupported()) window.speechSynthesis.cancel();
+  // Un clip a la vez: playClip corta el anterior. Con clip, no se usa la voz del sistema.
+  if (await playClip(text, rate)) return;
+  if (mine !== latest || !isSpeechSupported()) return;
+  const synth = window.speechSynthesis;
   const voices = await waitForVoices(synth);
   if (mine !== latest) return; // otra instrucción se pidió mientras cargaban las voces
 
@@ -74,5 +82,6 @@ export async function speak(text: string, rate: number = SPEECH_RATE): Promise<v
 
 export function cancelSpeech(): void {
   latest++;
+  stopClip();
   if (isSpeechSupported()) window.speechSynthesis.cancel();
 }

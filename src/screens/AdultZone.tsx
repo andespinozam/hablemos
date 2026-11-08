@@ -157,6 +157,9 @@ export function AdultZone({ profiles, loadError, onChanged, onExit }: Props) {
         <button type="button" className="btn btn--ghost" onClick={() => go('adultos/respaldo')}>
           💾 Respaldo
         </button>
+        <button type="button" className="btn btn--ghost" onClick={() => go('adultos/voz')}>
+          🎙️ Voz grabada
+        </button>
         <button type="button" className="btn btn--ghost" onClick={() => go('adultos/alertas')}>
           ⚠️ Señales de alerta
         </button>

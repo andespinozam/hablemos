@@ -26,6 +26,7 @@ import { ITEMS_PER_ACTIVITY, planSession } from '../lib/sessionPlan';
 import { playSound } from '../lib/sounds';
 import { useWakeLock } from '../lib/wakeLock';
 import { SLOW_RATE, SPEECH_RATE, cancelSpeech, speak } from '../lib/speech';
+import { FINISH_PHRASE, retryPhrase } from '../lib/phrases';
 import { Celebration } from './Celebration';
 
 interface Step {
@@ -51,8 +52,7 @@ const PRAISE_MS = 1600;
 
 /** Lo que se dice con calma tras un "Aún no": el modelo del ítem, sin puntuación doble. */
 export function retryText(item: Item): string {
-  const model = (item.model ?? item.target).trim().replace(/[.!?¡¿,;:\s]+$/, '');
-  return `Vamos otra vez, con calma. ${model}.`;
+  return retryPhrase(item.model ?? item.target);
 }
 
 interface Props {
@@ -193,8 +193,8 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
     if (pos.stage !== 'done') return;
     void finish(true);
     playSound('fanfare');
-    say(`¡Terminaste! ¡Qué bien jugaste, ${profile.name}!`);
-  }, [pos.stage, finish, say, profile.name]);
+    say(FINISH_PHRASE);
+  }, [pos.stage, finish, say]);
 
   const advance = useCallback(() => {
     if (!plan) return;

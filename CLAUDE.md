@@ -21,6 +21,8 @@ npm test          # Vitest una vez
 npm run build     # tsc + vite build + service worker
 npm run preview   # sirve dist/ (puerto 4173), para probar offline
 npm run icons     # regenera los PNG de public/icons
+npm run audio:list     # todos los textos hablados -> audio-work/guion.csv (+ cobertura)
+npm run audio:process  # grabaciones -> public/audio/*.opus + manifest.json (necesita ffmpeg)
 ```
 
 ## Convenciones
@@ -122,6 +124,15 @@ npm run icons     # regenera los PNG de public/icons
 - Actividades nuevas (ids permanentes): `pares-minimos` (califica sola, sin "Aún no"; `content/minimal-pairs.json` viene de `seed/pares_minimos_v2.json`; `lib/minimalPairs.ts` prefiere los pares que coinciden con la sustitución registrada; la r suave usa los pares l/rr) y `escalera-sonido` (califica el adulto; solo entra si hay escaleras activas y **siempre entra** en ese caso: `planSession(..., must)`). `Activity.isAvailable?(ctx)` y `BuildContext.ladders/ladderLast` son los ganchos nuevos.
 - La sustitución observada se guarda en la escalera (de la evaluación o escrita por el adulto en `adultos/escalera/:id`, que gana) y alimenta el reporte y los pares.
 - El respaldo JSON v1 todavía NO incluye `pronunciation` ni `ladders` (Fase 12). No usar emojis de Emoji 13+ tampoco en botones (p. ej. 🪜).
+
+## Voz grabada (Fase 11)
+
+- **`speak(text, rate)` (`lib/speech.ts`) es el único punto de salida de voz.** Busca un clip (`lib/voice.ts`: grabación local en IndexedDB y luego `audio/manifest.json`) por `audioKey(text)` y, si no hay, usa speechSynthesis como siempre. Un clip a la vez (el nuevo corta el anterior); el reintento lento usa el MISMO clip con `playbackRate` 0,9; si el navegador no deja sonar o el clip falla, cae a la voz del sistema.
+- **`audioKey` (`lib/audioKey.ts`) no se puede cambiar nunca**: nombra los clips (hay vectores fijos en las pruebas). Normaliza (minúsculas, sin puntuación, espacios simples) y usa cyrb53 → 14 hex.
+- Los clips se bajan con `fetch` (del caché del service worker sin conexión) y suenan desde una URL `blob:`: no dependen de peticiones Range (Safari). Por eso la CSP lleva `media-src 'self' blob:` y el precache incluye `*.opus`. `unlockAudio()` también "prepara" el elemento de audio (`primeAudio`).
+- **Todo texto nuevo que diga la app debe pasar por `speak`.** Las frases fijas y derivadas viven en `lib/phrases.ts` (`retryPhrase`, `lookAgain`, `FINISH_PHRASE`…) para que `lib/audioTexts.ts` (recolector: muestrea los ejercicios con muchas semillas + escalera + palabras de fonemas) las conozca. Lo que se escape se anota en uso (`voice.noteMissing`) y aparece con ★ en el diagnóstico. La frase final ya no lleva el nombre del niño, para poder grabarla una vez.
+- IndexedDB v6: almacén `recordings` (clave `audioKey`, bytes en ArrayBuffer). No es dato del niño; no está en el respaldo.
+- Scripts `scripts/audio-*.mjs` cargan los módulos TS de la app con Vite (`scripts/_load.mjs`); la lógica pura de procesado está en `lib/audioProcess.ts` (con pruebas). Pantallas: `adultos/voz` (diagnóstico, exportar ZIP, borrar) y `adultos/grabar` (modo grabación). ZIP sin compresión propio: `lib/zip.ts`.
 
 ## Publicación
 

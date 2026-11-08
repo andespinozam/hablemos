@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import content from '../content/orders.json';
+import { lookAgain } from '../lib/phrases';
 import { ratingForMistakes, tryMove, type Move } from '../lib/orders';
 import { shuffle } from '../lib/random';
 import type { Activity, Item, ItemViewProps } from './types';
@@ -60,7 +61,7 @@ function FollowOrderView({ item, say, submit }: ItemViewProps) {
       // Sin sonido ni mensaje de error: el objeto vuelve y se repite la orden con calma.
       setMistakes((m) => m + 1);
       setSelected(null);
-      say(`Mira otra vez. ${item.prompt}`);
+      say(lookAgain(item.prompt));
     }
   };
 

@@ -1,5 +1,6 @@
 import { useRef, useState, type ReactNode } from 'react';
 import { INITIAL_CHOICE, choose, showHint, type ChoiceState } from '../lib/choice';
+import { lookAgain } from '../lib/phrases';
 import type { Rating } from '../lib/scoring';
 
 export interface ChoiceOption {
@@ -43,7 +44,7 @@ export function ChoiceBoard({ options, correctId, prompt, say, submit, retrySay,
       submit(outcome.rating);
     } else if (outcome.kind === 'wrong') {
       setState(outcome.state);
-      say(retrySay ?? `Mira otra vez. ${prompt}`);
+      say(retrySay ?? lookAgain(prompt));
       onWrong?.();
     }
   };

@@ -17,7 +17,7 @@ const CSP = [
   "connect-src 'self'",
   "manifest-src 'self'",
   "worker-src 'self'",
-  "media-src 'none'",
+  "media-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'none'",
@@ -57,7 +57,8 @@ export default defineConfig({
       },
       workbox: {
         // Precarga todo (JS, CSS, fuentes, íconos, JSON de contenido) para uso sin conexión.
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2,json,webmanifest}'],
+        // Incluye los clips de voz grabada (audio/*.opus) y su manifiesto (json).
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2,json,webmanifest,opus}'],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
       },

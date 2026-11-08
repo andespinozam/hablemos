@@ -4,6 +4,7 @@
  */
 
 import { rhythmDuration, rhythmSchedule, type Pattern } from './rhythm';
+import { primeAudio } from './voice';
 
 export type SoundKind = 'chime' | 'star' | 'fanfare';
 
@@ -61,6 +62,7 @@ function getContext(): AudioContext | null {
 export function unlockAudio(): void {
   const c = getContext();
   if (c && c.state === 'suspended') void c.resume().catch(() => undefined);
+  primeAudio(); // también el elemento que toca los clips de voz grabada
 }
 
 /** Una nota suave con ataque y caída sin chasquidos. */

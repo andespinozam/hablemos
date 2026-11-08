@@ -45,7 +45,7 @@ describe('contenido de la guía', () => {
         expect(body.length, s.id).toBeGreaterThan(0);
       }
     }
-    for (const id of ['empezar', 'sesion', 'tu-papel', 'actividades', 'niveles', 'evaluacion', 'pronunciacion', 'seguimiento', 'privacidad', 'alertas']) {
+    for (const id of ['empezar', 'sesion', 'tu-papel', 'actividades', 'niveles', 'evaluacion', 'pronunciacion', 'voz', 'seguimiento', 'privacidad', 'alertas']) {
       expect(ids, id).toContain(id);
     }
   });
@@ -79,6 +79,15 @@ describe('contenido de la guía', () => {
     expect(t).toContain(`${LADDER_STEPS.length} escalones`);
     expect(t).toContain(`${LADDER_SESSIONS} sesiones distintas`);
     expect(t).toContain(`hasta ${MAX_ACTIVE_LADDERS} sonidos`);
+  });
+
+  it('la guía de voz grabada explica el respaldo con la voz del sistema, https y los scripts', () => {
+    const t = text('voz');
+    expect(t).toMatch(/voz del sistema/);
+    expect(t).toMatch(/https/);
+    expect(t).toMatch(/npm run audio:list/);
+    expect(t).toMatch(/npm run audio:process/);
+    expect(t).toMatch(/como sonido, no como nombre de letra/);
   });
 
   it('aclara que la app no califica la pronunciación, y repite la nota de alcance', () => {

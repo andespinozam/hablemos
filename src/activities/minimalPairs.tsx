@@ -1,4 +1,5 @@
 import { ChoiceBoard, type ChoiceOption } from '../components/ChoiceBoard';
+import { listenAgain } from '../lib/phrases';
 import { selectPairItems, type PairTarget } from '../lib/minimalPairs';
 import { shuffle } from '../lib/random';
 import type { Activity, Item, ItemViewProps } from './types';
@@ -21,7 +22,7 @@ function MinimalPairView({ item, say, submit }: ItemViewProps) {
       options={options}
       correctId={data.correct}
       prompt={item.prompt}
-      retrySay={`Escucha otra vez. ${item.target}.`}
+      retrySay={listenAgain(item.model ?? item.target)}
       say={say}
       submit={submit}
     />

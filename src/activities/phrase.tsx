@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { lookAgain } from '../lib/phrases';
 import content from '../content/phrases.json';
 import { INITIAL_CHOICE, choose, showHint, type ChoiceState } from '../lib/choice';
 import { ratingForMistakes } from '../lib/orders';
@@ -65,7 +66,7 @@ function PhraseView({ item, say, submit }: ItemViewProps) {
       // Sin sonido ni mensaje de error: la ficha se atenúa y se repite la frase.
       setChoice(out.state);
       setMistakes((m) => m + 1);
-      say(`Mira otra vez. ${data.spoken}`);
+      say(lookAgain(data.spoken));
     } else if (out.kind === 'correct') {
       setChoice(INITIAL_CHOICE);
       setStep(step + 1);
