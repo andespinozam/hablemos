@@ -10,6 +10,7 @@ import {
   responseOf,
   substitutionOptions,
 } from '../lib/pronunciation';
+import { syncLaddersFromEvaluation } from '../lib/ladderStore';
 import { getPronunciation, saveResponse } from '../lib/pronunciationStore';
 import { go } from '../lib/router';
 import { speak } from '../lib/speech';
@@ -133,6 +134,10 @@ export function PronunciationRunner({ profile, recordId }: Props) {
       const saved = await saveResponse(record.id, { itemId: item.id, mode, status, substitution, at: Date.now() });
       if (!saved) throw new Error('sin registro');
       setRecord(saved);
+      // Al terminar la evaluación, cada sonido "a estimular" recibe su escalera.
+      if (saved.completedAt !== undefined && record.completedAt === undefined) {
+        syncLaddersFromEvaluation(saved).catch((e) => console.error(e));
+      }
       if (pos + 1 < block.length) setPos(pos + 1);
       else setPhase('block-end');
     } catch (e) {

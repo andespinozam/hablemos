@@ -1,6 +1,7 @@
 import { ACTIVITIES } from '../activities/registry';
 import { AlertSigns } from '../components/AlertSigns';
 import { BarChart, TrendChart } from '../components/Charts';
+import { LadderSummary } from '../components/LadderSummary';
 import { PronunciationResults } from '../components/PronunciationResults';
 import { ReassessmentBanner } from '../components/ReassessmentBanner';
 import { ageInYears, formatAge } from '../lib/age';
@@ -57,7 +58,7 @@ export function Progress({ profile }: { profile: ChildProfile }) {
 
       {state.status === 'ready' &&
         (() => {
-          const { results, sessions, assessments, levels, pronunciation } = state.data;
+          const { results, sessions, assessments, levels, pronunciation, ladders } = state.data;
           const practice = practiceResults(results, sessions);
           const percents = areaPercents(practice);
           const rows = AREA_ORDER.filter((id) => percents[id] !== undefined).map((id) => ({ id, label: AREA_LABELS[id] ?? id, value: percents[id] ?? null }));
@@ -145,6 +146,15 @@ export function Progress({ profile }: { profile: ChildProfile }) {
                   </>
                 ) : (
                   <p>Aún no hay una evaluación de pronunciación terminada.</p>
+                )}
+                {ladders.length > 0 && (
+                  <>
+                    <h3>Escalera de pronunciación</h3>
+                    <LadderSummary ladders={ladders} />
+                    <button type="button" className="btn btn--ghost no-print" onClick={() => go(`adultos/escalera/${profile.id}`)}>
+                      📈 Ver la escalera
+                    </button>
+                  </>
                 )}
                 <button type="button" className="btn btn--ghost no-print" onClick={() => go(`adultos/pronunciacion/${profile.id}`)}>
                   🗣️ Ir a la evaluación de pronunciación

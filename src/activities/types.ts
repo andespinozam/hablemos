@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import type { LadderRecord } from '../lib/db';
 import type { PhonemeStat } from '../lib/phonemeStats';
 import type { Rng } from '../lib/random';
 import type { Rating } from '../lib/scoring';
@@ -51,6 +52,10 @@ export interface BuildContext {
   age: number;
   /** Resumen por fonema de lo practicado (id de fonema → estadística). */
   phonemes: Record<string, PhonemeStat>;
+  /** Escaleras de pronunciación del niño (Fase 10). */
+  ladders?: LadderRecord[];
+  /** Última vez (ms) que se practicó cada sonido en la escalera. */
+  ladderLast?: Record<string, number>;
 }
 
 export interface Activity {
@@ -68,6 +73,8 @@ export interface Activity {
   adultRated: boolean;
   /** Ítems por sesión (por defecto `ITEMS_PER_ACTIVITY`). */
   itemCount?: number;
+  /** Si devuelve false, la actividad no entra en la sesión (p. ej. sin escaleras activas). */
+  isAvailable?(ctx: BuildContext): boolean;
   buildItems(level: number, count: number, rng: Rng, ctx?: BuildContext): Item[];
   ItemView: ComponentType<ItemViewProps>;
 }

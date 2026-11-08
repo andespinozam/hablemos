@@ -68,7 +68,8 @@
         "Se revisan los sonidos de su edad (2 o 3 palabras de cada uno, al inicio, en medio y al final), una o dos metas de la edad siguiente como opcionales y una mini revisión de sílabas átonas y grupos de consonantes.",
         "Se hace en bloques de unos 5 minutos. Puedes pausar en cualquier momento y retomar otro día: lo marcado queda guardado en el dispositivo.",
         "El resultado muestra cada sonido por posición, con la sustitución y si fue constante o variable, y lo clasifica como esperable para su edad, a estimular o consolidado (80 % o más). Propone un orden de trabajo: primero sonidos tempranos que aún no logra, luego los de su edad y al final los tardíos como metas suaves y opcionales.",
-        "Cada 4 semanas se sugiere reevaluar con las mismas palabras en otro orden y comparar. Los resultados también salen en Seguimiento y en el Reporte. Son orientativos: no son un diagnóstico."
+        "Cada 4 semanas se sugiere reevaluar con las mismas palabras en otro orden y comparar. Los resultados también salen en Seguimiento y en el Reporte. Son orientativos: no son un diagnóstico.",
+        "Los sonidos \"a estimular\" reciben una escalera de 6 escalones (Seguimiento > Pronunciación > Escalera de pronunciación): escuchar el modelo, mirar la boca, sonido aislado, sílaba, palabra y frase corta. Se trabajan hasta 3 sonidos a la vez, empezando por los tempranos. Se sube de escalón con \"Lo logró\" en 3 sesiones distintas. Ahí también puedes corregir qué sonido dice en lugar del correcto: se usa para elegir los pares de palabras y sale en el reporte."
       ]
     },
     {
@@ -140,6 +141,14 @@
     "discriminacion": {
       "what": "¿Igual o diferente?, ritmos de golpes cortos y largos, y contar las partes de una palabra con palmadas.",
       "adult": "Se califica sola. En las palmadas, tras dos intentos la app cuenta junto con el niño."
+    },
+    "pares-minimos": {
+      "what": "Dos dibujos de palabras casi iguales (como lana y rana). La app dice una y el niño toca la que oyó. Si el niño cambia un sonido por otro, usa los pares de esos sonidos.",
+      "adult": "Se califica sola. Nunca marca \"Aún no\": si se equivoca, se atenúa la opción y se repite la palabra con calma."
+    },
+    "escalera-sonido": {
+      "what": "Practica un sonido que está \"a estimular\" en 6 escalones: escuchar el modelo, mirar la boca (animación), sonido aislado, sílaba, palabra y frase corta. Solo aparece si el niño tiene escaleras activas.",
+      "adult": "Tú calificas. Con \"Lo logró\" en 3 sesiones distintas se sube de escalón; \"Con ayuda\" o \"Aún no\" no hacen retroceder. La app NO califica la pronunciación."
     }
   },
   "troubleshooting": [

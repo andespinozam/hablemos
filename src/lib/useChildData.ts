@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import { listAssessments } from './assessmentStore';
-import type { AssessmentRecord, PronunciationRecord, ResultRecord, SessionRecord } from './db';
+import type { AssessmentRecord, LadderRecord, PronunciationRecord, ResultRecord, SessionRecord } from './db';
 import { getLevels, listResults, listSessions } from './progress';
+import { listLadders } from './ladderStore';
 import { listPronunciation } from './pronunciationStore';
 
 export interface ChildData {
@@ -9,6 +10,7 @@ export interface ChildData {
   sessions: SessionRecord[];
   assessments: AssessmentRecord[];
   pronunciation: PronunciationRecord[];
+  ladders: LadderRecord[];
   levels: Record<string, number>;
 }
 
@@ -20,9 +22,9 @@ export function useChildData(profileId: string): ChildDataState {
   useEffect(() => {
     let alive = true;
     setState({ status: 'loading' });
-    Promise.all([listResults(profileId), listSessions(profileId), listAssessments(profileId), getLevels(profileId), listPronunciation(profileId)])
-      .then(([results, sessions, assessments, levels, pronunciation]) => {
-        if (alive) setState({ status: 'ready', data: { results, sessions, assessments, levels, pronunciation } });
+    Promise.all([listResults(profileId), listSessions(profileId), listAssessments(profileId), getLevels(profileId), listPronunciation(profileId), listLadders(profileId)])
+      .then(([results, sessions, assessments, levels, pronunciation, ladders]) => {
+        if (alive) setState({ status: 'ready', data: { results, sessions, assessments, levels, pronunciation, ladders } });
       })
       .catch((e) => {
         console.error(e);

@@ -1,0 +1,445 @@
+{
+ "nota": "Pares mínimos (seed/pares_minimos_v2.json). Dos dibujos, se dice una palabra y el niño elige. `sounds` son ids de phonemes.json. Ampliable sin tocar código; revisar con un fonoaudiólogo.",
+ "pairs": [
+  {
+   "id": "pm_lana_rana",
+   "contrast": "l/rr",
+   "sounds": [
+    "l",
+    "rr"
+   ],
+   "a": {
+    "word": "lana",
+    "syllables": [
+     "la",
+     "na"
+    ],
+    "emoji": "🧶",
+    "sound": "l"
+   },
+   "b": {
+    "word": "rana",
+    "syllables": [
+     "ra",
+     "na"
+    ],
+    "emoji": "🐸",
+    "sound": "rr"
+   }
+  },
+  {
+   "id": "pm_lata_rata",
+   "contrast": "l/rr",
+   "sounds": [
+    "l",
+    "rr"
+   ],
+   "a": {
+    "word": "lata",
+    "syllables": [
+     "la",
+     "ta"
+    ],
+    "emoji": "🥫",
+    "sound": "l"
+   },
+   "b": {
+    "word": "rata",
+    "syllables": [
+     "ra",
+     "ta"
+    ],
+    "emoji": "🐀",
+    "sound": "rr"
+   }
+  },
+  {
+   "id": "pm_pelo_perro",
+   "contrast": "l/rr",
+   "sounds": [
+    "l",
+    "rr"
+   ],
+   "a": {
+    "word": "pelo",
+    "syllables": [
+     "pe",
+     "lo"
+    ],
+    "emoji": "💇",
+    "sound": "l"
+   },
+   "b": {
+    "word": "perro",
+    "syllables": [
+     "pe",
+     "rro"
+    ],
+    "emoji": "🐶",
+    "sound": "rr"
+   }
+  },
+  {
+   "id": "pm_mono_moño",
+   "contrast": "n/ñ",
+   "sounds": [
+    "n",
+    "ñ"
+   ],
+   "a": {
+    "word": "mono",
+    "syllables": [
+     "mo",
+     "no"
+    ],
+    "emoji": "🐒",
+    "sound": "n"
+   },
+   "b": {
+    "word": "moño",
+    "syllables": [
+     "mo",
+     "ño"
+    ],
+    "emoji": "🎀",
+    "sound": "ñ"
+   }
+  },
+  {
+   "id": "pm_uno_uña",
+   "contrast": "n/ñ",
+   "sounds": [
+    "n",
+    "ñ"
+   ],
+   "a": {
+    "word": "uno",
+    "syllables": [
+     "u",
+     "no"
+    ],
+    "emoji": "1️⃣",
+    "sound": "n"
+   },
+   "b": {
+    "word": "uña",
+    "syllables": [
+     "u",
+     "ña"
+    ],
+    "emoji": "💅",
+    "sound": "ñ"
+   }
+  },
+  {
+   "id": "pm_piña_pila",
+   "contrast": "ñ/l",
+   "sounds": [
+    "ñ",
+    "l"
+   ],
+   "a": {
+    "word": "piña",
+    "syllables": [
+     "pi",
+     "ña"
+    ],
+    "emoji": "🍍",
+    "sound": "ñ"
+   },
+   "b": {
+    "word": "pila",
+    "syllables": [
+     "pi",
+     "la"
+    ],
+    "emoji": "🔋",
+    "sound": "l"
+   }
+  },
+  {
+   "id": "pm_ola_olla",
+   "contrast": "l/y",
+   "sounds": [
+    "l",
+    "y"
+   ],
+   "a": {
+    "word": "ola",
+    "syllables": [
+     "o",
+     "la"
+    ],
+    "emoji": "🌊",
+    "sound": "l"
+   },
+   "b": {
+    "word": "olla",
+    "syllables": [
+     "o",
+     "lla"
+    ],
+    "emoji": "🍲",
+    "sound": "y"
+   }
+  },
+  {
+   "id": "pm_saco_taco",
+   "contrast": "s/t",
+   "sounds": [
+    "s",
+    "t"
+   ],
+   "a": {
+    "word": "saco",
+    "syllables": [
+     "sa",
+     "co"
+    ],
+    "emoji": "👜",
+    "sound": "s"
+   },
+   "b": {
+    "word": "taco",
+    "syllables": [
+     "ta",
+     "co"
+    ],
+    "emoji": "🌮",
+    "sound": "t"
+   }
+  },
+  {
+   "id": "pm_sala_pala",
+   "contrast": "s/p",
+   "sounds": [
+    "s",
+    "p"
+   ],
+   "a": {
+    "word": "sala",
+    "syllables": [
+     "sa",
+     "la"
+    ],
+    "emoji": "🛋️",
+    "sound": "s"
+   },
+   "b": {
+    "word": "pala",
+    "syllables": [
+     "pa",
+     "la"
+    ],
+    "emoji": "⛏️",
+    "sound": "p"
+   }
+  },
+  {
+   "id": "pm_oso_ojo",
+   "contrast": "s/j",
+   "sounds": [
+    "s",
+    "j"
+   ],
+   "a": {
+    "word": "oso",
+    "syllables": [
+     "o",
+     "so"
+    ],
+    "emoji": "🐻",
+    "sound": "s"
+   },
+   "b": {
+    "word": "ojo",
+    "syllables": [
+     "o",
+     "jo"
+    ],
+    "emoji": "👁️",
+    "sound": "j"
+   }
+  },
+  {
+   "id": "pm_sopa_copa",
+   "contrast": "s/k",
+   "sounds": [
+    "s",
+    "k"
+   ],
+   "a": {
+    "word": "sopa",
+    "syllables": [
+     "so",
+     "pa"
+    ],
+    "emoji": "🥣",
+    "sound": "s"
+   },
+   "b": {
+    "word": "copa",
+    "syllables": [
+     "co",
+     "pa"
+    ],
+    "emoji": "🏆",
+    "sound": "k"
+   }
+  },
+  {
+   "id": "pm_sopa_ropa",
+   "contrast": "s/rr",
+   "sounds": [
+    "s",
+    "rr"
+   ],
+   "a": {
+    "word": "sopa",
+    "syllables": [
+     "so",
+     "pa"
+    ],
+    "emoji": "🥣",
+    "sound": "s"
+   },
+   "b": {
+    "word": "ropa",
+    "syllables": [
+     "ro",
+     "pa"
+    ],
+    "emoji": "👚",
+    "sound": "rr"
+   }
+  },
+  {
+   "id": "pm_chal_sal",
+   "contrast": "ch/s",
+   "sounds": [
+    "ch",
+    "s"
+   ],
+   "a": {
+    "word": "chal",
+    "syllables": [
+     "chal"
+    ],
+    "emoji": "🧣",
+    "sound": "ch"
+   },
+   "b": {
+    "word": "sal",
+    "syllables": [
+     "sal"
+    ],
+    "emoji": "🧂",
+    "sound": "s"
+   }
+  },
+  {
+   "id": "pm_casa_taza",
+   "contrast": "k/t",
+   "sounds": [
+    "k",
+    "t"
+   ],
+   "a": {
+    "word": "casa",
+    "syllables": [
+     "ca",
+     "sa"
+    ],
+    "emoji": "🏠",
+    "sound": "k"
+   },
+   "b": {
+    "word": "taza",
+    "syllables": [
+     "ta",
+     "za"
+    ],
+    "emoji": "☕",
+    "sound": "t"
+   }
+  },
+  {
+   "id": "pm_gota_bota",
+   "contrast": "g/b",
+   "sounds": [
+    "g",
+    "b"
+   ],
+   "a": {
+    "word": "gota",
+    "syllables": [
+     "go",
+     "ta"
+    ],
+    "emoji": "💧",
+    "sound": "g"
+   },
+   "b": {
+    "word": "bota",
+    "syllables": [
+     "bo",
+     "ta"
+    ],
+    "emoji": "🥾",
+    "sound": "b"
+   }
+  },
+  {
+   "id": "pm_gato_pato",
+   "contrast": "g/p",
+   "sounds": [
+    "g",
+    "p"
+   ],
+   "a": {
+    "word": "gato",
+    "syllables": [
+     "ga",
+     "to"
+    ],
+    "emoji": "🐱",
+    "sound": "g"
+   },
+   "b": {
+    "word": "pato",
+    "syllables": [
+     "pa",
+     "to"
+    ],
+    "emoji": "🦆",
+    "sound": "p"
+   }
+  },
+  {
+   "id": "pm_fuego_juego",
+   "contrast": "f/j",
+   "sounds": [
+    "f",
+    "j"
+   ],
+   "a": {
+    "word": "fuego",
+    "syllables": [
+     "fue",
+     "go"
+    ],
+    "emoji": "🔥",
+    "sound": "f"
+   },
+   "b": {
+    "word": "juego",
+    "syllables": [
+     "jue",
+     "go"
+    ],
+    "emoji": "🎮",
+    "sound": "j"
+   }
+  }
+ ]
+}

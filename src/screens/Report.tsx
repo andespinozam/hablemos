@@ -1,6 +1,7 @@
 import { ACTIVITIES } from '../activities/registry';
 import { AlertSigns } from '../components/AlertSigns';
 import { BarChart, CompareChart, TrendChart } from '../components/Charts';
+import { LadderSummary } from '../components/LadderSummary';
 import { PronunciationResults } from '../components/PronunciationResults';
 import { formatDate } from '../components/ReassessmentBanner';
 import { ageInYears, formatAge } from '../lib/age';
@@ -57,7 +58,7 @@ export function Report({ profile }: { profile: ChildProfile }) {
 
       {state.status === 'ready' &&
         (() => {
-          const { results, sessions, assessments, levels, pronunciation } = state.data;
+          const { results, sessions, assessments, levels, pronunciation, ladders } = state.data;
           const practice = practiceResults(results, sessions);
           const percents = areaPercents(practice);
           const areaRows = AREA_ORDER.filter((id) => percents[id] !== undefined).map((id) => ({ id, label: AREA_LABELS[id] ?? id, value: percents[id] ?? null }));
@@ -141,6 +142,14 @@ export function Report({ profile }: { profile: ChildProfile }) {
                 <section className="report-section">
                   <h2>Evaluación de pronunciación</h2>
                   <PronunciationResults records={pronunciation} />
+                </section>
+              )}
+
+              {ladders.length > 0 && (
+                <section className="report-section">
+                  <h2>Escalera de pronunciación</h2>
+                  <LadderSummary ladders={ladders} />
+                  <p className="chart-note">Sube de escalón con “Lo logró” en 3 sesiones distintas. La sustitución es la observada y marcada por el adulto.</p>
                 </section>
               )}
 

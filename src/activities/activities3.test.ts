@@ -12,18 +12,18 @@ import type { BuildContext } from './types';
 const unique = <T>(xs: readonly T[]) => new Set(xs).size === xs.length;
 const SEEDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-describe('registro 1-11', () => {
-  it('tiene las 11 actividades, con ids únicos y todas con minAge 3', () => {
-    expect(ACTIVITIES).toHaveLength(11);
+describe('registro 1-13', () => {
+  it('tiene las 13 actividades, con ids únicos y todas con minAge 3', () => {
+    expect(ACTIVITIES).toHaveLength(13);
     expect(unique(ACTIVITIES.map((a) => a.id))).toBe(true);
-    expect(ACTIVITIES.map((a) => a.id).slice(7)).toEqual(['praxias', 'onomatopeyas', 'palabras-fonema', 'discriminacion']);
+    expect(ACTIVITIES.map((a) => a.id).slice(7)).toEqual(['praxias', 'onomatopeyas', 'palabras-fonema', 'discriminacion', 'pares-minimos', 'escalera-sonido']);
   });
-  it('califican los adultos: ¿Qué es esto?, praxias, onomatopeyas y palabras con fonema', () => {
+  it('califican los adultos: ¿Qué es esto?, praxias, onomatopeyas, palabras con fonema y la escalera', () => {
     expect(
       ACTIVITIES.filter((a) => a.adultRated)
         .map((a) => a.id)
         .sort(),
-    ).toEqual(['que-es-esto', 'praxias', 'onomatopeyas', 'palabras-fonema'].sort());
+    ).toEqual(['que-es-esto', 'praxias', 'onomatopeyas', 'palabras-fonema', 'escalera-sonido'].sort());
   });
 });
 

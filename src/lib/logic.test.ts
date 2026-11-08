@@ -110,3 +110,18 @@ describe('shuffle', () => {
     expect(src).toEqual([1, 2, 3, 4, 5]);
   });
 });
+
+describe('planSession con actividades obligatorias', () => {
+  const cands = ['a', 'b', 'c', 'd', 'e', 'f'].map((id) => ({ id, minAge: 3 }));
+  it('siempre incluye las obligatorias elegibles, aunque estén muy practicadas', () => {
+    for (let s = 0; s < 20; s++) {
+      const ids = planSession(cands, { age: 4, lastPracticed: { a: 999 } }, () => (s % 10) / 10, ['a']);
+      expect(ids).toContain('a');
+      expect(ids.length).toBeGreaterThanOrEqual(3);
+      expect(new Set(ids).size).toBe(ids.length);
+    }
+  });
+  it('ignora una obligatoria que no es elegible por edad', () => {
+    expect(planSession([...cands, { id: 'z', minAge: 5 }], { age: 3, lastPracticed: {} }, () => 0.9, ['z'])).not.toContain('z');
+  });
+});

@@ -26,7 +26,7 @@ describe('migración de la base de datos (los datos de familias reales no se pue
 
     const db = await getDb();
     expect(db.version).toBe(DB_VERSION);
-    expect([...db.objectStoreNames].sort()).toEqual(['assessments', 'levels', 'profiles', 'pronunciation', 'results', 'sessions']);
+    expect([...db.objectStoreNames].sort()).toEqual(['assessments', 'ladders', 'levels', 'profiles', 'pronunciation', 'results', 'sessions']);
     expect(await db.get('profiles', 'p1')).toEqual(profile);
     expect(await db.getAll('sessions')).toEqual([]);
   });
@@ -84,10 +84,35 @@ describe('migración de la base de datos (los datos de familias reales no se pue
     expect(await db.getAllFromIndex('assessments', 'byProfile', 'p1')).toEqual([assessment]);
   });
 
+  it('desde la versión 4 (con pronunciación): conserva todo y agrega ladders', async () => {
+    const v4 = await openDB(DB_NAME, 4, {
+      upgrade(db) {
+        db.createObjectStore('profiles', { keyPath: 'id' });
+        db.createObjectStore('sessions', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+        db.createObjectStore('results', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+        db.createObjectStore('levels', { keyPath: 'key' }).createIndex('byProfile', 'profileId');
+        db.createObjectStore('assessments', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+        db.createObjectStore('pronunciation', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+      },
+    });
+    const pron = { id: 'pr1', profileId: 'p1', kind: 'baseline', createdAt: 9, ageYears: 4, items: [], responses: [] };
+    await v4.put('profiles', profile);
+    await v4.put('pronunciation', pron);
+    v4.close();
+
+    const db = await getDb();
+    expect(db.version).toBe(DB_VERSION);
+    expect(await db.get('profiles', 'p1')).toEqual(profile);
+    expect(await db.get('pronunciation', 'pr1')).toEqual(pron);
+    expect(db.objectStoreNames.contains('ladders')).toBe(true);
+    expect(await db.getAllFromIndex('ladders', 'byProfile', 'p1')).toEqual([]);
+    expect(await db.getAllFromIndex('pronunciation', 'byProfile', 'p1')).toEqual([pron]);
+  });
+
   it('una base nueva se crea directamente en la última versión', async () => {
     const db = await getDb();
     expect(db.version).toBe(DB_VERSION);
-    expect([...db.objectStoreNames].sort()).toEqual(['assessments', 'levels', 'profiles', 'pronunciation', 'results', 'sessions']);
+    expect([...db.objectStoreNames].sort()).toEqual(['assessments', 'ladders', 'levels', 'profiles', 'pronunciation', 'results', 'sessions']);
   });
 
   it('abrir una base ya migrada no vuelve a tocar los datos', async () => {

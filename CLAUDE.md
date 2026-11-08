@@ -107,6 +107,22 @@ npm run icons     # regenera los PNG de public/icons
 - `screens/Guide.tsx` + `content/guide.json` (ruta `adultos/guia`). Las descripciones de las 11 actividades salen de `guide.json` (`activities`, por id): **al agregar una actividad hay que describirla ahí** o `screens/guide.test.ts` falla. Esa prueba también exige que los números de la guía (80 %, 40 %, 3 sesiones, 34 ejercicios, 4 semanas, 3 segundos) coincidan con el código.
 - El índice de la guía usa botones con `scrollIntoView`, **no enlaces `#`** (el hash es de las rutas).
 - `README.md` documenta instalación, comandos, despliegue y cómo agregar la app a la pantalla de inicio en Android e iPad. Mantenerlo al día si cambian los comandos o el despliegue. Lo pendiente está al final de `PLAN.md`.
+## Evaluación de pronunciación (Fase 9)
+
+- **IndexedDB v4**: almacén `pronunciation` (`PronunciationRecord`: ítems completos + respuestas, `completedAt` al responder todo). No crea sesiones ni resultados: **no cuenta para niveles, rachas ni práctica**. `deleteProgress` también la borra.
+- Lógica en `lib/pronunciation.ts` (pura, con `rng`/`now` como parámetros) y `lib/pronunciationStore.ts`. Ítems: 2-3 palabras por fonema de la edad (cubriendo inicio/medio/final con `positionOf`), 1-2 fonemas opcionales de la edad siguiente (a los 5, avanzados) y mini revisión de procesos (3 palabras de 3+ sílabas, 3 con grupos). Ajustes en `content/pronunciation.json`; sustituciones frecuentes en `content/substitutions.json` (cada fonema debe tener entrada; hay prueba).
+- Bloques de ~12 palabras (~5 min) sin separar las de un mismo fonema (`chunkBlocks`); cada respuesta se guarda al marcarla, así que se pausa y se retoma. Reevaluación a 28 días con los mismos ítems en otro orden (`shuffleForRepeat`).
+- Clasificación: consolidado (>= 80 %), esperable para su edad (sonido de edad mayor o avanzado) o a estimular. **Orientativa; la app NO califica la pronunciación.**
+- Rutas: `adultos/pronunciacion/:id` (inicio y resultados) y `adultos/pronunciar/:id/:recordId` (evaluador).
+## Escalera y pares mínimos (Fase 10)
+
+- **IndexedDB v5**: almacén `ladders` (`perfil:fonema`). `lib/ladder.ts` (puro) y `lib/ladderStore.ts`. Al terminar una evaluación de pronunciación, cada sonido "a estimular" recibe su escalera (en orden de trabajo); solo 3 están activas a la vez, el resto espera. Los esperables/tardíos no activan escalera.
+- 6 escalones (`content/ladder.json`: modelo, boca, sonido aislado, sílaba, palabra, frase). Se sube de escalón con "Lo logró" en **3 sesiones distintas** (`SESSIONS_TO_ADVANCE`); "Con ayuda"/"Aún no" no suman ni restan. El escalón viaja en el `itemId` del resultado (`escalera/<fonema>/<escalón>/<n>`); `applyLadderProgress` se llama al terminar la sesión de práctica.
+- `content/ladder.json`: `say` (cómo decir el SONIDO, aproximación para la voz del sistema; la Fase 11 la reemplaza por grabaciones), `mouth` (pose para `components/MouthGuide.tsx`), `cue` y `warmups` (r y rr: ejercicios previos de lengua sin presión). Al agregar un fonema, agregar su entrada (hay prueba).
+- Actividades nuevas (ids permanentes): `pares-minimos` (califica sola, sin "Aún no"; `content/minimal-pairs.json` viene de `seed/pares_minimos_v2.json`; `lib/minimalPairs.ts` prefiere los pares que coinciden con la sustitución registrada; la r suave usa los pares l/rr) y `escalera-sonido` (califica el adulto; solo entra si hay escaleras activas y **siempre entra** en ese caso: `planSession(..., must)`). `Activity.isAvailable?(ctx)` y `BuildContext.ladders/ladderLast` son los ganchos nuevos.
+- La sustitución observada se guarda en la escalera (de la evaluación o escrita por el adulto en `adultos/escalera/:id`, que gana) y alimenta el reporte y los pares.
+- El respaldo JSON v1 todavía NO incluye `pronunciation` ni `ladders` (Fase 12). No usar emojis de Emoji 13+ tampoco en botones (p. ej. 🪜).
+
 ## Publicación
 
 - **Fuentes**: `src/styles/fonts.css` declara solo Nunito latin y latin-ext (cubren todo el español). No volver a importar `@fontsource-variable/nunito` entero: precargaría cirílico y vietnamita sin uso. Si se agrega un idioma, sumar su subconjunto aquí.

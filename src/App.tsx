@@ -13,6 +13,7 @@ import { AdultZone } from './screens/AdultZone';
 import { ChildHome } from './screens/ChildHome';
 import { ProfileForm } from './screens/ProfileForm';
 import { ProfilePicker } from './screens/ProfilePicker';
+import { LadderHome } from './screens/LadderHome';
 import { PronunciationHome } from './screens/PronunciationHome';
 import { PronunciationRunner } from './screens/PronunciationRunner';
 import { Progress } from './screens/Progress';
@@ -34,6 +35,7 @@ export function titleFor(route: string): string {
       evaluacion: 'Evaluación',
       evaluar: 'Evaluando',
       pronunciacion: 'Pronunciación',
+      escalera: 'Escalera de pronunciación',
       pronunciar: 'Evaluando pronunciación',
       reporte: 'Reporte',
       respaldo: 'Respaldo',
@@ -154,6 +156,11 @@ export function App() {
         const profile = profileOf(adultRoute.id);
         if (!profile) break;
         return <PronunciationHome profile={profile} />;
+      }
+      case 'escalera': {
+        const profile = profileOf(adultRoute.id);
+        if (!profile) break;
+        return <LadderHome profile={profile} />;
       }
       case 'pronunciar': {
         const profile = profileOf(adultRoute.id);

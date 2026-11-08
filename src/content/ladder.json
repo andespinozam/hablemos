@@ -1,0 +1,62 @@
+{
+  "nota": "Escalera de pronunciación. `say` es lo que se dice como SONIDO (no como nombre de letra): es una aproximación para la voz del sistema y se reemplaza por una grabación en la Fase 11. `mouth` describe la pose de la boca para la animación. `cue` es la pista corta para el adulto y el niño. `warmups` son ejercicios previos sin presión. Ampliable sin tocar código.",
+  "steps": [
+    { "id": "modelo", "title": "Escuchar el modelo", "short": "Escuchar" },
+    { "id": "boca", "title": "Mirar la boca", "short": "Mirar la boca" },
+    { "id": "aislado", "title": "Sonido aislado", "short": "Sonido" },
+    { "id": "silaba", "title": "Sílaba", "short": "Sílaba" },
+    { "id": "palabra", "title": "Palabra", "short": "Palabra" },
+    { "id": "frase", "title": "Frase corta", "short": "Frase" }
+  ],
+  "phonemes": {
+    "a": { "say": "aaa", "mouth": { "lips": "open", "tongue": "rest", "air": "none", "voice": true }, "cue": "Abre la boca grande, como en un bostezo." },
+    "e": { "say": "eee", "mouth": { "lips": "smile", "tongue": "rest", "air": "none", "voice": true }, "cue": "Abre un poco la boca y sonríe suave." },
+    "i": { "say": "iii", "mouth": { "lips": "smile", "tongue": "mid", "air": "none", "voice": true }, "cue": "Sonríe grande, con los dientes casi juntos." },
+    "o": { "say": "ooo", "mouth": { "lips": "round", "tongue": "back", "air": "none", "voice": true }, "cue": "Haz los labios redondos, como una o." },
+    "u": { "say": "uuu", "mouth": { "lips": "round", "tongue": "back", "air": "none", "voice": true }, "cue": "Junta y estira los labios, como para dar un beso." },
+    "p": { "say": "p", "mouth": { "lips": "closed", "tongue": "rest", "air": "burst", "voice": false }, "cue": "Junta los labios y suelta el aire de golpe, sin voz." },
+    "b": { "say": "b", "mouth": { "lips": "closed", "tongue": "rest", "air": "burst", "voice": true }, "cue": "Junta los labios y suéltalos con la voz encendida." },
+    "m": { "say": "mmm", "mouth": { "lips": "closed", "tongue": "rest", "air": "nose", "voice": true }, "cue": "Labios juntos y la voz sale por la nariz: mmm." },
+    "f": { "say": "fff", "mouth": { "lips": "teeth", "tongue": "rest", "air": "stream", "voice": false }, "cue": "Pon los dientes de arriba sobre el labio de abajo y sopla." },
+    "t": { "say": "t", "mouth": { "lips": "open", "tongue": "tip-teeth", "air": "burst", "voice": false }, "cue": "Punta de la lengua en los dientes de arriba y suelta el aire." },
+    "d": { "say": "d", "mouth": { "lips": "open", "tongue": "tip-teeth", "air": "burst", "voice": true }, "cue": "Punta de la lengua en los dientes de arriba, con voz." },
+    "n": { "say": "nnn", "mouth": { "lips": "open", "tongue": "tip-up", "air": "nose", "voice": true }, "cue": "Lengua arriba, detrás de los dientes, y la voz sale por la nariz." },
+    "ñ": { "say": "ñññ", "mouth": { "lips": "open", "tongue": "mid", "air": "nose", "voice": true }, "cue": "El medio de la lengua sube al paladar y la voz sale por la nariz." },
+    "k": { "say": "k", "mouth": { "lips": "open", "tongue": "back", "air": "burst", "voice": false }, "cue": "El fondo de la lengua sube y suelta el aire de golpe." },
+    "g": { "say": "g", "mouth": { "lips": "open", "tongue": "back", "air": "burst", "voice": true }, "cue": "El fondo de la lengua sube y se suelta con voz." },
+    "y": { "say": "yyy", "mouth": { "lips": "smile", "tongue": "mid", "air": "none", "voice": true }, "cue": "Sonríe y sube el medio de la lengua, con voz." },
+    "ch": { "say": "ch", "mouth": { "lips": "round", "tongue": "mid", "air": "burst", "voice": false }, "cue": "Labios hacia adelante, lengua arriba y suelta el aire: ch." },
+    "l": { "say": "lll", "mouth": { "lips": "open", "tongue": "tip-up", "air": "none", "voice": true }, "cue": "Pon la punta de la lengua arriba, detrás de los dientes de adelante." },
+    "s": { "say": "sss", "mouth": { "lips": "smile", "tongue": "tip-down", "air": "stream", "voice": false }, "cue": "Sonríe, junta los dientes y deja salir el aire como una serpiente." },
+    "j": { "say": "jjj", "mouth": { "lips": "open", "tongue": "back", "air": "stream", "voice": false }, "cue": "El fondo de la lengua casi toca arriba y sale el aire, como un soplo ronco." },
+    "r": {
+      "say": "r", "mouth": { "lips": "open", "tongue": "tap", "air": "none", "voice": true }, "cue": "La punta de la lengua toca arriba una sola vez, muy rápido y suave.",
+      "warmups": [
+        "Sube la lengua hacia arriba y bájala despacio, sin apretar.",
+        "Pasa la lengua por el paladar, de adelante hacia atrás, con calma.",
+        "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."
+      ]
+    },
+    "rr": {
+      "say": "rrr", "mouth": { "lips": "open", "tongue": "tap", "air": "stream", "voice": true }, "cue": "La lengua arriba vibra con el aire, como un motorcito. Sin presión.",
+      "warmups": [
+        "Sopla aire suave con la lengua relajada detrás de los dientes de arriba.",
+        "Sube la lengua hacia arriba y bájala despacio, sin apretar.",
+        "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."
+      ]
+    },
+    "bl": { "say": "bl", "mouth": { "lips": "closed", "tongue": "rest", "air": "burst", "voice": true }, "cue": "Primero junta los labios (b) y enseguida sube la lengua (l)." },
+    "pl": { "say": "pl", "mouth": { "lips": "closed", "tongue": "rest", "air": "burst", "voice": false }, "cue": "Primero junta los labios (p) y enseguida sube la lengua (l)." },
+    "cl": { "say": "cl", "mouth": { "lips": "open", "tongue": "back", "air": "burst", "voice": false }, "cue": "Primero el fondo de la lengua (c) y enseguida la punta arriba (l)." },
+    "fl": { "say": "fl", "mouth": { "lips": "teeth", "tongue": "rest", "air": "stream", "voice": false }, "cue": "Primero dientes sobre el labio (f) y enseguida la lengua arriba (l)." },
+    "gl": { "say": "gl", "mouth": { "lips": "open", "tongue": "back", "air": "burst", "voice": true }, "cue": "Primero el fondo de la lengua con voz (g) y enseguida la punta arriba (l)." },
+    "s-final": { "say": "ss", "mouth": { "lips": "smile", "tongue": "tip-down", "air": "stream", "voice": false }, "cue": "Al final de la palabra, sonríe y deja salir el aire de serpiente." },
+    "br": { "say": "br", "mouth": { "lips": "closed", "tongue": "tap", "air": "burst", "voice": true }, "cue": "Junta los labios (b) y toca arriba con la lengua, rápido y suave (r).", "warmups": ["Sube la lengua hacia arriba y bájala despacio, sin apretar.", "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."] },
+    "pr": { "say": "pr", "mouth": { "lips": "closed", "tongue": "tap", "air": "burst", "voice": false }, "cue": "Junta los labios (p) y toca arriba con la lengua, rápido y suave (r).", "warmups": ["Sube la lengua hacia arriba y bájala despacio, sin apretar.", "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."] },
+    "cr": { "say": "cr", "mouth": { "lips": "open", "tongue": "back", "air": "burst", "voice": false }, "cue": "Fondo de la lengua (c) y enseguida un toque suave arriba (r).", "warmups": ["Sube la lengua hacia arriba y bájala despacio, sin apretar.", "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."] },
+    "fr": { "say": "fr", "mouth": { "lips": "teeth", "tongue": "tap", "air": "stream", "voice": false }, "cue": "Dientes sobre el labio (f) y enseguida un toque suave arriba (r).", "warmups": ["Sube la lengua hacia arriba y bájala despacio, sin apretar.", "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."] },
+    "gr": { "say": "gr", "mouth": { "lips": "open", "tongue": "back", "air": "burst", "voice": true }, "cue": "Fondo de la lengua con voz (g) y enseguida un toque suave arriba (r).", "warmups": ["Sube la lengua hacia arriba y bájala despacio, sin apretar.", "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."] },
+    "tr": { "say": "tr", "mouth": { "lips": "open", "tongue": "tip-teeth", "air": "burst", "voice": false }, "cue": "Punta de la lengua en los dientes (t) y enseguida un toque suave arriba (r).", "warmups": ["Sube la lengua hacia arriba y bájala despacio, sin apretar.", "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."] },
+    "dr": { "say": "dr", "mouth": { "lips": "open", "tongue": "tip-teeth", "air": "burst", "voice": true }, "cue": "Punta de la lengua en los dientes (d) y enseguida un toque suave arriba (r).", "warmups": ["Sube la lengua hacia arriba y bájala despacio, sin apretar.", "Haz el sonido del caballito: toc, toc, toc, con la lengua suelta."] }
+  }
+}

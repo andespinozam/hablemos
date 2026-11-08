@@ -3,6 +3,7 @@ import { ACTIVITIES } from '../activities/registry';
 import content from '../content/guide.json';
 import { REASSESSMENT_DAYS } from '../lib/assessment';
 import { planSize } from '../lib/assessmentPlan';
+import { MAX_ACTIVE_LADDERS, SESSIONS_TO_ADVANCE as LADDER_SESSIONS, LADDER_STEPS } from '../lib/ladder';
 import { BLOCK_TARGET, CONSOLIDATED_RATIO } from '../lib/pronunciation';
 import { HOLD_MS } from '../lib/gate';
 import { DOWN_THRESHOLD, SESSIONS_TO_LEVEL_UP, UP_THRESHOLD } from '../lib/level';
@@ -70,6 +71,14 @@ describe('contenido de la guía', () => {
     // ~5 minutos por bloque a ~25 s por ejercicio.
     expect(Math.round((BLOCK_TARGET * 25) / 60)).toBe(5);
     expect(t).toContain('5 minutos');
+  });
+
+  it('la escalera de la guía coincide con el código', () => {
+    const t = text('pronunciacion');
+    expect(LADDER_STEPS).toHaveLength(6);
+    expect(t).toContain(`${LADDER_STEPS.length} escalones`);
+    expect(t).toContain(`${LADDER_SESSIONS} sesiones distintas`);
+    expect(t).toContain(`hasta ${MAX_ACTIVE_LADDERS} sonidos`);
   });
 
   it('aclara que la app no califica la pronunciación, y repite la nota de alcance', () => {

@@ -113,6 +113,11 @@ export function PronunciationHome({ profile }: { profile: ChildProfile }) {
                 <section className="card" aria-labelledby="res-title">
                   <h2 id="res-title">Resultados</h2>
                   <PronunciationResults records={pronunciation} />
+                  <div className="row no-print">
+                    <button type="button" className="btn btn--accent" onClick={() => go(`adultos/escalera/${profile.id}`)}>
+                      📈 Escalera de pronunciación
+                    </button>
+                  </div>
                 </section>
               ) : (
                 <p className="note">Todavía no hay una evaluación de pronunciación terminada.</p>

@@ -1,7 +1,9 @@
 import { concepts } from './concepts';
 import { discrimination } from './discrimination';
+import { ladder } from './ladder';
 import { followOrders } from './followOrders';
 import { listenPoint } from './listenPoint';
+import { minimalPairs } from './minimalPairs';
 import { naming } from './naming';
 import { onomatopoeia } from './onomatopoeia';
 import { phonemeWords } from './phonemeWords';
@@ -11,7 +13,7 @@ import { sorting } from './sorting';
 import { story } from './story';
 import type { Activity } from './types';
 
-/** Todas las actividades, en el orden del brief (1-11). */
+/** Todas las actividades, en el orden del brief (1-13). */
 export const ACTIVITIES: readonly Activity[] = [
   listenPoint, // 1
   followOrders, // 2
@@ -24,6 +26,8 @@ export const ACTIVITIES: readonly Activity[] = [
   onomatopoeia, // 9
   phonemeWords, // 10
   discrimination, // 11
+  minimalPairs, // 12 (Fase 10)
+  ladder, // 13 (Fase 10)
 ];
 
 export function getActivity(id: string): Activity | undefined {

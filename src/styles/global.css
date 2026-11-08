@@ -1414,3 +1414,120 @@ ul.profile-grid .profile-tile {
 .pron-other {
   width: 8ch;
 }
+
+/* ---------- Escalera de pronunciación y guía de la boca ---------- */
+.mouth-guide {
+  width: min(100%, 560px);
+  height: auto;
+  max-height: 34vh;
+}
+.mouth-guide--small {
+  width: min(100%, 300px);
+  max-height: 20vh;
+}
+.ladder-item {
+  gap: 12px;
+}
+.ladder-emojis {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+.ladder-text {
+  margin: 0;
+  font-size: var(--fs-big);
+  font-weight: 900;
+}
+.ladder-warmups {
+  margin: 0;
+  padding-left: 1.2em;
+  text-align: left;
+  font-size: 1.1rem;
+  max-width: 40ch;
+}
+.ladder-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+}
+.ladder-step {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 2px solid var(--line);
+  background: var(--surface);
+  font-weight: 700;
+}
+.ladder-step--done {
+  background: #e8f5ee;
+  border-color: #9fd3b4;
+}
+.ladder-step--now {
+  border-color: var(--primary);
+  border-width: 3px;
+  font-weight: 900;
+}
+.ladder-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+.ladder-mouth {
+  display: grid;
+  justify-items: center;
+}
+.mg-lips {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes mg-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes mg-tap {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-7deg); }
+}
+@keyframes mg-flow {
+  to { stroke-dashoffset: -22; }
+}
+@keyframes mg-pop {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+@keyframes mg-lips {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+.mouth-guide .mg-tongue {
+  transform-box: fill-box;
+  transform-origin: 100% 100%;
+}
+.mouth-guide--active .mg-tongue {
+  animation: mg-bob 1.8s ease-in-out infinite;
+}
+.mouth-guide--tap.mouth-guide--active .mg-tongue {
+  animation: mg-tap 0.9s ease-in-out infinite;
+}
+.mouth-guide--active .mg-air path {
+  animation: mg-flow 0.9s linear infinite;
+}
+.mouth-guide--active .mg-burst path,
+.mouth-guide--active .mg-voice path {
+  animation: mg-pop 1.2s ease-in-out infinite;
+}
+.mouth-guide--active .mg-lips {
+  animation: mg-lips 1.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .mouth-guide .mg-tongue,
+  .mouth-guide .mg-air path,
+  .mouth-guide .mg-burst path,
+  .mouth-guide .mg-voice path,
+  .mouth-guide .mg-lips {
+    animation: none !important;
+  }
+}

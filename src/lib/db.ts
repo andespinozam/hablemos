@@ -93,6 +93,30 @@ export interface PronunciationRecord {
   responses: PronunciationResponse[];
 }
 
+/** Estado de la escalera de un sonido: en práctica, en espera (máx. 3 a la vez) o terminada. */
+export type LadderState = 'active' | 'queued' | 'done';
+
+/** Escalera de pronunciación de un sonido para un niño (clave `perfil:fonema`). */
+export interface LadderRecord {
+  /** `${profileId}:${phonemeId}` */
+  key: string;
+  profileId: string;
+  phonemeId: string;
+  state: LadderState;
+  /** Posición en el orden de trabajo (menor = antes). */
+  order: number;
+  /** Escalón actual, 0 a 5 (ver `LADDER_STEPS`). */
+  step: number;
+  /** Sesiones distintas con "Lo logró" en el escalón actual. */
+  successSessions: string[];
+  /** Sustitución observada (sonido que dice en lugar de este), para el reporte y los pares mínimos. */
+  substitution?: string;
+  substitutionSource?: 'evaluacion' | 'adulto';
+  createdAt: number;
+  updatedAt: number;
+  completedAt?: number;
+}
+
 export interface ResultRecord {
   id: string;
   sessionId: string;
@@ -129,13 +153,14 @@ interface HablemosDB extends DBSchema {
   levels: { key: string; value: LevelRecord; indexes: { byProfile: string } };
   assessments: { key: string; value: AssessmentRecord; indexes: { byProfile: string } };
   pronunciation: { key: string; value: PronunciationRecord; indexes: { byProfile: string } };
+  ladders: { key: string; value: LadderRecord; indexes: { byProfile: string } };
 }
 
 export type HablemosDatabase = IDBPDatabase<HablemosDB>;
 
 export const DB_NAME = 'hablemos';
 /** Al cambiar el esquema: subir este número y agregar un bloque `if (oldVersion < N)`. Nunca editar los anteriores. */
-export const DB_VERSION = 4;
+export const DB_VERSION = 5;
 
 let dbPromise: Promise<HablemosDatabase> | null = null;
 
@@ -156,6 +181,9 @@ export function getDb(): Promise<HablemosDatabase> {
         }
         if (oldVersion < 4) {
           db.createObjectStore('pronunciation', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+        }
+        if (oldVersion < 5) {
+          db.createObjectStore('ladders', { keyPath: 'key' }).createIndex('byProfile', 'profileId');
         }
       },
     });

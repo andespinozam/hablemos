@@ -106,7 +106,7 @@ export function Backup({ onImported }: Props) {
         {BACKUP_PRIVACY}
       </p>
       <p className="note" role="note">
-        Por ahora el respaldo no incluye las evaluaciones de pronunciación; para conservarlas, imprime el reporte del niño.
+        Por ahora el respaldo no incluye las evaluaciones de pronunciación ni las escaleras de sonidos; para conservarlas, imprime el reporte del niño.
       </p>
 
       {message && (

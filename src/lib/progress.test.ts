@@ -54,7 +54,7 @@ describe('esquema', () => {
   it('abre la base en la versión actual con todos los almacenes', async () => {
     const db = await getDb();
     expect(db.version).toBe(DB_VERSION);
-    expect([...db.objectStoreNames].sort()).toEqual(['assessments', 'levels', 'profiles', 'pronunciation', 'results', 'sessions']);
+    expect([...db.objectStoreNames].sort()).toEqual(['assessments', 'ladders', 'levels', 'profiles', 'pronunciation', 'results', 'sessions']);
   });
 });
 

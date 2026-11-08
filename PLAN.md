@@ -82,10 +82,10 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 10 — Módulo de pronunciación
 
-- [ ] Escalera de 6 escalones por sonido "a estimular" (modelo, animación SVG de la boca, sonido aislado, sílaba, palabra, frase corta); avanza con "Lo logró" en 3 sesiones distintas; estado por perfil y sonido
-- [ ] Actividad nueva de pares mínimos con `seed/pares_minimos_v2.json` (califica sola, sin "Aún no"); pares elegidos según la sustitución registrada; las 14 palabras nuevas van al contenido sin romper pruebas
-- [ ] Registrar por sonido la sustitución observada para el reporte
-- [ ] Describir cada actividad nueva en `guide.json`
+- [x] Escalera de 6 escalones por sonido "a estimular" (modelo, animación SVG de la boca, sonido aislado, sílaba, palabra, frase corta); avanza con "Lo logró" en 3 sesiones distintas; estado por perfil y sonido
+- [x] Actividad nueva de pares mínimos con `seed/pares_minimos_v2.json` (califica sola, sin "Aún no"); pares elegidos según la sustitución registrada; las 14 palabras nuevas van al contenido sin romper pruebas
+- [x] Registrar por sonido la sustitución observada para el reporte
+- [x] Describir cada actividad nueva en `guide.json`
 
 ## Fase 11 — Voz grabada
 

@@ -21,12 +21,19 @@ export interface PlanContext {
  * Elige 3-4 actividades distintas adecuadas para la edad, empezando por las menos
  * practicadas (las nuevas primero). Con pocas actividades disponibles, usa todas.
  */
-export function planSession(candidates: readonly PlanCandidate[], ctx: PlanContext, rng: Rng = Math.random): string[] {
+export function planSession(
+  candidates: readonly PlanCandidate[],
+  ctx: PlanContext,
+  rng: Rng = Math.random,
+  /** Actividades que siempre entran si son elegibles (p. ej. la escalera de pronunciación). */
+  must: readonly string[] = [],
+): string[] {
   const eligible = candidates.filter((c) => c.minAge <= ctx.age);
   const wanted = rng() < 0.5 ? MIN_ACTIVITIES : MAX_ACTIVITIES;
   // Se mezcla antes para que el desempate entre iguales sea aleatorio (sort es estable).
-  return shuffle(eligible, rng)
+  const forced = eligible.filter((c) => must.includes(c.id)).map((c) => c.id);
+  const others = shuffle(eligible.filter((c) => !must.includes(c.id)), rng)
     .sort((a, b) => (ctx.lastPracticed[a.id] ?? 0) - (ctx.lastPracticed[b.id] ?? 0))
-    .slice(0, wanted)
     .map((c) => c.id);
+  return [...forced, ...others].slice(0, Math.max(wanted, forced.length));
 }

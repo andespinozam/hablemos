@@ -8,6 +8,8 @@ import { ageInYears } from '../lib/age';
 import { buildAssessmentPlan, groupIntoSteps, shuffleForReassessment } from '../lib/assessmentPlan';
 import { completeAssessment, createAssessment } from '../lib/assessmentStore';
 import type { AssessmentItem, ChildProfile } from '../lib/db';
+import { LADDER_ACTIVITY_ID, parseLadderItemId } from '../lib/ladder';
+import { applyLadderProgress, listLadders } from '../lib/ladderStore';
 import { summarizePhonemes } from '../lib/phonemeStats';
 import {
   addResult,
@@ -87,13 +89,19 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
     started.current = true;
     (async () => {
       try {
-        const [levels, lastPracticed, results] = await Promise.all([
+        const [levels, lastPracticed, results, ladders] = await Promise.all([
           getLevels(profile.id),
           getLastPracticed(profile.id),
           listResults(profile.id),
+          listLadders(profile.id),
         ]);
+        const ladderLast: Record<string, number> = {};
+        for (const r of results) {
+          const p = r.activityId === LADDER_ACTIVITY_ID ? parseLadderItemId(r.itemId) : null;
+          if (p) ladderLast[p.phonemeId] = Math.max(ladderLast[p.phonemeId] ?? 0, r.at);
+        }
         const age = Math.max(ageInYears(profile.birthDate, new Date()) ?? 3, 3);
-        const ctx: BuildContext = { age, phonemes: summarizePhonemes(results) };
+        const ctx: BuildContext = { age, phonemes: summarizePhonemes(results), ladders, ladderLast };
         if (assessment) {
           // Evaluación: ítems fijos por área. La reevaluación repite los mismos ítems en otro orden.
           const items =
@@ -117,7 +125,10 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
           setPlan({ sessionId: session.id, steps: evalSteps, assessmentId: record.id });
           return;
         }
-        const ids = planSession(ACTIVITIES, { age, lastPracticed });
+        const available = ACTIVITIES.filter((a) => a.isAvailable?.(ctx) !== false);
+        // Si hay escaleras activas, la escalera entra siempre: así se acumulan las 3 sesiones.
+        const must = available.filter((a) => a.id === LADDER_ACTIVITY_ID).map((a) => a.id);
+        const ids = planSession(available, { age, lastPracticed }, Math.random, must);
         const steps: Step[] = ids.flatMap((id) => {
           const activity = getActivity(id);
           if (!activity) return [];
@@ -168,6 +179,7 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
         } else {
           const maxLevels = Object.fromEntries(plan.steps.map((s) => [s.activity.id, s.activity.maxLevel]));
           await applyAdaptation(profile.id, plan.sessionId, maxLevels);
+          await applyLadderProgress(profile.id, plan.sessionId);
         }
       } catch (e) {
         console.error(e);
