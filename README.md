@@ -83,6 +83,14 @@ La app es un sitio estático: cualquier hosting con **HTTPS** sirve. Las rutas s
 
 `public/_headers` agrega encabezados de seguridad y evita que se cachee el service worker.
 
+### Lista antes de publicar
+
+1. `npm test` y `npm run build` sin errores.
+2. Elegir y agregar una **licencia** (archivo `LICENSE`). Sin ella, otras personas no tienen permiso legal de usar ni copiar el código.
+3. Revisar el contenido clínico con un fonoaudiólogo (listas de fonemas por edad, señales de alerta, umbrales de nivel).
+4. Publicar, abrir la dirección **con HTTPS** y comprobar: se instala en la pantalla de inicio, funciona sin internet (abrir una vez con conexión, luego modo avión) y el respaldo se descarga.
+5. Probar en una tablet Android y en un iPad reales.
+
 ### Seguridad
 
 El `index.html` compilado lleva una **política de contenido (CSP) estricta**: la app no puede conectarse a ningún servidor externo. Si algún día agregas un recurso externo (una fuente, un script), tendrás que cambiarla en `vite.config.ts`. La política solo se aplica al compilar, no en `npm run dev`: **prueba siempre con `npm run build && npm run preview`**.

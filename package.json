@@ -1,7 +1,7 @@
 {
   "name": "hablemos",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.9.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -31,5 +31,15 @@
   },
   "engines": {
     "node": ">=20"
-  }
+  },
+  "description": "PWA para estimular el lenguaje de niños de 3 a 5 años, en español latino. Sin cuentas, sin anuncios y sin red: los datos se quedan en el dispositivo.",
+  "keywords": [
+    "pwa",
+    "lenguaje",
+    "fonoaudiologia",
+    "niños",
+    "español",
+    "estimulacion",
+    "accesibilidad"
+  ]
 }

@@ -1,0 +1,4 @@
+# Un solo estilo de saltos de línea en el repositorio (evita avisos y diferencias falsas entre Windows y Linux).
+* text=auto eol=lf
+*.png binary
+*.woff2 binary

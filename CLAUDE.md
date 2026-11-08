@@ -107,6 +107,11 @@ npm run icons     # regenera los PNG de public/icons
 - `screens/Guide.tsx` + `content/guide.json` (ruta `adultos/guia`). Las descripciones de las 11 actividades salen de `guide.json` (`activities`, por id): **al agregar una actividad hay que describirla ahí** o `screens/guide.test.ts` falla. Esa prueba también exige que los números de la guía (80 %, 40 %, 3 sesiones, 34 ejercicios, 4 semanas, 3 segundos) coincidan con el código.
 - El índice de la guía usa botones con `scrollIntoView`, **no enlaces `#`** (el hash es de las rutas).
 - `README.md` documenta instalación, comandos, despliegue y cómo agregar la app a la pantalla de inicio en Android e iPad. Mantenerlo al día si cambian los comandos o el despliegue. Lo pendiente está al final de `PLAN.md`.
+## Publicación
+
+- **Fuentes**: `src/styles/fonts.css` declara solo Nunito latin y latin-ext (cubren todo el español). No volver a importar `@fontsource-variable/nunito` entero: precargaría cirílico y vietnamita sin uso. Si se agrega un idioma, sumar su subconjunto aquí.
+- **Saltos de línea**: `.gitattributes` fija LF en el repositorio.
+- **Fechas**: el código usa solo componentes locales (`new Date(y, m, d)`, `getFullYear()`…), nunca funciones UTC ni `new Date('YYYY-MM-DD')`; así es seguro ante horario de verano. Mantenerlo. Las pruebas de fechas se escriben con `new Date(y, m, d, h)` locales.
 - Palabras evitadas por regionalismo: calcetín/media, banano/guineo. Se usa "carro", "bus", "uvas".
 
 ## Perfiles y adultos
