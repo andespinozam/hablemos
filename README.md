@@ -86,7 +86,7 @@ La app es un sitio estático: cualquier hosting con **HTTPS** sirve. Las rutas s
 ### Lista antes de publicar
 
 1. `npm test` y `npm run build` sin errores.
-2. Elegir y agregar una **licencia** (archivo `LICENSE`). Sin ella, otras personas no tienen permiso legal de usar ni copiar el código.
+2. ~~Elegir una licencia~~ Hecho: el proyecto usa la licencia **MIT** (archivo `LICENSE`).
 3. Revisar el contenido clínico con un fonoaudiólogo (listas de fonemas por edad, señales de alerta, umbrales de nivel).
 4. Publicar, abrir la dirección **con HTTPS** y comprobar: se instala en la pantalla de inicio, funciona sin internet (abrir una vez con conexión, luego modo avión) y el respaldo se descarga.
 5. Probar en una tablet Android y en un iPad reales.
@@ -139,3 +139,7 @@ Todo se verificó en Chrome de escritorio con tamaños de tablet (768×1024 y 10
 ## Límites
 
 Hablemos no diagnostica ni evalúa la pronunciación: los resultados dependen de la calificación del adulto (Lo logró / Con ayuda / Aún no). Las **señales de alerta** de la app son orientativas. Ante cualquier duda sobre el desarrollo del lenguaje de un niño, consulta a un fonoaudiólogo o al pediatra.
+
+## Licencia
+
+[MIT](LICENSE). El código puede usarse, copiarse y modificarse; consulta el archivo para las condiciones. Esto aplica al software: la app **no es un dispositivo médico** ni sustituye la valoración de un profesional.

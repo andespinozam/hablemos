@@ -41,5 +41,14 @@
     "español",
     "estimulacion",
     "accesibilidad"
-  ]
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andespinozam/hablemos.git"
+  },
+  "homepage": "https://andespinozam.github.io/hablemos/",
+  "bugs": {
+    "url": "https://github.com/andespinozam/hablemos/issues"
+  }
 }

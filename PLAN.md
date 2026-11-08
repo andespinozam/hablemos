@@ -74,5 +74,5 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 - [ ] Revisar con un fonoaudiólogo el contenido clínico: listas de fonemas por edad, señales de alerta, umbrales de nivel (80 % / 40 %) y de nivel recomendado (60 % / 75 %).
 - [ ] Publicar en GitHub Pages o Netlify (HTTPS) y probar el modo sin conexión ahí.
 - [x] Precarga solo de las fuentes latinas (hecho: 21 → 18 archivos, 552 → 490 KiB)
-- [ ] Definir la licencia del proyecto (no hay archivo LICENSE: sin él, legalmente nadie más puede usar ni copiar el código).
+- [x] Licencia MIT (archivo `LICENSE`)
 - [ ] Probar la lógica de fechas en zonas con horario de verano y desfase positivo. En Windows, Node solo respeta `TZ=UTC`; el código no usa funciones UTC ni `Date` desde texto (auditado), pero conviene confirmarlo con `TZ=Pacific/Auckland npm test` en Linux/macOS o en la integración continua.
