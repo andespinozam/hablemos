@@ -56,12 +56,12 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 7 — Accesibilidad, pruebas, offline y despliegue
 
-- [ ] Auditoría ARIA, foco y movimiento reducido
-- [ ] Wake lock
-- [ ] Verificar guardas táctiles en dispositivo real
-- [ ] Ampliar pruebas de puntaje, adaptación y almacenamiento
-- [ ] Verificar offline completo, viewports de tablet y Chrome/Safari móvil
-- [ ] Configuración de despliegue en GitHub Pages o Netlify
+- [x] Auditoría ARIA, foco y movimiento reducido (axe-core en las 11 actividades y las pantallas de adultos; foco y título por pantalla)
+- [x] Wake lock (con re-solicitud al volver a la pestaña y sin fallar si el navegador no lo soporta)
+- [ ] Verificar guardas táctiles en dispositivo real (cubiertas con pruebas unitarias y emulación; **falta probar en una tablet/iPad real**)
+- [x] Ampliar pruebas de puntaje, adaptación y almacenamiento (migraciones v1→v3 y v2→v3, persistencia, wake lock, guardas táctiles)
+- [x] Verificar offline completo (servidor apagado, service worker), viewports 768x1024 / 1024x768 y teléfono 375x812 en Chrome emulado (**Safari/iPad real pendiente**)
+- [x] Configuración de despliegue en GitHub Pages (`.github/workflows/deploy.yml`) y Netlify (`netlify.toml`, `public/_headers`)
 
 ## Fase 8 — Guía de uso y README
 

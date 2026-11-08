@@ -1,6 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { backupFileName, exportBackup, importBackup, parseBackup, type Backup, type BackupSummary } from '../lib/backup';
 import { go } from '../lib/router';
+import { formatBytes, storageStatus, type StorageStatus } from '../lib/storage';
 import { BACKUP_PRIVACY } from '../lib/texts';
 
 interface Props {
@@ -29,6 +30,10 @@ export function Backup({ onImported }: Props) {
   const [confirmReplace, setConfirmReplace] = useState(false);
   const [busy, setBusy] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
+  const [storage, setStorage] = useState<StorageStatus | null>(null);
+  useEffect(() => {
+    void storageStatus().then(setStorage);
+  }, []);
 
   const doExport = async () => {
     setBusy(true);
@@ -113,6 +118,18 @@ export function Backup({ onImported }: Props) {
             <li key={e}>{e}</li>
           ))}
         </ul>
+      )}
+
+      {storage && (
+        <p className="notice notice--info" role="note">
+          <span aria-hidden="true">🛡️</span>
+          <span>
+            {storage.persistent
+              ? 'El navegador protege estos datos contra el borrado automático.'
+              : 'El navegador podría borrar estos datos si falta espacio. Haz respaldos de vez en cuando; en iPad, agrega la app a la pantalla de inicio.'}
+            {storage.usage !== undefined && ` Ocupan ${formatBytes(storage.usage)}.`}
+          </span>
+        </p>
       )}
 
       <section className="card" aria-labelledby="export-title">

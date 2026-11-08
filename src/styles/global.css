@@ -1235,3 +1235,66 @@ p {
     border-left-color: #999;
   }
 }
+
+/* El foco programático al cambiar de pantalla no necesita contorno (los botones sí lo conservan). */
+main:focus {
+  outline: none;
+}
+
+/* Lista de perfiles semántica (ul > li > button). */
+ul.profile-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul.profile-grid > li {
+  display: flex;
+}
+ul.profile-grid .profile-tile {
+  width: 100%;
+}
+
+/* ---------- Teléfonos y pantallas angostas ---------- */
+/* Los botones se achican para que quepan más por fila, sin bajar de 72 px (zona táctil mínima). */
+@media (max-width: 520px) {
+  .choices,
+  .order__row,
+  .bins,
+  .tray,
+  .slots,
+  .tiles {
+    gap: 10px;
+  }
+  .choice {
+    width: clamp(92px, 27vw, 130px);
+    height: clamp(92px, 27vw, 130px);
+  }
+  .choice__emoji {
+    font-size: clamp(2.6rem, 13vw, 4.2rem);
+  }
+  .choice--scene {
+    width: clamp(130px, 40vw, 190px);
+    height: clamp(130px, 40vw, 190px);
+  }
+  .bin {
+    min-width: 130px;
+    min-height: 120px;
+    flex: 1 1 130px;
+    padding: 8px;
+  }
+  .item-emoji {
+    font-size: clamp(4.5rem, 24vw, 7rem);
+  }
+  .item-text {
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
+  }
+  .screen {
+    padding: max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left));
+    gap: 12px;
+  }
+}
+
+/* Los avatares van en fila (el .field que los contiene es una columna). */
+.avatar-picker {
+  flex-direction: row;
+}

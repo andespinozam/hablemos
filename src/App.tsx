@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ChildProfile } from './lib/db';
 import { listProfiles } from './lib/profiles';
 import { go, parseAdultRoute, useRoute } from './lib/router';
+import { setZoomLocked } from './lib/touchGuards';
 import { AdultGate } from './screens/AdultGate';
 import { AlertsScreen } from './screens/AlertsScreen';
 import { AssessmentHome } from './screens/AssessmentHome';
@@ -14,6 +15,30 @@ import { ProfilePicker } from './screens/ProfilePicker';
 import { Progress } from './screens/Progress';
 import { Report } from './screens/Report';
 import { SessionRunner } from './screens/SessionRunner';
+
+/** Título de la pestaña según la pantalla (también lo anuncian los lectores de pantalla). */
+export function titleFor(route: string): string {
+  if (route === 'puerta') return 'Zona de adultos · Hablemos';
+  if (route === 'inicio') return 'Inicio · Hablemos';
+  if (route === 'jugar') return 'Jugando · Hablemos';
+  const adult = parseAdultRoute(route);
+  if (adult) {
+    const names: Record<string, string> = {
+      home: 'Zona de adultos',
+      nuevo: 'Nuevo perfil',
+      editar: 'Editar perfil',
+      seguimiento: 'Seguimiento',
+      evaluacion: 'Evaluación',
+      evaluar: 'Evaluando',
+      reporte: 'Reporte',
+      respaldo: 'Respaldo',
+      alertas: 'Señales de alerta',
+      desconocida: 'Zona de adultos',
+    };
+    return `${names[adult.name]} · Hablemos`;
+  }
+  return 'Hablemos';
+}
 
 export function App() {
   const route = useRoute();
@@ -37,8 +62,26 @@ export function App() {
     void reload();
   }, [reload]);
 
+  // Al cambiar de pantalla: título nuevo y foco en el contenido (lectores de pantalla y teclado).
+  useEffect(() => {
+    document.title = titleFor(route);
+    const id = window.requestAnimationFrame(() => {
+      const main = document.querySelector('main');
+      if (main) {
+        main.setAttribute('tabindex', '-1');
+        main.focus({ preventScroll: true });
+      }
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, [route]);
+
   const adultRoute = parseAdultRoute(route);
   const inAdultArea = adultRoute !== null;
+
+  // Zoom bloqueado para el niño; permitido en la zona de adultos (accesibilidad para baja visión).
+  useEffect(() => {
+    setZoomLocked(!inAdultArea);
+  }, [inAdultArea]);
   // Se vuelve a bloquear solo al SALIR de la zona (no mientras el hash aún no cambia tras la puerta).
   const wasInAdultArea = useRef(false);
   useEffect(() => {

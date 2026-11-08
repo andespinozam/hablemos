@@ -17,8 +17,10 @@ const fmt = (v: number | null) => (v === null ? 'sin datos' : `${v} %`);
 
 /** Tabla equivalente para lectores de pantalla. */
 function SrTable({ caption, head, rows }: { caption: string; head: string[]; rows: string[][] }) {
+  // Un <table> ignora width:1px, así que va dentro de un div que sí recorta (si no, ensancha la página).
   return (
-    <table className="sr-only">
+    <div className="sr-only">
+    <table>
       <caption>{caption}</caption>
       <thead>
         <tr>
@@ -37,6 +39,7 @@ function SrTable({ caption, head, rows }: { caption: string; head: string[]; row
         ))}
       </tbody>
     </table>
+    </div>
   );
 }
 

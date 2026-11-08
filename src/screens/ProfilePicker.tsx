@@ -23,23 +23,23 @@ export function ProfilePicker({ profiles, onPick, onAdults }: Props) {
       ) : (
         <>
           <h1>¿Quién juega hoy?</h1>
-          <div className="profile-grid play-zone" role="list">
+          <ul className="profile-grid play-zone" aria-label="Niños">
             {profiles.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                role="listitem"
-                className="btn btn--ghost profile-tile"
-                onClick={() => onPick(p.id)}
-                aria-label={`Jugar como ${p.name}`}
-              >
-                <span className="avatar" aria-hidden="true">
-                  {p.avatar}
-                </span>
-                {p.name}
-              </button>
+              <li key={p.id}>
+                <button
+                  type="button"
+                  className="btn btn--ghost profile-tile"
+                  onClick={() => onPick(p.id)}
+                  aria-label={`Jugar como ${p.name}`}
+                >
+                  <span className="avatar" aria-hidden="true">
+                    {p.avatar}
+                  </span>
+                  {p.name}
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
           <div className="spacer" />
           <div className="row">
             <span className="spacer" />

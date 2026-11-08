@@ -22,6 +22,7 @@ import type { Rating } from '../lib/scoring';
 import { START, nextPosition, type Position } from '../lib/sessionFlow';
 import { ITEMS_PER_ACTIVITY, planSession } from '../lib/sessionPlan';
 import { playSound } from '../lib/sounds';
+import { useWakeLock } from '../lib/wakeLock';
 import { SLOW_RATE, SPEECH_RATE, cancelSpeech, speak } from '../lib/speech';
 import { Celebration } from './Celebration';
 
@@ -65,6 +66,8 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
   const [pos, setPos] = useState<Position>(START);
   const [stars, setStars] = useState(0);
   const [praise, setPraise] = useState('');
+
+  useWakeLock(true); // la pantalla no se apaga mientras dura la sesión
 
   const started = useRef(false);
   const finished = useRef(false);
@@ -261,6 +264,8 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
 
   return (
     <main className="screen play-zone session">
+      {/* Encabezado para lectores de pantalla: la introducción ya trae el suyo a la vista. */}
+      {pos.stage !== 'intro' && <h1 className="sr-only">{step.activity.title}</h1>}
       <header className="session__top">
         <ol className="dots" aria-label={`Actividad ${pos.a + 1} de ${plan.steps.length}`}>
           {step.items.map((it, idx) => (
