@@ -1,0 +1,25 @@
+{
+  "pairs": [
+    { "a": "sol", "b": "pan", "level": 1 },
+    { "a": "gato", "b": "mesa", "level": 1 },
+    { "a": "luna", "b": "carro", "level": 1 },
+    { "a": "mano", "b": "zapato", "level": 1 },
+    { "a": "perro", "b": "nube", "level": 1 },
+    { "a": "casa", "b": "pez", "level": 1 },
+    { "a": "flor", "b": "camión", "level": 1 },
+    { "a": "pelota", "b": "ojo", "level": 1 },
+
+    { "a": "pato", "b": "gato", "level": 2 },
+    { "a": "boca", "b": "foca", "level": 2 },
+    { "a": "casa", "b": "masa", "level": 2 },
+    { "a": "sopa", "b": "copa", "level": 2 },
+    { "a": "pelo", "b": "velo", "level": 2 },
+    { "a": "rana", "b": "lana", "level": 2 },
+    { "a": "peso", "b": "beso", "level": 2 },
+    { "a": "taza", "b": "tapa", "level": 2 },
+    { "a": "mano", "b": "malo", "level": 2 },
+    { "a": "vaso", "b": "paso", "level": 2 },
+    { "a": "toro", "b": "loro", "level": 2 },
+    { "a": "pala", "b": "bala", "level": 2 }
+  ]
+}

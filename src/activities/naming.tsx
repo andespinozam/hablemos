@@ -5,7 +5,7 @@ import type { Activity, Item, ItemViewProps } from './types';
 /** El niño mira el dibujo y dice la palabra; el adulto califica con su panel. */
 function NamingView({ item, say }: ItemViewProps) {
   const emoji = String(item.data?.emoji ?? '');
-  const model = String(item.data?.model ?? item.target);
+  const model = item.model ?? item.target;
   return (
     <div className="item-center">
       <div className="item-emoji" role="img" aria-label="Dibujo para nombrar">
@@ -53,7 +53,8 @@ export const naming: Activity = {
       id: w.id,
       target: w.word,
       prompt: '¿Qué es esto?',
-      data: { emoji: w.emoji, model: `Es ${w.article} ${w.word}.` },
+      model: `Es ${w.article} ${w.word}.`,
+      data: { emoji: w.emoji },
     }));
   },
   ItemView: NamingView,

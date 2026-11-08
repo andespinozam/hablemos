@@ -39,10 +39,10 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 5 — Actividades 8 a 11
 
-- [ ] 8 Praxias orofaciales
-- [ ] 9 Onomatopeyas y animales
-- [ ] 10 Palabras con fonema objetivo (listas de al menos 12 palabras por fonema)
-- [ ] 11 Discriminación auditiva, ritmo y sílabas
+- [x] 8 Praxias orofaciales
+- [x] 9 Onomatopeyas y animales
+- [x] 10 Palabras con fonema objetivo (listas de al menos 12 palabras por fonema)
+- [x] 11 Discriminación auditiva, ritmo y sílabas
 
 ## Fase 6 — Evaluación, seguimiento, reportes y respaldo
 

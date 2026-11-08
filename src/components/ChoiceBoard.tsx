@@ -18,13 +18,19 @@ interface Props {
   prompt: string;
   say: (text: string, rate?: number) => void;
   submit: (rating: Rating) => void;
+  /** Qué decir al equivocarse (por defecto, "Mira otra vez" + la instrucción). */
+  retrySay?: string;
+  /** Contenido extra sobre las opciones (p. ej. el botón para escuchar un ritmo). */
+  header?: ReactNode;
+  /** Se llama al equivocarse (p. ej. para repetir un sonido). */
+  onWrong?: () => void;
 }
 
 /**
  * Elegir una opción entre varias. Solo refuerzo positivo: lo descartado se atenúa,
  * se repite la instrucción con calma y, tras 2 intentos, la respuesta correcta "late".
  */
-export function ChoiceBoard({ options, correctId, prompt, say, submit }: Props) {
+export function ChoiceBoard({ options, correctId, prompt, say, submit, retrySay, header, onWrong }: Props) {
   const [state, setState] = useState<ChoiceState>(INITIAL_CHOICE);
   const done = useRef(false);
   const hint = showHint(state);
@@ -37,13 +43,15 @@ export function ChoiceBoard({ options, correctId, prompt, say, submit }: Props) 
       submit(outcome.rating);
     } else if (outcome.kind === 'wrong') {
       setState(outcome.state);
-      say(`Mira otra vez. ${prompt}`);
+      say(retrySay ?? `Mira otra vez. ${prompt}`);
+      onWrong?.();
     }
   };
 
   return (
     <div className="item-center">
       <p className="item-text item-text--sm">{prompt}</p>
+      {header}
       <div className="choices" role="group" aria-label={prompt}>
         {options.map((o) => {
           const dim = state.wrong.includes(o.id);

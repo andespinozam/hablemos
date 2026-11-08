@@ -1,0 +1,21 @@
+{
+  "items": [
+    { "id": "perro", "name": "el perro", "emoji": "🐶", "say": "guau, guau", "level": 1 },
+    { "id": "gato", "name": "el gato", "emoji": "🐱", "say": "miau, miau", "level": 1 },
+    { "id": "vaca", "name": "la vaca", "emoji": "🐮", "say": "muuu, muuu", "level": 1 },
+    { "id": "pato", "name": "el pato", "emoji": "🦆", "say": "cuac, cuac", "level": 1 },
+    { "id": "pollito", "name": "el pollito", "emoji": "🐥", "say": "pío, pío", "level": 1 },
+    { "id": "oveja", "name": "la oveja", "emoji": "🐑", "say": "beee, beee", "level": 1 },
+    { "id": "tren", "name": "el tren", "emoji": "🚆", "say": "chu, chu", "level": 1 },
+    { "id": "carro", "name": "el carro", "emoji": "🚗", "say": "brum, brum", "level": 1 },
+
+    { "id": "cerdo", "name": "el cerdito", "emoji": "🐷", "say": "oinc, oinc", "level": 2 },
+    { "id": "gallo", "name": "el gallo", "emoji": "🐓", "say": "quiquiriquí", "level": 2 },
+    { "id": "rana", "name": "la rana", "emoji": "🐸", "say": "croac, croac", "level": 2 },
+    { "id": "abeja", "name": "la abeja", "emoji": "🐝", "say": "zum, zum", "level": 2 },
+    { "id": "reloj", "name": "el reloj", "emoji": "⏰", "say": "tic, tac, tic, tac", "level": 2 },
+    { "id": "ambulancia", "name": "la ambulancia", "emoji": "🚑", "say": "iu, iu, iu", "level": 2 },
+    { "id": "tambor", "name": "el tambor", "emoji": "🥁", "say": "pum, pum, pum", "level": 2 },
+    { "id": "campana", "name": "la campana", "emoji": "🔔", "say": "din, don, din, don", "level": 2 }
+  ]
+}

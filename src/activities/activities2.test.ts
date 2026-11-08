@@ -67,7 +67,7 @@ describe('¿Qué es esto?: constructor', () => {
         for (const it of items) {
           const w = VOCAB.find((x) => x.id === it.id)!;
           expect(it.target).toBe(w.word);
-          expect(it.data?.model).toBe(`Es ${w.article} ${w.word}.`);
+          expect(it.model).toBe(`Es ${w.article} ${w.word}.`);
           expect(w.level).toBeLessThanOrEqual(level);
         }
       }

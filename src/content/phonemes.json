@@ -1,0 +1,151 @@
+{
+  "phonemes": [
+    {
+      "id": "a", "name": "a", "age": 3, "patterns": ["a"],
+      "words": ["a-vión ✈️", "a-gua 💧", "a-ra-ña 🕷️", "a-be-ja 🐝", "a-bue-la 👵", "ár-bol 🌳", "a-ni-llo 💍", "ca-sa 🏠", "pa-to 🦆", "ma-no ✋", "lu-na 🌙", "ma-ri-po-sa 🦋", "ta-za ☕", "ba-lle-na 🐋"]
+    },
+    {
+      "id": "e", "name": "e", "age": 3, "patterns": ["e"],
+      "words": ["e-le-fan-te 🐘", "es-tre-lla ⭐", "es-cue-la 🏫", "en-sa-la-da 🥗", "le-che 🥛", "pe-ra 🍐", "ma-le-ta 🧳", "ca-fé ☕", "ve-la 🕯️", "te-lé-fo-no 📞", "se-má-fo-ro 🚦", "he-la-do 🍦", "tren 🚆", "ho-tel 🏨"]
+    },
+    {
+      "id": "i", "name": "i", "age": 3, "patterns": ["i"],
+      "words": ["i-gle-sia ⛪", "i-gua-na 🦎", "is-la 🏝️", "i-mán 🧲", "ni-ño 👦", "li-bro 📖", "pi-ña 🍍", "ti-gre 🐯", "ca-mi-sa 👕", "vi-no 🍷", "ni-ña 👧", "di-ne-ro 💵", "ma-ní 🥜", "es-quí ⛷️"]
+    },
+    {
+      "id": "o", "name": "o", "age": 3, "patterns": ["o"],
+      "words": ["o-so 🐻", "o-ve-ja 🐑", "o-jo 👁️", "o-re-ja 👂", "o-lla 🍲", "o-cho 8️⃣", "bo-ca 👄", "so-pa 🥣", "co-ne-jo 🐰", "ro-sa 🌹", "sol ☀️", "ga-to 🐱", "pe-rro 🐶", "mo-to 🏍️"]
+    },
+    {
+      "id": "u", "name": "u", "age": 3, "patterns": ["u"],
+      "words": ["u-vas 🍇", "u-ña 💅", "u-no 1️⃣", "u-ni-cor-nio 🦄", "lu-na 🌙", "cu-cha-ra 🥄", "zu-mo 🧃", "pu-ño ✊", "bam-bú 🎍", "can-gu-ro 🦘", "pa-ra-guas ☂️", "ju-gue-te 🧸", "lu-pa 🔍"]
+    },
+    {
+      "id": "p", "name": "p", "age": 3, "patterns": ["p(?![lr])"],
+      "words": ["pa-to 🦆", "pe-lo-ta ⚽", "pi-ña 🍍", "pe-ra 🍐", "pe-rro 🐶", "pul-po 🐙", "pan 🍞", "pie 🦶", "pa-pel 📄", "so-pa 🥣", "za-pa-to 👟", "ca-pa 🦸", "sa-po 🐸", "lám-pa-ra 💡", "tu-li-pán 🌷"]
+    },
+    {
+      "id": "m", "name": "m", "age": 3, "patterns": ["m"],
+      "words": ["ma-no ✋", "ma-má 👩", "mo-no 🐒", "mo-to 🏍️", "ma-ri-po-sa 🦋", "man-za-na 🍎", "mo-chi-la 🎒", "me-lón 🍈", "ma-pa 🗺️", "mon-ta-ña ⛰️", "ca-ma 🛏️", "hu-mo 💨", "ca-me-llo 🐫", "li-món 🍋", "pi-ja-ma 🛌"]
+    },
+    {
+      "id": "n", "name": "n", "age": 3, "patterns": ["n"],
+      "words": ["na-riz 👃", "nu-be ☁️", "ni-ño 👦", "na-ran-ja 🍊", "no-che 🌙", "nie-ve ❄️", "ba-na-na 🍌", "lu-na 🌙", "ca-mi-no 🛣️", "ra-na 🐸", "pan 🍞", "tren 🚆", "a-vión ✈️", "ca-mión 🚚", "ja-bón 🧼", "se-ma-na 📅"]
+    },
+    {
+      "id": "ñ", "name": "ñ", "age": 3, "patterns": ["ñ"],
+      "words": ["ni-ño 👦", "ni-ña 👧", "pi-ña 🍍", "ba-ño 🛁", "u-ña 💅", "a-ra-ña 🕷️", "pes-ta-ña 👁️", "mon-ta-ña ⛰️", "ma-ña-na 🌅", "mu-ñe-ca 🎎", "se-ño-ra 👩", "so-ñar 💭", "pa-ñal 🍼", "ca-ña 🎋"]
+    },
+    {
+      "id": "t", "name": "t", "age": 3, "patterns": ["t(?!r)"],
+      "words": ["ta-za ☕", "te-lé-fo-no 📞", "to-ma-te 🍅", "to-ro 🐂", "ti-gre 🐯", "tor-tu-ga 🐢", "ta-co 🌮", "ti-je-ras ✂️", "tam-bor 🥁", "pa-to 🦆", "ga-to 🐱", "bo-te-lla 🍼", "pe-lo-ta ⚽", "za-pa-to 👟", "ma-le-ta 🧳", "mo-to 🏍️", "bo-tón 🔘"]
+    },
+    {
+      "id": "k", "name": "k (c, qu, k)", "age": 3, "patterns": ["c(?=[aou])", "qu", "k"],
+      "words": ["ca-sa 🏠", "ca-ma 🛏️", "co-ne-jo 🐰", "ca-ba-llo 🐴", "que-so 🧀", "ca-mi-sa 👕", "co-che 🚗", "cu-chi-llo 🔪", "ko-a-la 🐨", "ca-ra-col 🐌", "co-he-te 🚀", "cu-cha-ra 🥄", "va-ca 🐮", "bo-ca 👄", "ta-co 🌮", "ra-que-ta 🎾"]
+    },
+    {
+      "id": "f", "name": "f", "age": 3, "patterns": ["f(?![lr])"],
+      "words": ["fo-to 📷", "fue-go 🔥", "fan-tas-ma 👻", "fe-liz 😊", "fút-bol ⚽", "fa-mi-lia 👪", "fies-ta 🎉", "fo-co 💡", "fa-ro 🔦", "ca-fé ☕", "e-le-fan-te 🐘", "bu-fan-da 🧣", "te-lé-fo-no 📞", "se-má-fo-ro 🚦", "so-fá 🛋️", "gi-ra-fa 🦒"]
+    },
+    {
+      "id": "b", "name": "b (b, v)", "age": 3, "patterns": ["b(?![lr])", "v"],
+      "words": ["ba-lón 🏀", "bo-ta 🥾", "bar-co ⛵", "bi-ci-cle-ta 🚲", "bo-lí-gra-fo 🖊️", "va-ca 🐮", "va-so 🥛", "ve-la 🕯️", "bus 🚌", "ba-lle-na 🐋", "ba-na-na 🍌", "o-ve-ja 🐑", "u-va 🍇", "ca-ba-llo 🐴", "ba-ño 🛁", "ja-bón 🧼"]
+    },
+    {
+      "id": "d", "name": "d", "age": 3, "patterns": ["d(?!r)"],
+      "words": ["de-do ☝️", "di-no-sau-rio 🦕", "dos 2️⃣", "dul-ce 🍬", "dien-te 🦷", "dia-man-te 💎", "du-cha 🚿", "da-do 🎲", "dis-co 💿", "do-na 🍩", "he-la-do 🍦", "ca-de-na ⛓️", "ra-dio 📻", "pa-red 🧱", "ciu-dad 🏙️", "can-de-la 🕯️"]
+    },
+    {
+      "id": "g", "name": "g (ga, go, gu, gue, gui)", "age": 3, "patterns": ["g(?=[aou])", "gu(?=[ei])"],
+      "words": ["ga-to 🐱", "go-rro 🧢", "gui-ta-rra 🎸", "ga-lle-ta 🍪", "ga-lli-na 🐔", "gu-sa-no 🐛", "go-ta 💧", "ga-fas 👓", "guan-tes 🧤", "a-mi-go 👫", "a-gua 💧", "la-go 🏞️", "ma-go 🧙", "pi-ra-gua 🛶", "pin-güi-no 🐧", "ju-gar 🎮"]
+    },
+    {
+      "id": "y", "name": "y (y, ll)", "age": 3, "patterns": ["y", "ll"],
+      "words": ["yo-yo 🪀", "yo-gur 🥛", "yo-ga 🧘", "lla-ve 🔑", "llu-via 🌧️", "lla-ma 🦙", "ye-ma 🥚", "si-lla 🪑", "po-llo 🍗", "ca-lle 🛣️", "ca-ba-llo 🐴", "bo-te-lla 🍼", "pa-ya-so 🤡", "ra-yo ⚡", "pla-ya 🏖️", "ba-lle-na 🐋", "a-ni-llo 💍", "rey 🤴"]
+    },
+
+    {
+      "id": "ch", "name": "ch", "age": 4, "patterns": ["ch"],
+      "words": ["cho-co-la-te 🍫", "chi-vo 🐐", "cha-que-ta 🧥", "chim-pan-cé 🐒", "chi-co 👦", "chi-ca 👧", "cha-pu-zón 🏊", "co-che 🚗", "le-che 🥛", "mo-chi-la 🎒", "no-che 🌙", "cu-cha-ra 🥄", "o-cho 8️⃣", "cu-chi-llo 🔪", "ca-cho-rro 🐶", "mu-cha-cho 👦"]
+    },
+    {
+      "id": "l", "name": "l", "age": 4, "patterns": ["l"],
+      "words": ["lu-na 🌙", "lá-piz ✏️", "li-món 🍋", "le-ón 🦁", "li-bro 📖", "lo-bo 🐺", "lu-pa 🔍", "lo-ro 🦜", "lám-pa-ra 💡", "la-gar-to 🦎", "la-go 🏞️", "ba-lón 🏀", "ve-la 🕯️", "pe-lo-ta ⚽", "go-ri-la 🦍", "ma-le-ta 🧳", "pa-pel 📄", "ár-bol 🌳", "ca-ra-col 🐌", "sol ☀️", "ho-tel 🏨"]
+    },
+    {
+      "id": "s", "name": "s (s, z, ce, ci)", "age": 4, "patterns": ["s", "z", "c(?=[ei])"],
+      "words": ["so-pa 🥣", "sol ☀️", "sa-po 🐸", "si-lla 🪑", "ser-pien-te 🐍", "si-re-na 🚨", "se-llo 📮", "som-bre-ro 👒", "sie-te 7️⃣", "se-má-fo-ro 🚦", "ca-sa 🏠", "ro-sa 🌹", "o-so 🐻", "ma-ri-po-sa 🦋", "ca-mi-sa 👕", "ba-su-ra 🗑️", "za-pa-to 👟", "ci-ne 🎬", "ce-bo-lla 🧅", "cin-co 5️⃣", "dos 2️⃣", "tres 3️⃣", "mes 📅", "au-to-bús 🚌"]
+    },
+    {
+      "id": "j", "name": "j (j, ge, gi)", "age": 4, "patterns": ["j", "g(?=[ei])"],
+      "words": ["ja-bón 🧼", "ji-ra-fa 🦒", "ju-go 🧃", "ju-gue-te 🧸", "ja-món 🍖", "jar-dín 🌳", "ge-me-los 👯", "ge-nio 🧞", "o-jo 👁️", "ca-ja 📦", "na-ran-ja 🍊", "ti-je-ras ✂️", "co-ne-jo 🐰", "o-ve-ja 🐑", "a-be-ja 🐝", "ho-ja 🍃", "re-loj ⏰", "jau-la 🦜"]
+    },
+    {
+      "id": "tres-silabas", "name": "palabras de 3 sílabas", "age": 4, "kind": "syllables", "patterns": [],
+      "words": ["za-pa-to 👟", "ca-mi-sa 👕", "ba-na-na 🍌", "pe-lo-ta ⚽", "ma-le-ta 🧳", "ga-lle-ta 🍪", "ga-lli-na 🐔", "to-ma-te 🍅", "tor-tu-ga 🐢", "pa-ya-so 🤡", "ca-ba-llo 🐴", "co-ne-jo 🐰", "a-bue-la 👵", "ca-me-llo 🐫", "la-gar-to 🦎", "man-za-na 🍎", "gui-ta-rra 🎸", "co-he-te 🚀"]
+    },
+
+    {
+      "id": "r", "name": "r suave (pero)", "age": 5, "patterns": ["r"],
+      "words": ["pe-ra 🍐", "ca-ra 🙂", "o-ro 🥇", "pa-ra-guas ☂️", "to-ro 🐂", "ca-ma-rón 🦐", "pá-ja-ro 🐦", "co-ro-na 👑", "a-ra-ña 🕷️", "ve-ra-no ☀️", "ti-bu-rón 🦈", "ho-ra ⏰", "ca-ra-col 🐌", "du-raz-no 🍑", "mar 🌊", "flor 🌸", "co-lor 🎨", "a-zú-car 🍬", "ca-lor 🔥", "can-tar 🎤", "ju-gar 🎮"]
+    },
+    {
+      "id": "bl", "name": "bl", "age": 5, "patterns": ["bl"],
+      "words": ["blu-sa 👚", "blan-co ⚪", "blo-que 🧱", "ta-bla 📋", "ca-ble 🔌", "mue-ble 🛋️", "pue-blo 🏘️", "do-ble 2️⃣", "sa-ble 🗡️", "ha-blar 🗣️", "bi-blio-te-ca 📚", "nu-bla-do ☁️", "blan-do 🧸"]
+    },
+    {
+      "id": "pl", "name": "pl", "age": 5, "patterns": ["pl"],
+      "words": ["pla-to 🍽️", "plá-ta-no 🍌", "plu-ma ✒️", "plan-ta 🌱", "pla-ya 🏖️", "plan-cha 👔", "pla-za ⛲", "plás-ti-co ♻️", "pla-no 🗺️", "tem-plo ⛩️", "a-plau-so 👏", "pla-ne-ta 🪐", "pla-ta 🥈"]
+    },
+    {
+      "id": "cl", "name": "cl", "age": 5, "patterns": ["cl"],
+      "words": ["cla-vo 🔩", "cla-se 🏫", "cla-vel 🌹", "cli-ma 🌦️", "clip 📎", "clí-ni-ca 🏥", "bi-ci-cle-ta 🚲", "tri-ci-clo 🚲", "ci-clis-ta 🚴", "te-cla ⌨️", "re-ci-clar ♻️", "cla-ro ☀️", "cla-ve 🔑"]
+    },
+    {
+      "id": "fl", "name": "fl", "age": 5, "patterns": ["fl"],
+      "words": ["flor 🌸", "flo-res 💐", "flo-re-ro 🏺", "fle-cha 🏹", "flan 🍮", "fla-men-co 🦩", "flau-ta 🎶", "fle-co 🧶", "flo-ta-dor 🏊", "in-fla-do 🎈", "fla-co 🦴", "flau-tis-ta 🎼", "flo-ris-ta 💐", "in-fla-ble 🎈"]
+    },
+    {
+      "id": "gl", "name": "gl", "age": 5, "patterns": ["gl"],
+      "words": ["glo-bo 🎈", "glo-bos 🎈🎈", "i-gle-sia ⛪", "re-gla 📏", "jun-gla 🌴", "gla-ciar 🏔️", "glo-tón 🐷", "gla-dio-lo 🌺", "glo-rie-ta 🚦", "si-glo ⏳", "gla-dia-dor ⚔️", "i-glú ⛄", "glu-co-sa 🍬", "glo-ria 🏆"]
+    },
+    {
+      "id": "s-final", "name": "s final", "age": 5, "patterns": ["s$"],
+      "words": ["dos 2️⃣", "tres 3️⃣", "mes 📅", "lu-nes 📅", "au-to-bús 🚌", "o-jos 👀", "pies 🦶🦶", "de-dos 🖐️", "za-pa-tos 👟👟", "li-bros 📚", "pa-tos 🦆🦆", "ga-tos 🐱🐱", "glo-bos 🎈🎈", "dien-tes 🦷", "u-vas 🍇", "ár-bo-les 🌳🌳"]
+    },
+
+    {
+      "id": "rr", "name": "rr (avanzado)", "age": 5, "advanced": true, "patterns": ["rr", "^r"],
+      "words": ["ra-tón 🐭", "ra-na 🐸", "ro-sa 🌹", "re-loj ⏰", "ro-pa 👚", "re-gla 📏", "rey 🤴", "pe-rro 🐶", "ca-rro 🚗", "to-rre 🏰", "ce-rro ⛰️", "ca-rre-ta 🛒", "go-rro 🧢", "ra-que-ta 🎾", "ro-bot 🤖", "ro-jo 🔴", "gui-ta-rra 🎸", "co-rrer 🏃"]
+    },
+    {
+      "id": "br", "name": "br (avanzado)", "age": 5, "advanced": true, "patterns": ["br"],
+      "words": ["li-bro 📖", "ca-bra 🐐", "ce-bra 🦓", "bra-zo 💪", "bru-ja 🧙", "som-bre-ro 👒", "a-bri-go 🧥", "ham-bre 😋", "ca-bri-to 🐐", "som-bra 🌑", "bra-ce-le-te 📿", "hom-bre 👨", "bro-cha 🖌️"]
+    },
+    {
+      "id": "pr", "name": "pr (avanzado)", "age": 5, "advanced": true, "patterns": ["pr"],
+      "words": ["prín-ci-pe 🤴", "prin-ce-sa 👸", "pri-ma-ve-ra 🌷", "pre-mio 🏆", "pri-mo 👦", "pro-fe-sor 🧑", "pro-gra-ma 📺", "pre-gun-ta ❓", "a-pren-der 📚", "pri-sa 🏃", "pris-ma 🔺", "ca-pri-cho 🍫", "pro-fe-so-ra 👩", "pri-me-ra 🥇"]
+    },
+    {
+      "id": "cr", "name": "cr (avanzado)", "age": 5, "advanced": true, "patterns": ["cr"],
+      "words": ["cruz ✝️", "cro-có-di-lo 🐊", "cre-ma 🧴", "cru-ce-ro 🚢", "cra-yón 🖍️", "cro-que-ta 🍗", "es-cri-bir ✍️", "es-cri-to-rio 🖥️", "a-cró-ba-ta 🤸", "mi-cró-fo-no 🎤", "cro-nó-me-tro ⏱️", "cri-sá-li-da 🦋"]
+    },
+    {
+      "id": "fr", "name": "fr (avanzado)", "age": 5, "advanced": true, "patterns": ["fr"],
+      "words": ["fre-sa 🍓", "fru-ta 🍎", "fri-to 🍟", "fren-te 😐", "fra-se 💬", "ci-fra 🔢", "co-fre 🧰", "dis-fraz 🎭", "fre-no 🛑", "fran-ja 🟧", "fri-jo-les 🥘", "fron-te-ra 🛂"]
+    },
+    {
+      "id": "gr", "name": "gr (avanzado)", "age": 5, "advanced": true, "patterns": ["gr"],
+      "words": ["gra-ma 🌱", "gri-llo 🦗", "gri-fo 🚰", "grú-a 🏗️", "gran-de 🐘", "gris ⚪", "ti-gre 🐯", "ne-gro ⚫", "a-le-gre 😊", "vi-na-gre 🍶", "gra-ni-zo 🌨️", "gri-to 😱"]
+    },
+    {
+      "id": "tr", "name": "tr (avanzado)", "age": 5, "advanced": true, "patterns": ["tr"],
+      "words": ["tren 🚆", "tri-ci-clo 🚲", "tri-go 🌾", "tris-te 😢", "tro-fe-o 🏆", "tré-bol 🍀", "trom-pe-ta 🎺", "es-tre-lla ⭐", "cua-tro 4️⃣", "mons-truo 👹", "trián-gu-lo 🔺", "tres 3️⃣", "tro-no 👑", "tra-je 🥼"]
+    },
+    {
+      "id": "dr", "name": "dr (avanzado)", "age": 5, "advanced": true, "patterns": ["dr"],
+      "words": ["dra-gón 🐉", "dro-me-da-rio 🐪", "drá-cu-la 🧛", "dra-ma 🎭", "la-dri-llo 🧱", "pa-dre 👨", "ma-dre 👩", "cua-dro 🖼️", "cua-dra-do ⬛", "co-co-dri-lo 🐊", "ca-te-dral ⛪", "ma-dru-ga-da 🌅"]
+    }
+  ]
+}

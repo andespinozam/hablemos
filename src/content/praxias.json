@@ -1,0 +1,16 @@
+{
+  "items": [
+    { "id": "soplar-vela", "level": 1, "guide": "candle", "reps": 3, "target": "soplar la vela", "prompt": "Vamos a soplar la vela. Toma aire por la nariz y sopla despacito. Cuenta conmigo." },
+    { "id": "soplar-molino", "level": 1, "guide": "pinwheel", "reps": 3, "target": "soplar el molino", "prompt": "Sopla el molino para que gire. Toma aire y sopla fuerte. Cuenta conmigo." },
+    { "id": "labios-o", "level": 1, "guide": "lips-o", "reps": 3, "target": "labios en O", "prompt": "Haz la boca de o, redonda como una pelota. Cuenta conmigo." },
+    { "id": "labios-i", "level": 1, "guide": "lips-i", "reps": 3, "target": "labios en I", "prompt": "Haz la boca de i, con una sonrisa grande. Cuenta conmigo." },
+    { "id": "beso", "level": 1, "guide": "kiss", "reps": 3, "target": "beso", "prompt": "Manda un beso. Junta los labios y haz mua. Cuenta conmigo." },
+    { "id": "lengua-fuera", "level": 1, "guide": "tongue-out", "reps": 3, "target": "sacar la lengua", "prompt": "Saca la lengua, bien larga y derechita. Cuenta conmigo." },
+
+    { "id": "lengua-arriba", "level": 2, "guide": "tongue-up", "reps": 4, "target": "lengua arriba", "prompt": "Saca la lengua y llévala hacia arriba, hacia la nariz. Cuenta conmigo." },
+    { "id": "lengua-abajo", "level": 2, "guide": "tongue-down", "reps": 4, "target": "lengua abajo", "prompt": "Saca la lengua y llévala hacia abajo, hacia la barbilla. Cuenta conmigo." },
+    { "id": "lengua-lados", "level": 2, "guide": "tongue-side", "reps": 4, "target": "lengua a los lados", "prompt": "Mueve la lengua de un lado al otro, como un limpiaparabrisas. Cuenta conmigo." },
+    { "id": "labios-o-i", "level": 2, "guide": "lips-oi", "reps": 4, "target": "labios O - I", "prompt": "Haz o y luego i, o, i, o, i. Cuenta conmigo." },
+    { "id": "soplar-vela-2", "level": 2, "guide": "candle", "reps": 5, "target": "soplar la vela (largo)", "prompt": "Sopla la vela despacio y por más tiempo. Cuenta conmigo." }
+  ]
+}

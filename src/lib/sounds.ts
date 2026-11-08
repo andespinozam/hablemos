@@ -3,6 +3,8 @@
  * sonido de error ni de pérdida de puntos, y no debe agregarse ninguno.
  */
 
+import { rhythmDuration, rhythmSchedule, type Pattern } from './rhythm';
+
 export type SoundKind = 'chime' | 'star' | 'fanfare';
 
 interface Note {
@@ -59,6 +61,40 @@ function getContext(): AudioContext | null {
 export function unlockAudio(): void {
   const c = getContext();
   if (c && c.state === 'suspended') void c.resume().catch(() => undefined);
+}
+
+/** Una nota suave con ataque y caída sin chasquidos. */
+function tone(c: AudioContext, freq: number, start: number, dur: number, volume: number = VOLUME): void {
+  const osc = c.createOscillator();
+  const gain = c.createGain();
+  osc.type = 'sine';
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(0.0001, start);
+  gain.gain.exponentialRampToValueAtTime(volume, start + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+  osc.connect(gain).connect(c.destination);
+  osc.start(start);
+  osc.stop(start + dur + 0.05);
+}
+
+/** Toca un ritmo de golpes cortos y largos. Devuelve cuánto dura (ms). */
+export function playRhythm(pattern: Pattern): number {
+  const c = getContext();
+  if (!c) return 0;
+  if (c.state === 'suspended') void c.resume().catch(() => undefined);
+  const start = c.currentTime + 0.05;
+  for (const beat of rhythmSchedule(pattern)) tone(c, 440, start + beat.at / 1000, beat.dur / 1000, 0.2);
+  return rhythmDuration(pattern);
+}
+
+/** Palmada suave al tocar el aplaudidor. */
+export function playClap(): void {
+  const c = getContext();
+  if (!c) return;
+  if (c.state === 'suspended') void c.resume().catch(() => undefined);
+  const t = c.currentTime + 0.01;
+  tone(c, 330, t, 0.12, 0.22);
+  tone(c, 660, t, 0.07, 0.08);
 }
 
 export function playSound(kind: SoundKind): void {

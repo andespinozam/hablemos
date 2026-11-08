@@ -1,12 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ACTIVITIES, getActivity } from '../activities/registry';
-import type { Activity, Item } from '../activities/types';
+import type { Activity, BuildContext, Item } from '../activities/types';
 import { AdultPanel } from '../components/AdultPanel';
 import { RepeatButton } from '../components/RepeatButton';
 import { StarBurst, randomPraise } from '../components/Stars';
 import { ageInYears } from '../lib/age';
 import type { ChildProfile } from '../lib/db';
-import { addResult, applyAdaptation, finishSession, getLastPracticed, getLevels, startSession } from '../lib/progress';
+import { summarizePhonemes } from '../lib/phonemeStats';
+import {
+  addResult,
+  applyAdaptation,
+  finishSession,
+  getLastPracticed,
+  getLevels,
+  listResults,
+  startSession,
+} from '../lib/progress';
 import type { Rating } from '../lib/scoring';
 import { START, nextPosition, type Position } from '../lib/sessionFlow';
 import { ITEMS_PER_ACTIVITY, planSession } from '../lib/sessionPlan';
@@ -25,6 +34,12 @@ interface Plan {
 }
 
 const PRAISE_MS = 1600;
+
+/** Lo que se dice con calma tras un "Aún no": el modelo del ítem, sin puntuación doble. */
+export function retryText(item: Item): string {
+  const model = (item.model ?? item.target).trim().replace(/[.!?¡¿,;:\s]+$/, '');
+  return `Vamos otra vez, con calma. ${model}.`;
+}
 
 interface Props {
   profile: ChildProfile;
@@ -57,15 +72,20 @@ export function SessionRunner({ profile, onExit }: Props) {
     started.current = true;
     (async () => {
       try {
-        const [levels, lastPracticed] = await Promise.all([getLevels(profile.id), getLastPracticed(profile.id)]);
+        const [levels, lastPracticed, results] = await Promise.all([
+          getLevels(profile.id),
+          getLastPracticed(profile.id),
+          listResults(profile.id),
+        ]);
         const age = Math.max(ageInYears(profile.birthDate, new Date()) ?? 3, 3);
+        const ctx: BuildContext = { age, phonemes: summarizePhonemes(results) };
         const ids = planSession(ACTIVITIES, { age, lastPracticed });
         const steps: Step[] = ids.flatMap((id) => {
           const activity = getActivity(id);
           if (!activity) return [];
           const level = Math.min(levels[id] ?? 1, activity.maxLevel);
           const count = activity.itemCount ?? ITEMS_PER_ACTIVITY;
-          return [{ activity, level, items: activity.buildItems(level, count, Math.random) }];
+          return [{ activity, level, items: activity.buildItems(level, count, Math.random, ctx) }];
         });
         if (steps.length === 0) throw new Error('Sin actividades');
         const session = await startSession(profile.id, ids);
@@ -92,7 +112,7 @@ export function SessionRunner({ profile, onExit }: Props) {
     if (!step) return;
     if (pos.stage === 'intro') say(step.activity.intro);
     else if (pos.stage === 'item' && item) say(item.prompt);
-    else if (pos.stage === 'retry' && item) say(`Vamos otra vez, con calma. ${item.target}.`, SLOW_RATE);
+    else if (pos.stage === 'retry' && item) say(retryText(item), SLOW_RATE);
   }, [step, item, pos.stage, say]);
 
   const finish = useCallback(async () => {
@@ -232,7 +252,11 @@ export function SessionRunner({ profile, onExit }: Props) {
           <div className="item-center">
             <step.activity.ItemView key={`retry-${pos.a}-${item.id}`} item={item} say={say} submit={() => undefined} />
             <div className="row row--center">
-              <button type="button" className="btn btn--accent" onClick={() => say(`Vamos otra vez, con calma. ${item.target}.`, SLOW_RATE)}>
+              <button
+                type="button"
+                className="btn btn--accent"
+                onClick={() => say(retryText(item), SLOW_RATE)}
+              >
                 🔁 Otra vez
               </button>
               <button type="button" className="btn btn--good" onClick={advance}>

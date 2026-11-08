@@ -1,4 +1,5 @@
 import type { ComponentType } from 'react';
+import type { PhonemeStat } from '../lib/phonemeStats';
 import type { Rng } from '../lib/random';
 import type { Rating } from '../lib/scoring';
 
@@ -21,6 +22,8 @@ export interface Item {
   target: string;
   /** Instrucción que se dice en voz alta y se muestra en texto breve. */
   prompt: string;
+  /** Lo que se dice al repetir el modelo con calma tras un "Aún no" (por defecto, `target`). */
+  model?: string;
   /** Área si difiere de la de la actividad. */
   area?: Area;
   /** Fonema objetivo, si aplica. */
@@ -40,6 +43,14 @@ export interface ItemViewProps {
   submit: (rating: Rating) => void;
 }
 
+/** Lo que el motor sabe del niño al armar los ítems. */
+export interface BuildContext {
+  /** Edad en años cumplidos. */
+  age: number;
+  /** Resumen por fonema de lo practicado (id de fonema → estadística). */
+  phonemes: Record<string, PhonemeStat>;
+}
+
 export interface Activity {
   id: string;
   title: string;
@@ -55,6 +66,6 @@ export interface Activity {
   adultRated: boolean;
   /** Ítems por sesión (por defecto `ITEMS_PER_ACTIVITY`). */
   itemCount?: number;
-  buildItems(level: number, count: number, rng: Rng): Item[];
+  buildItems(level: number, count: number, rng: Rng, ctx?: BuildContext): Item[];
   ItemView: ComponentType<ItemViewProps>;
 }
