@@ -12,15 +12,25 @@ const unique = <T>(xs: readonly T[]) => new Set(xs).size === xs.length;
 const SEEDS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 describe('registro', () => {
-  it('tiene las actividades 1-4 con ids únicos y datos completos', () => {
-    expect(ACTIVITIES.map((a) => a.id)).toEqual(['escucha-senala', 'sigue-orden', 'conceptos', 'mini-cuento']);
+  it('tiene las actividades 1-7 con ids únicos y datos completos', () => {
+    expect(ACTIVITIES.map((a) => a.id)).toEqual([
+      'escucha-senala',
+      'sigue-orden',
+      'conceptos',
+      'mini-cuento',
+      'que-es-esto',
+      'categorias',
+      'arma-frase',
+    ]);
     expect(unique(ACTIVITIES.map((a) => a.id))).toBe(true);
     for (const a of ACTIVITIES) {
       expect(a.title).toBeTruthy();
       expect(a.intro).toBeTruthy();
       expect(a.maxLevel).toBeGreaterThanOrEqual(1);
-      expect(a.adultRated).toBe(false); // estas actividades califican solas
     }
+  });
+  it('solo "¿Qué es esto?" la califica el adulto; las demás califican solas', () => {
+    expect(ACTIVITIES.filter((a) => a.adultRated).map((a) => a.id)).toEqual(['que-es-esto']);
   });
 });
 

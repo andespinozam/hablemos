@@ -1,0 +1,10 @@
+{
+  "categories": [
+    { "id": "animales", "label": "animales", "phrase": "los animales", "emoji": "🐾" },
+    { "id": "comida", "label": "comida", "phrase": "la comida", "emoji": "🍽️" },
+    { "id": "ropa", "label": "ropa", "phrase": "la ropa", "emoji": "👚" },
+    { "id": "cuerpo", "label": "cuerpo", "phrase": "el cuerpo", "emoji": "🧍" },
+    { "id": "casa", "label": "casa", "phrase": "las cosas de la casa", "emoji": "🏠" },
+    { "id": "transporte", "label": "vehículos", "phrase": "los vehículos", "emoji": "🚦" }
+  ]
+}

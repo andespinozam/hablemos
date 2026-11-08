@@ -60,6 +60,13 @@ npm run icons     # regenera los PNG de public/icons
 - Nivel 2: vocabulario con distractores de la misma categoría y 4 opciones; órdenes de 2 pasos (en cualquier orden); conceptos dentro/fuera y arriba/abajo (SVG en `components/Visuals.tsx`); cuentos de 3 páginas.
 - Mini cuento: dos cuentos por sesión (`itemCount: 6`); cada pregunta es un ítem con su propio resultado y la 1.ª de cada cuento trae las páginas. Su `prompt` es la 1.ª página porque el motor dice `item.prompt` al abrir el ítem.
 - `ItemView` se remonta por ítem (`key`), así que su estado local empieza limpio en cada ejercicio.
+## Actividades 5-7 (Fase 4)
+
+- Ids: `que-es-esto` (califica el adulto), `categorias` y `arma-frase` (califican solas).
+- **¿Qué es esto?** (`naming.tsx`): 5 palabras de `vocab.json` repartidas entre categorías (`spreadBy`). "👂 Escucha" dice el modelo; si se usa, el adulto marca "Con ayuda". "Aún no" activa el reintento calmado del motor.
+- **Categorías** (`sorting.tsx`, lógica en `lib/sorting.ts`): nivel 1 = 2 grupos y 4 objetos; nivel 2 = 3 grupos y 6; 3 rondas. Arrastre con eventos de puntero (`touch-action: none`) **y** respaldo de tocar objeto → tocar grupo (teclado/lector de pantalla). Soltar fuera de un grupo no cuenta como error. Tras 2 errores se resalta el siguiente objeto y su grupo. Sin errores = "Lo logró"; con errores = "Con ayuda". Las categorías y sus textos están en `categories.json` (deben coincidir con las de `vocab.json`; hay prueba).
+- **Arma la frase** (`phrase.tsx`): fichas = palabra clave + emoji (sin artículos); `spoken` es la frase natural completa y la fichas deben aparecer en ella (hay prueba). Se arma ficha por ficha en orden; el orden mostrado nunca es el correcto (`shuffleTiles`). Al completar, la voz dice la frase y luego llega el elogio.
+- Tamaño: en `.sorting` los objetos son compactos (`clamp(84px, 13vmin, 140px)`) para que 6 objetos + 3 grupos quepan sin desplazar en 1024x768 y 768x1024. Al agregar contenido más grande, medir `scrollHeight` vs `innerHeight`.
 - Palabras evitadas por regionalismo: calcetín/media, banano/guineo. Se usa "carro", "bus", "uvas".
 
 ## Perfiles y adultos

@@ -579,3 +579,138 @@ p {
   border-style: dashed;
   border-color: #d9a21b;
 }
+
+/* ---------- Categorías (arrastrar) ---------- */
+.sorting {
+  width: 100%;
+  gap: 20px;
+}
+.bins,
+.tray {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+.bin {
+  position: relative;
+  min-width: 200px;
+  min-height: 190px;
+  flex: 1 1 200px;
+  max-width: 320px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  font: inherit;
+  font-weight: 900;
+  color: var(--ink);
+  background: #e3f6ec;
+  border: 5px dashed #4aa771;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+.bin__icon {
+  font-size: clamp(2.5rem, 8vmin, 4rem);
+  line-height: 1;
+}
+.bin__label {
+  font-size: var(--fs-big);
+}
+.bin__in {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  min-height: 2.4rem;
+  font-size: clamp(2rem, 6vmin, 3rem);
+}
+.drag {
+  /* Evita que el navegador desplace la página mientras se arrastra. */
+  touch-action: none;
+  cursor: grab;
+}
+.drag--active {
+  position: relative;
+  z-index: 20;
+  cursor: grabbing;
+  box-shadow: 0 14px 24px rgb(27 42 74 / 0.3);
+  transition: none;
+}
+
+/* ---------- Arma la frase ---------- */
+.phrase {
+  gap: 16px;
+}
+.slots,
+.tiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.slot {
+  width: clamp(120px, 22vmin, 190px);
+  min-height: clamp(120px, 22vmin, 190px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 5px dashed var(--line);
+  border-radius: var(--radius);
+  background: rgb(255 255 255 / 0.6);
+}
+.slot--full {
+  border-style: solid;
+  border-color: var(--accent);
+  background: var(--surface);
+}
+.tile {
+  flex-direction: column;
+  gap: 4px;
+  width: clamp(120px, 22vmin, 190px);
+  height: auto;
+  min-height: clamp(120px, 22vmin, 190px);
+}
+.tile__emoji {
+  font-size: clamp(2.8rem, 10vmin, 5rem);
+  line-height: 1;
+}
+.tile__text {
+  font-size: clamp(1.2rem, 3.6vmin, 1.8rem);
+  font-weight: 900;
+}
+
+/* Categorías: objetos y grupos compactos para que 6 objetos + 3 grupos quepan sin desplazar. */
+.sorting {
+  gap: 14px;
+}
+.sorting .tray {
+  gap: 14px;
+}
+.sorting .choice {
+  width: clamp(84px, 13vmin, 140px);
+  height: clamp(84px, 13vmin, 140px);
+}
+.sorting .choice__emoji {
+  font-size: clamp(2.6rem, 9vmin, 4.6rem);
+}
+.bin {
+  min-height: 150px;
+}
+.bin__icon {
+  font-size: clamp(2rem, 6vmin, 3rem);
+}
+.bin__label {
+  font-size: clamp(1.3rem, 3.6vmin, 2rem);
+}
+.bin__in {
+  font-size: clamp(1.6rem, 5vmin, 2.4rem);
+  min-height: 2rem;
+}

@@ -1,0 +1,24 @@
+{
+  "phrases": [
+    { "id": "mama-canta", "level": 1, "spoken": "Mamá canta.", "scene": "👩🎤", "tiles": [{ "text": "mamá", "emoji": "👩" }, { "text": "canta", "emoji": "🎤" }] },
+    { "id": "bebe-duerme", "level": 1, "spoken": "El bebé duerme.", "scene": "👶😴", "tiles": [{ "text": "bebé", "emoji": "👶" }, { "text": "duerme", "emoji": "😴" }] },
+    { "id": "pajaro-vuela", "level": 1, "spoken": "El pájaro vuela.", "scene": "🐦☁️", "tiles": [{ "text": "pájaro", "emoji": "🐦" }, { "text": "vuela", "emoji": "☁️" }] },
+    { "id": "nino-corre", "level": 1, "spoken": "El niño corre.", "scene": "👦🏃", "tiles": [{ "text": "niño", "emoji": "👦" }, { "text": "corre", "emoji": "🏃" }] },
+    { "id": "pez-nada", "level": 1, "spoken": "El pez nada.", "scene": "🐟🌊", "tiles": [{ "text": "pez", "emoji": "🐟" }, { "text": "nada", "emoji": "🏊" }] },
+    { "id": "nina-salta", "level": 1, "spoken": "La niña salta.", "scene": "👧🤸", "tiles": [{ "text": "niña", "emoji": "👧" }, { "text": "salta", "emoji": "🤸" }] },
+    { "id": "gato-bebe-leche", "level": 1, "spoken": "El gato bebe leche.", "scene": "🐱🥛", "tiles": [{ "text": "gato", "emoji": "🐱" }, { "text": "bebe", "emoji": "🥤" }, { "text": "leche", "emoji": "🥛" }] },
+    { "id": "nino-come-pan", "level": 1, "spoken": "El niño come pan.", "scene": "👦🍞", "tiles": [{ "text": "niño", "emoji": "👦" }, { "text": "come", "emoji": "🍽️" }, { "text": "pan", "emoji": "🍞" }] },
+    { "id": "perro-come-hueso", "level": 1, "spoken": "El perro come un hueso.", "scene": "🐶🦴", "tiles": [{ "text": "perro", "emoji": "🐶" }, { "text": "come", "emoji": "🍽️" }, { "text": "hueso", "emoji": "🦴" }] },
+    { "id": "mama-lee-libro", "level": 1, "spoken": "Mamá lee un libro.", "scene": "👩📚", "tiles": [{ "text": "mamá", "emoji": "👩" }, { "text": "lee", "emoji": "👓" }, { "text": "libro", "emoji": "📚" }] },
+
+    { "id": "nina-toma-jugo", "level": 2, "spoken": "La niña toma jugo.", "scene": "👧🧃", "tiles": [{ "text": "niña", "emoji": "👧" }, { "text": "toma", "emoji": "🥤" }, { "text": "jugo", "emoji": "🧃" }] },
+    { "id": "papa-lava-carro", "level": 2, "spoken": "Papá lava el carro.", "scene": "👨🚗", "tiles": [{ "text": "papá", "emoji": "👨" }, { "text": "lava", "emoji": "🧼" }, { "text": "carro", "emoji": "🚗" }] },
+    { "id": "nino-juega-pelota", "level": 2, "spoken": "El niño juega con la pelota.", "scene": "👦⚽", "tiles": [{ "text": "niño", "emoji": "👦" }, { "text": "juega", "emoji": "🎯" }, { "text": "con la pelota", "emoji": "⚽" }] },
+    { "id": "gato-duerme-cama", "level": 2, "spoken": "El gato duerme en la cama.", "scene": "🐱🛏️", "tiles": [{ "text": "gato", "emoji": "🐱" }, { "text": "duerme", "emoji": "😴" }, { "text": "en la cama", "emoji": "🛏️" }] },
+    { "id": "perro-corre-parque", "level": 2, "spoken": "El perro corre en el parque.", "scene": "🐶🛝", "tiles": [{ "text": "perro", "emoji": "🐶" }, { "text": "corre", "emoji": "🏃" }, { "text": "en el parque", "emoji": "🛝" }] },
+    { "id": "nina-come-manzana-roja", "level": 2, "spoken": "La niña come una manzana roja.", "scene": "👧🍎", "tiles": [{ "text": "niña", "emoji": "👧" }, { "text": "come", "emoji": "🍽️" }, { "text": "manzana", "emoji": "🍎" }, { "text": "roja", "emoji": "🔴" }] },
+    { "id": "nino-pinta-flor-rosada", "level": 2, "spoken": "El niño pinta una flor rosada.", "scene": "👦🌸", "tiles": [{ "text": "niño", "emoji": "👦" }, { "text": "pinta", "emoji": "🖌️" }, { "text": "flor", "emoji": "🌸" }, { "text": "rosada", "emoji": "🩷" }] },
+    { "id": "mama-compra-pan-mercado", "level": 2, "spoken": "Mamá compra pan en el mercado.", "scene": "👩🛒", "tiles": [{ "text": "mamá", "emoji": "👩" }, { "text": "compra", "emoji": "🛒" }, { "text": "pan", "emoji": "🍞" }, { "text": "en el mercado", "emoji": "🏪" }] },
+    { "id": "papa-maneja-bus-grande", "level": 2, "spoken": "Papá maneja un bus grande.", "scene": "👨🚌", "tiles": [{ "text": "papá", "emoji": "👨" }, { "text": "maneja", "emoji": "🚦" }, { "text": "bus", "emoji": "🚌" }, { "text": "grande", "emoji": "🐘" }] }
+  ]
+}

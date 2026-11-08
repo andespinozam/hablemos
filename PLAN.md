@@ -33,9 +33,9 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 ## Fase 4 — Actividades 5 a 7
 
-- [ ] 5 ¿Qué es esto?
-- [ ] 6 Categorías (arrastrar)
-- [ ] 7 Arma la frase
+- [x] 5 ¿Qué es esto?
+- [x] 6 Categorías (arrastrar)
+- [x] 7 Arma la frase
 
 ## Fase 5 — Actividades 8 a 11
 
