@@ -60,6 +60,18 @@
       ]
     },
     {
+      "id": "pronunciacion",
+      "title": "Evaluación de pronunciación",
+      "bullets": [
+        "Está en Zona de adultos > Seguimiento > Evaluación > Evaluación de pronunciación. Es aparte de la evaluación general y no cambia los niveles ni las rachas.",
+        "El niño nombra dibujos y tú marcas cada palabra: correcta, sustituida (eliges o escribes el sonido que dijo), omitida o distorsionada. Si no la dice, nómbrala tú y pídele que la repita: la app lo anota como \"repetida\". La app NO califica la pronunciación.",
+        "Se revisan los sonidos de su edad (2 o 3 palabras de cada uno, al inicio, en medio y al final), una o dos metas de la edad siguiente como opcionales y una mini revisión de sílabas átonas y grupos de consonantes.",
+        "Se hace en bloques de unos 5 minutos. Puedes pausar en cualquier momento y retomar otro día: lo marcado queda guardado en el dispositivo.",
+        "El resultado muestra cada sonido por posición, con la sustitución y si fue constante o variable, y lo clasifica como esperable para su edad, a estimular o consolidado (80 % o más). Propone un orden de trabajo: primero sonidos tempranos que aún no logra, luego los de su edad y al final los tardíos como metas suaves y opcionales.",
+        "Cada 4 semanas se sugiere reevaluar con las mismas palabras en otro orden y comparar. Los resultados también salen en Seguimiento y en el Reporte. Son orientativos: no son un diagnóstico."
+      ]
+    },
+    {
       "id": "seguimiento",
       "title": "Seguimiento, reporte y respaldo",
       "bullets": [

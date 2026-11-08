@@ -74,6 +74,8 @@ describe('titleFor', () => {
     expect(titleFor('adultos/respaldo')).toBe('Respaldo · Hablemos');
     expect(titleFor('adultos/seguimiento/x')).toBe('Seguimiento · Hablemos');
     expect(titleFor('adultos/evaluar/x/baseline')).toBe('Evaluando · Hablemos');
+    expect(titleFor('adultos/pronunciacion/x')).toBe('Pronunciación · Hablemos');
+    expect(titleFor('adultos/pronunciar/x/y')).toBe('Evaluando pronunciación · Hablemos');
     expect(titleFor('adultos/cosa-rara')).toBe('Zona de adultos · Hablemos');
   });
 });

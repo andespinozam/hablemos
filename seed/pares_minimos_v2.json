@@ -1,0 +1,498 @@
+{
+ "meta": {
+  "version": "0.2",
+  "uso": "Autocontenido: no depende de palabras.json. Cada palabra trae texto, sílabas y emoji (Emoji <= 12). Si el niño sustituye X por Y, usar los pares cuyos sonidos incluyan X e Y. Revisar con un fonoaudiólogo.",
+  "palabras_nuevas_respecto_a_la_app": [
+   "lana",
+   "lata",
+   "rata",
+   "pelo",
+   "moño",
+   "pila",
+   "ola",
+   "saco",
+   "sala",
+   "pala",
+   "copa",
+   "chal",
+   "sal",
+   "juego"
+  ]
+ },
+ "pares": [
+  {
+   "id": "pm_lana_rana",
+   "contraste": "l/rr",
+   "sonidos": [
+    "l",
+    "rr"
+   ],
+   "a": {
+    "palabra": "lana",
+    "silabas": [
+     "la",
+     "na"
+    ],
+    "emoji": "🧶",
+    "sonido": "l",
+    "en_app": false
+   },
+   "b": {
+    "palabra": "rana",
+    "silabas": [
+     "ra",
+     "na"
+    ],
+    "emoji": "🐸",
+    "sonido": "rr",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_lata_rata",
+   "contraste": "l/rr",
+   "sonidos": [
+    "l",
+    "rr"
+   ],
+   "a": {
+    "palabra": "lata",
+    "silabas": [
+     "la",
+     "ta"
+    ],
+    "emoji": "🥫",
+    "sonido": "l",
+    "en_app": false
+   },
+   "b": {
+    "palabra": "rata",
+    "silabas": [
+     "ra",
+     "ta"
+    ],
+    "emoji": "🐀",
+    "sonido": "rr",
+    "en_app": false
+   }
+  },
+  {
+   "id": "pm_pelo_perro",
+   "contraste": "l/rr",
+   "sonidos": [
+    "l",
+    "rr"
+   ],
+   "a": {
+    "palabra": "pelo",
+    "silabas": [
+     "pe",
+     "lo"
+    ],
+    "emoji": "💇",
+    "sonido": "l",
+    "en_app": false
+   },
+   "b": {
+    "palabra": "perro",
+    "silabas": [
+     "pe",
+     "rro"
+    ],
+    "emoji": "🐶",
+    "sonido": "rr",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_mono_moño",
+   "contraste": "n/ñ",
+   "sonidos": [
+    "n",
+    "ñ"
+   ],
+   "a": {
+    "palabra": "mono",
+    "silabas": [
+     "mo",
+     "no"
+    ],
+    "emoji": "🐒",
+    "sonido": "n",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "moño",
+    "silabas": [
+     "mo",
+     "ño"
+    ],
+    "emoji": "🎀",
+    "sonido": "ñ",
+    "en_app": false
+   }
+  },
+  {
+   "id": "pm_uno_uña",
+   "contraste": "n/ñ",
+   "sonidos": [
+    "n",
+    "ñ"
+   ],
+   "a": {
+    "palabra": "uno",
+    "silabas": [
+     "u",
+     "no"
+    ],
+    "emoji": "1️⃣",
+    "sonido": "n",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "uña",
+    "silabas": [
+     "u",
+     "ña"
+    ],
+    "emoji": "💅",
+    "sonido": "ñ",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_piña_pila",
+   "contraste": "ñ/l",
+   "sonidos": [
+    "ñ",
+    "l"
+   ],
+   "a": {
+    "palabra": "piña",
+    "silabas": [
+     "pi",
+     "ña"
+    ],
+    "emoji": "🍍",
+    "sonido": "ñ",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "pila",
+    "silabas": [
+     "pi",
+     "la"
+    ],
+    "emoji": "🔋",
+    "sonido": "l",
+    "en_app": false
+   }
+  },
+  {
+   "id": "pm_ola_olla",
+   "contraste": "l/y",
+   "sonidos": [
+    "l",
+    "y"
+   ],
+   "a": {
+    "palabra": "ola",
+    "silabas": [
+     "o",
+     "la"
+    ],
+    "emoji": "🌊",
+    "sonido": "l",
+    "en_app": false
+   },
+   "b": {
+    "palabra": "olla",
+    "silabas": [
+     "o",
+     "lla"
+    ],
+    "emoji": "🍲",
+    "sonido": "y",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_saco_taco",
+   "contraste": "s/t",
+   "sonidos": [
+    "s",
+    "t"
+   ],
+   "a": {
+    "palabra": "saco",
+    "silabas": [
+     "sa",
+     "co"
+    ],
+    "emoji": "👜",
+    "sonido": "s",
+    "en_app": false
+   },
+   "b": {
+    "palabra": "taco",
+    "silabas": [
+     "ta",
+     "co"
+    ],
+    "emoji": "🌮",
+    "sonido": "t",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_sala_pala",
+   "contraste": "s/p",
+   "sonidos": [
+    "s",
+    "p"
+   ],
+   "a": {
+    "palabra": "sala",
+    "silabas": [
+     "sa",
+     "la"
+    ],
+    "emoji": "🛋️",
+    "sonido": "s",
+    "en_app": false
+   },
+   "b": {
+    "palabra": "pala",
+    "silabas": [
+     "pa",
+     "la"
+    ],
+    "emoji": "⛏️",
+    "sonido": "p",
+    "en_app": false
+   }
+  },
+  {
+   "id": "pm_oso_ojo",
+   "contraste": "s/j",
+   "sonidos": [
+    "s",
+    "j"
+   ],
+   "a": {
+    "palabra": "oso",
+    "silabas": [
+     "o",
+     "so"
+    ],
+    "emoji": "🐻",
+    "sonido": "s",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "ojo",
+    "silabas": [
+     "o",
+     "jo"
+    ],
+    "emoji": "👁️",
+    "sonido": "j",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_sopa_copa",
+   "contraste": "s/k",
+   "sonidos": [
+    "s",
+    "k"
+   ],
+   "a": {
+    "palabra": "sopa",
+    "silabas": [
+     "so",
+     "pa"
+    ],
+    "emoji": "🥣",
+    "sonido": "s",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "copa",
+    "silabas": [
+     "co",
+     "pa"
+    ],
+    "emoji": "🏆",
+    "sonido": "k",
+    "en_app": false
+   }
+  },
+  {
+   "id": "pm_sopa_ropa",
+   "contraste": "s/rr",
+   "sonidos": [
+    "s",
+    "rr"
+   ],
+   "a": {
+    "palabra": "sopa",
+    "silabas": [
+     "so",
+     "pa"
+    ],
+    "emoji": "🥣",
+    "sonido": "s",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "ropa",
+    "silabas": [
+     "ro",
+     "pa"
+    ],
+    "emoji": "👚",
+    "sonido": "rr",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_chal_sal",
+   "contraste": "ch/s",
+   "sonidos": [
+    "ch",
+    "s"
+   ],
+   "a": {
+    "palabra": "chal",
+    "silabas": [
+     "chal"
+    ],
+    "emoji": "🧣",
+    "sonido": "ch",
+    "en_app": false
+   },
+   "b": {
+    "palabra": "sal",
+    "silabas": [
+     "sal"
+    ],
+    "emoji": "🧂",
+    "sonido": "s",
+    "en_app": false
+   }
+  },
+  {
+   "id": "pm_casa_taza",
+   "contraste": "k/t",
+   "sonidos": [
+    "k",
+    "t"
+   ],
+   "a": {
+    "palabra": "casa",
+    "silabas": [
+     "ca",
+     "sa"
+    ],
+    "emoji": "🏠",
+    "sonido": "k",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "taza",
+    "silabas": [
+     "ta",
+     "za"
+    ],
+    "emoji": "☕",
+    "sonido": "t",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_gota_bota",
+   "contraste": "g/b",
+   "sonidos": [
+    "g",
+    "b"
+   ],
+   "a": {
+    "palabra": "gota",
+    "silabas": [
+     "go",
+     "ta"
+    ],
+    "emoji": "💧",
+    "sonido": "g",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "bota",
+    "silabas": [
+     "bo",
+     "ta"
+    ],
+    "emoji": "🥾",
+    "sonido": "b",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_gato_pato",
+   "contraste": "g/p",
+   "sonidos": [
+    "g",
+    "p"
+   ],
+   "a": {
+    "palabra": "gato",
+    "silabas": [
+     "ga",
+     "to"
+    ],
+    "emoji": "🐱",
+    "sonido": "g",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "pato",
+    "silabas": [
+     "pa",
+     "to"
+    ],
+    "emoji": "🦆",
+    "sonido": "p",
+    "en_app": true
+   }
+  },
+  {
+   "id": "pm_fuego_juego",
+   "contraste": "f/j",
+   "sonidos": [
+    "f",
+    "j"
+   ],
+   "a": {
+    "palabra": "fuego",
+    "silabas": [
+     "fue",
+     "go"
+    ],
+    "emoji": "🔥",
+    "sonido": "f",
+    "en_app": true
+   },
+   "b": {
+    "palabra": "juego",
+    "silabas": [
+     "jue",
+     "go"
+    ],
+    "emoji": "🎮",
+    "sonido": "j",
+    "en_app": false
+   }
+  }
+ ]
+}

@@ -1,0 +1,5 @@
+{
+  "nota": "Ajustes de la evaluación de pronunciación. Ampliable sin tocar código.",
+  "excluded": ["tres-silabas"],
+  "clusterPhonemes": ["bl", "pl", "cl", "fl", "gl", "br", "pr", "cr", "fr", "gr", "tr", "dr"]
+}

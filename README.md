@@ -10,7 +10,7 @@ App web instalable (PWA) para **estimular el lenguaje de niños de 3 a 5 años**
 
 - **11 actividades** con voz y retroalimentación solo positiva: escucha y señala, sigue la orden, conceptos, mini cuento, ¿qué es esto?, categorías (arrastrar), arma la frase, praxias orofaciales, onomatopeyas, palabras con fonema objetivo (36 listas, 552 palabras) y discriminación auditiva.
 - **Sesiones guiadas** de 10 a 15 minutos con niveles que se ajustan solos.
-- **Zona de adultos** protegida por una puerta (mantener presionado 3 s o una suma): perfiles, evaluación inicial y reevaluación cada 4 semanas, seguimiento por área y por fonema, reporte imprimible, respaldo en JSON, señales de alerta y una guía de uso.
+- **Zona de adultos** protegida por una puerta (mantener presionado 3 s o una suma): perfiles, evaluación inicial y reevaluación cada 4 semanas, evaluación de pronunciación por sonido y posición (en bloques de ~5 minutos, pausables), seguimiento por área y por fonema, reporte imprimible, respaldo en JSON, señales de alerta y una guía de uso.
 - Pensada para niños: botones de al menos 72 px, horizontal y vertical, sin lectura obligatoria, sin texto seleccionable en las zonas de juego, la pantalla no se apaga mientras se juega.
 
 El detalle de decisiones y convenciones está en [CLAUDE.md](CLAUDE.md) y el avance por fases en [PLAN.md](PLAN.md).
@@ -123,10 +123,10 @@ Al publicar una versión nueva, el dispositivo la descarga en segundo plano la p
 
 ## Datos y privacidad
 
-- Los perfiles, sesiones, resultados y evaluaciones se guardan en el navegador del dispositivo (IndexedDB). No se envían a ningún servidor.
+- Los perfiles, sesiones, resultados y evaluaciones (incluida la de pronunciación) se guardan en el navegador del dispositivo (IndexedDB). No se envían a ningún servidor.
 - Un perfil solo tiene nombre o apodo, fecha de nacimiento y un avatar.
 - Eliminar un perfil borra también todo su progreso.
-- El **respaldo** es un archivo JSON con esos datos (incluye nombres y fechas de nacimiento): guárdalo con cuidado.
+- El **respaldo** es un archivo JSON con esos datos (incluye nombres y fechas de nacimiento): guárdalo con cuidado. **Todavía no incluye las evaluaciones de pronunciación** (se agregarán en el respaldo v2, Fase 12): si las necesitas, imprime el reporte.
 
 ## Calidad y pruebas
 

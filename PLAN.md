@@ -68,6 +68,40 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 - [x] Pantalla "Guía para adultos" (`adultos/guia`, contenido en `src/content/guide.json`)
 - [x] README: instalación, desarrollo, despliegue, "Agregar a pantalla de inicio" en Android/iPad
 
+## Fase 9 — Evaluación de pronunciación (zona de adultos)
+
+- [x] IndexedDB v4: almacén `pronunciation` (sin tocar los bloques anteriores); no cuenta para niveles ni rachas
+- [x] Selección de 2-3 palabras por fonema cubriendo inicio/medio/final (`phonemes.json` + `positionOf`), fonemas de la edad y 1-2 de la siguiente como opcionales
+- [x] El adulto marca correcta / sustituida (`content/substitutions.json`, ampliable, o escribe otra) / omitida / distorsionada; registra "espontánea" o "repetida"
+- [x] Mini revisión de procesos: omisión de sílabas átonas y reducción de grupos consonánticos
+- [x] Bloques de ~5 minutos, pausables y retomables entre días
+- [x] Resultados por sonido y posición (estado, sustitución, constante/variable); clasificación esperable / a estimular / consolidado; orden de trabajo
+- [x] Reevaluación a los 28 días (mismos ítems, otro orden) y comparación; resultado en Seguimiento y Reporte
+- [x] Guía, README y pruebas al día
+- Nota: el respaldo JSON v1 aún NO incluye `pronunciation` (pendiente para el respaldo v2 de la Fase 12); borrar un perfil sí la borra.
+
+## Fase 10 — Módulo de pronunciación
+
+- [ ] Escalera de 6 escalones por sonido "a estimular" (modelo, animación SVG de la boca, sonido aislado, sílaba, palabra, frase corta); avanza con "Lo logró" en 3 sesiones distintas; estado por perfil y sonido
+- [ ] Actividad nueva de pares mínimos con `seed/pares_minimos_v2.json` (califica sola, sin "Aún no"); pares elegidos según la sustitución registrada; las 14 palabras nuevas van al contenido sin romper pruebas
+- [ ] Registrar por sonido la sustitución observada para el reporte
+- [ ] Describir cada actividad nueva en `guide.json`
+
+## Fase 11 — Voz grabada
+
+- [ ] `speak(text, rate)` sigue siendo el único punto de salida; `audioKey(text)` + `/audio/manifest.json`; si hay clip lo reproduce (reintento lento con `playbackRate` ~0.9), si no usa `speechSynthesis`
+- [ ] Scripts `npm run audio:list` y `npm run audio:process` (ffmpeg: recorte, ~-16 LUFS, Opus 64 kbps)
+- [ ] Modo grabación en la zona de adultos (MediaRecorder, mimeType detectado, reescuchar/regrabar/saltar, IndexedDB, ZIP) y diagnóstico de textos sin audio
+- [ ] CSP `media-src 'self' blob:`, precache del service worker, prueba con build + preview y sin conexión
+
+## Fase 12 — Grabar al niño, seguimiento y cierre
+
+- [ ] El niño se graba y se escucha junto al modelo; solo en el dispositivo, borrable, fuera del respaldo salvo opción explícita
+- [ ] Reporte con sustituciones por sonido, progreso en la escalera y comparación entre evaluaciones
+- [ ] Respaldo JSON v2 con los datos nuevos (incluye `pronunciation`) y migración probada
+- [ ] Pruebas: clasificación, orden de trabajo, selección por posición, escalera, pares por sustitución, `audioKey`, fallback de voz
+- [ ] README y Guía para adultos al día
+
 ## Pendiente tras las 8 fases
 
 - [ ] Probar en una **tablet Android y un iPad reales** (Safari): gestos táctiles y arrastre con el dedo, sonido y voces del sistema, instalación en pantalla de inicio, wake lock.

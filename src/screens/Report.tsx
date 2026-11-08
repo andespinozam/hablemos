@@ -1,6 +1,7 @@
 import { ACTIVITIES } from '../activities/registry';
 import { AlertSigns } from '../components/AlertSigns';
 import { BarChart, CompareChart, TrendChart } from '../components/Charts';
+import { PronunciationResults } from '../components/PronunciationResults';
 import { formatDate } from '../components/ReassessmentBanner';
 import { ageInYears, formatAge } from '../lib/age';
 import {
@@ -56,7 +57,7 @@ export function Report({ profile }: { profile: ChildProfile }) {
 
       {state.status === 'ready' &&
         (() => {
-          const { results, sessions, assessments, levels } = state.data;
+          const { results, sessions, assessments, levels, pronunciation } = state.data;
           const practice = practiceResults(results, sessions);
           const percents = areaPercents(practice);
           const areaRows = AREA_ORDER.filter((id) => percents[id] !== undefined).map((id) => ({ id, label: AREA_LABELS[id] ?? id, value: percents[id] ?? null }));
@@ -133,6 +134,13 @@ export function Report({ profile }: { profile: ChildProfile }) {
                       recomienda comentarlo con un fonoaudiólogo o con el pediatra.
                     </p>
                   )}
+                </section>
+              )}
+
+              {pronunciation.some((r) => r.completedAt !== undefined) && (
+                <section className="report-section">
+                  <h2>Evaluación de pronunciación</h2>
+                  <PronunciationResults records={pronunciation} />
                 </section>
               )}
 

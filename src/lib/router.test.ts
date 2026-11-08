@@ -14,11 +14,13 @@ describe('parseAdultRoute', () => {
     expect(parseAdultRoute('adultos/reporte/abc')).toEqual({ name: 'reporte', id: 'abc' });
     expect(parseAdultRoute('adultos/respaldo')).toEqual({ name: 'respaldo' });
     expect(parseAdultRoute('adultos/alertas')).toEqual({ name: 'alertas' });
+    expect(parseAdultRoute('adultos/pronunciacion/abc')).toEqual({ name: 'pronunciacion', id: 'abc' });
+    expect(parseAdultRoute('adultos/pronunciar/abc/r1')).toEqual({ name: 'pronunciar', id: 'abc', recordId: 'r1' });
     expect(parseAdultRoute('adultos/evaluar/abc/baseline')).toEqual({ name: 'evaluar', id: 'abc', kind: 'baseline' });
     expect(parseAdultRoute('adultos/evaluar/abc/reassessment')).toEqual({ name: 'evaluar', id: 'abc', kind: 'reassessment' });
   });
   it('rutas mal formadas son desconocidas, no se rompen', () => {
-    for (const r of ['adultos/nada', 'adultos/evaluar/abc', 'adultos/evaluar/abc/otro', 'adultos/editar', 'adultos/seguimiento/a/b', 'adultos/respaldo/x']) {
+    for (const r of ['adultos/nada', 'adultos/evaluar/abc', 'adultos/evaluar/abc/otro', 'adultos/editar', 'adultos/seguimiento/a/b', 'adultos/respaldo/x', 'adultos/pronunciar/abc', 'adultos/pronunciacion/a/b']) {
       expect(parseAdultRoute(r)).toEqual({ name: 'desconocida' });
     }
   });

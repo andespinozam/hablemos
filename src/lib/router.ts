@@ -26,6 +26,8 @@ export type AdultRoute =
   | { name: 'seguimiento'; id: string }
   | { name: 'evaluacion'; id: string }
   | { name: 'evaluar'; id: string; kind: 'baseline' | 'reassessment' }
+  | { name: 'pronunciacion'; id: string }
+  | { name: 'pronunciar'; id: string; recordId: string }
   | { name: 'reporte'; id: string }
   | { name: 'respaldo' }
   | { name: 'alertas' }
@@ -45,8 +47,10 @@ export function parseAdultRoute(route: string): AdultRoute | null {
     if (a === 'editar') return { name: 'editar', id: b };
     if (a === 'seguimiento') return { name: 'seguimiento', id: b };
     if (a === 'evaluacion') return { name: 'evaluacion', id: b };
+    if (a === 'pronunciacion') return { name: 'pronunciacion', id: b };
     if (a === 'reporte') return { name: 'reporte', id: b };
   }
+  if (a === 'pronunciar' && b && c) return { name: 'pronunciar', id: b, recordId: c };
   if (a === 'evaluar' && b && (c === 'baseline' || c === 'reassessment')) return { name: 'evaluar', id: b, kind: c };
   return { name: 'desconocida' };
 }

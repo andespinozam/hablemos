@@ -3,6 +3,7 @@ import { ACTIVITIES } from '../activities/registry';
 import content from '../content/guide.json';
 import { REASSESSMENT_DAYS } from '../lib/assessment';
 import { planSize } from '../lib/assessmentPlan';
+import { BLOCK_TARGET, CONSOLIDATED_RATIO } from '../lib/pronunciation';
 import { HOLD_MS } from '../lib/gate';
 import { DOWN_THRESHOLD, SESSIONS_TO_LEVEL_UP, UP_THRESHOLD } from '../lib/level';
 import { parseAdultRoute } from '../lib/router';
@@ -43,7 +44,7 @@ describe('contenido de la guía', () => {
         expect(body.length, s.id).toBeGreaterThan(0);
       }
     }
-    for (const id of ['empezar', 'sesion', 'tu-papel', 'actividades', 'niveles', 'evaluacion', 'seguimiento', 'privacidad', 'alertas']) {
+    for (const id of ['empezar', 'sesion', 'tu-papel', 'actividades', 'niveles', 'evaluacion', 'pronunciacion', 'seguimiento', 'privacidad', 'alertas']) {
       expect(ids, id).toContain(id);
     }
   });
@@ -58,6 +59,17 @@ describe('contenido de la guía', () => {
     expect(text('tu-papel')).toContain('100 %');
     expect(text('tu-papel')).toContain('50 %');
     expect(text('tu-papel')).toContain('0 %');
+  });
+
+  it('la guía de pronunciación coincide con el código', () => {
+    const t = text('pronunciacion');
+    expect(t).toContain(`${Math.round(CONSOLIDATED_RATIO * 100)} %`);
+    expect(t).toContain(`${REASSESSMENT_DAYS / 7} semanas`);
+    expect(t).toContain('NO califica la pronunciación');
+    expect(t).toMatch(/pausar/);
+    // ~5 minutos por bloque a ~25 s por ejercicio.
+    expect(Math.round((BLOCK_TARGET * 25) / 60)).toBe(5);
+    expect(t).toContain('5 minutos');
   });
 
   it('aclara que la app no califica la pronunciación, y repite la nota de alcance', () => {

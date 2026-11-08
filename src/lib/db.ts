@@ -1,5 +1,6 @@
 import { openDB, type DBSchema, type IDBPDatabase } from 'idb';
 import type { Item } from '../activities/types';
+import type { Position } from './phonemes';
 import type { Rating } from './scoring';
 
 export interface ChildProfile {
@@ -50,6 +51,48 @@ export interface AssessmentRecord {
   recommendedLevels?: Record<string, number>;
 }
 
+export type PronunciationMode = 'espontanea' | 'repetida';
+export type PronunciationStatus = 'correcta' | 'sustituida' | 'omitida' | 'distorsionada';
+
+/** Una palabra de la evaluación de pronunciación, guardada completa para repetirla igual. */
+export interface PronunciationItem {
+  /** `fonema/palabra` o `proceso-xxx/palabra`. */
+  id: string;
+  /** Fonema evaluado (ausente en la mini revisión de procesos). */
+  phonemeId?: string;
+  /** Proceso de la mini revisión: sílabas átonas o grupos consonánticos. */
+  process?: 'silabas' | 'grupos';
+  word: string;
+  syllables: string[];
+  emoji: string;
+  position: Position;
+  /** Fonema opcional (de la edad siguiente o avanzado). */
+  optional: boolean;
+}
+
+export interface PronunciationResponse {
+  itemId: string;
+  /** Si el niño la dijo solo (espontánea) o después de escuchar al adulto (repetida). */
+  mode: PronunciationMode;
+  status: PronunciationStatus;
+  /** Sonido que dijo en su lugar, si la marca fue "sustituida". */
+  substitution?: string;
+  at: number;
+}
+
+/** Evaluación de pronunciación. No cuenta para niveles, rachas ni la práctica. */
+export interface PronunciationRecord {
+  id: string;
+  profileId: string;
+  kind: 'baseline' | 'reassessment';
+  createdAt: number;
+  /** Se llena al responder todos los ítems; una a medias se puede retomar. */
+  completedAt?: number;
+  ageYears: number;
+  items: PronunciationItem[];
+  responses: PronunciationResponse[];
+}
+
 export interface ResultRecord {
   id: string;
   sessionId: string;
@@ -85,13 +128,14 @@ interface HablemosDB extends DBSchema {
   results: { key: string; value: ResultRecord; indexes: { byProfile: string } };
   levels: { key: string; value: LevelRecord; indexes: { byProfile: string } };
   assessments: { key: string; value: AssessmentRecord; indexes: { byProfile: string } };
+  pronunciation: { key: string; value: PronunciationRecord; indexes: { byProfile: string } };
 }
 
 export type HablemosDatabase = IDBPDatabase<HablemosDB>;
 
 export const DB_NAME = 'hablemos';
 /** Al cambiar el esquema: subir este número y agregar un bloque `if (oldVersion < N)`. Nunca editar los anteriores. */
-export const DB_VERSION = 3;
+export const DB_VERSION = 4;
 
 let dbPromise: Promise<HablemosDatabase> | null = null;
 
@@ -109,6 +153,9 @@ export function getDb(): Promise<HablemosDatabase> {
         }
         if (oldVersion < 3) {
           db.createObjectStore('assessments', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
+        }
+        if (oldVersion < 4) {
+          db.createObjectStore('pronunciation', { keyPath: 'id' }).createIndex('byProfile', 'profileId');
         }
       },
     });

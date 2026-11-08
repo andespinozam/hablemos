@@ -1,11 +1,13 @@
 import { ACTIVITIES } from '../activities/registry';
 import { AlertSigns } from '../components/AlertSigns';
 import { BarChart, TrendChart } from '../components/Charts';
+import { PronunciationResults } from '../components/PronunciationResults';
 import { ReassessmentBanner } from '../components/ReassessmentBanner';
 import { ageInYears, formatAge } from '../lib/age';
 import { AREA_LABELS, areaPercents, reassessmentStatus } from '../lib/assessment';
 import type { ChildProfile } from '../lib/db';
 import { getPhoneme } from '../lib/phonemes';
+import { latestPronunciation, pronunciationStatus } from '../lib/pronunciation';
 import { go } from '../lib/router';
 import { DISCLAIMER } from '../lib/texts';
 import { phonemeProgress, practiceResults, practiceSessionCount, streaks, weeklyTrend } from '../lib/tracking';
@@ -38,6 +40,9 @@ export function Progress({ profile }: { profile: ChildProfile }) {
         <button type="button" className="btn btn--accent" onClick={() => go(`adultos/evaluacion/${profile.id}`)}>
           📝 Evaluación
         </button>
+        <button type="button" className="btn btn--accent" onClick={() => go(`adultos/pronunciacion/${profile.id}`)}>
+          🗣️ Pronunciación
+        </button>
         <button type="button" className="btn btn--ghost" onClick={() => go(`adultos/reporte/${profile.id}`)}>
           🖨️ Reporte
         </button>
@@ -52,7 +57,7 @@ export function Progress({ profile }: { profile: ChildProfile }) {
 
       {state.status === 'ready' &&
         (() => {
-          const { results, sessions, assessments, levels } = state.data;
+          const { results, sessions, assessments, levels, pronunciation } = state.data;
           const practice = practiceResults(results, sessions);
           const percents = areaPercents(practice);
           const rows = AREA_ORDER.filter((id) => percents[id] !== undefined).map((id) => ({ id, label: AREA_LABELS[id] ?? id, value: percents[id] ?? null }));
@@ -125,6 +130,26 @@ export function Progress({ profile }: { profile: ChildProfile }) {
                   </section>
                 </>
               )}
+
+              <section className="card" aria-labelledby="pron-title">
+                <h2 id="pron-title">Pronunciación</h2>
+                {latestPronunciation(pronunciation) ? (
+                  <>
+                    {pronunciationStatus(pronunciation, now.getTime()).state === 'due' && (
+                      <p className="notice notice--due" role="note">
+                        <span aria-hidden="true">⏰</span>
+                        <span>Se sugiere reevaluar la pronunciación (pasaron más de 4 semanas).</span>
+                      </p>
+                    )}
+                    <PronunciationResults records={pronunciation} />
+                  </>
+                ) : (
+                  <p>Aún no hay una evaluación de pronunciación terminada.</p>
+                )}
+                <button type="button" className="btn btn--ghost no-print" onClick={() => go(`adultos/pronunciacion/${profile.id}`)}>
+                  🗣️ Ir a la evaluación de pronunciación
+                </button>
+              </section>
 
               <section className="card" aria-labelledby="lv-title">
                 <h2 id="lv-title">Nivel actual por actividad</h2>

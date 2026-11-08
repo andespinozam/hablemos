@@ -13,6 +13,8 @@ import { AdultZone } from './screens/AdultZone';
 import { ChildHome } from './screens/ChildHome';
 import { ProfileForm } from './screens/ProfileForm';
 import { ProfilePicker } from './screens/ProfilePicker';
+import { PronunciationHome } from './screens/PronunciationHome';
+import { PronunciationRunner } from './screens/PronunciationRunner';
 import { Progress } from './screens/Progress';
 import { Report } from './screens/Report';
 import { SessionRunner } from './screens/SessionRunner';
@@ -31,6 +33,8 @@ export function titleFor(route: string): string {
       seguimiento: 'Seguimiento',
       evaluacion: 'Evaluación',
       evaluar: 'Evaluando',
+      pronunciacion: 'Pronunciación',
+      pronunciar: 'Evaluando pronunciación',
       reporte: 'Reporte',
       respaldo: 'Respaldo',
       alertas: 'Señales de alerta',
@@ -145,6 +149,16 @@ export function App() {
         const profile = profileOf(adultRoute.id);
         if (!profile) break;
         return <AssessmentLauncher key={adultRoute.kind} profile={profile} kind={adultRoute.kind} />;
+      }
+      case 'pronunciacion': {
+        const profile = profileOf(adultRoute.id);
+        if (!profile) break;
+        return <PronunciationHome profile={profile} />;
+      }
+      case 'pronunciar': {
+        const profile = profileOf(adultRoute.id);
+        if (!profile) break;
+        return <PronunciationRunner key={adultRoute.recordId} profile={profile} recordId={adultRoute.recordId} />;
       }
       case 'reporte': {
         const profile = profileOf(adultRoute.id);

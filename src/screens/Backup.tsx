@@ -105,6 +105,9 @@ export function Backup({ onImported }: Props) {
       <p className="note" role="note">
         {BACKUP_PRIVACY}
       </p>
+      <p className="note" role="note">
+        Por ahora el respaldo no incluye las evaluaciones de pronunciación; para conservarlas, imprime el reporte del niño.
+      </p>
 
       {message && (
         <p className={message.kind === 'ok' ? 'notice' : 'notice notice--due'} role={message.kind === 'error' ? 'alert' : 'status'}>

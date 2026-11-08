@@ -185,6 +185,17 @@ export function AssessmentHome({ profile }: { profile: ChildProfile }) {
                 </>
               )}
 
+              <section className="card" aria-labelledby="pron-title">
+                <h2 id="pron-title">Pronunciación</h2>
+                <p>
+                  Evalúa sonido por sonido cómo dice las palabras (correcta, sustituida, omitida o distorsionada), en bloques cortos que se
+                  pueden pausar. Es aparte de esta evaluación y no cambia los niveles.
+                </p>
+                <button type="button" className="btn btn--accent" onClick={() => go(`adultos/pronunciacion/${profile.id}`)}>
+                  🗣️ Evaluación de pronunciación
+                </button>
+              </section>
+
               <p className="note">{DISCLAIMER}</p>
             </>
           );

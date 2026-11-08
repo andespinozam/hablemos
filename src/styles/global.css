@@ -1353,3 +1353,64 @@ ul.profile-grid .profile-tile {
 .guide-section {
   scroll-margin-top: 16px;
 }
+
+/* ---------- Evaluación de pronunciación (zona de adultos) ---------- */
+.class-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  list-style: none;
+  padding: 0;
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+.pron-card {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background: var(--surface);
+  border: 3px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+.pron-emoji {
+  margin: 0;
+  font-size: clamp(5rem, 22vmin, 11rem);
+  line-height: 1.1;
+}
+.pron-ask {
+  margin: 0;
+  font-weight: 800;
+}
+.pron-hit {
+  background: #ffe08a;
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0 2px;
+}
+.pron-mode {
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  align-items: center;
+  margin: 0 0 8px;
+}
+.pron-radio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: var(--tap-min);
+  cursor: pointer;
+}
+.pron-radio input {
+  width: 28px;
+  height: 28px;
+}
+.pron-chip {
+  min-width: var(--tap-min);
+}
+.pron-other {
+  width: 8ch;
+}
