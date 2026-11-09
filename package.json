@@ -10,7 +10,8 @@
     "test": "vitest run",
     "icons": "node scripts/generate-icons.mjs",
     "audio:list": "node scripts/audio-list.mjs",
-    "audio:process": "node scripts/audio-process.mjs"
+    "audio:process": "node scripts/audio-process.mjs",
+    "audio:tts": "node scripts/audio-tts.mjs"
   },
   "dependencies": {
     "@fontsource-variable/nunito": "^5.3.0",

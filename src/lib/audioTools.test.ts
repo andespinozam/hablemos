@@ -143,7 +143,23 @@ describe('procesado de audio (audio:process)', () => {
     const m = buildManifest([`${b}.opus`, `${a}.opus`, 'manifest.json', 'x.opus'], { [b]: 'be' }, { version: 1, clips: { [a]: { file: `${a}.opus`, text: 'a vieja' } } });
     expect(Object.keys(m.clips)).toEqual([a, b].sort());
     expect(m.clips[a].text).toBe('a vieja');
-    expect(m.clips[b]).toEqual({ file: `${b}.opus`, text: 'be' });
+    expect(m.clips[b]).toEqual({ file: `${b}.opus`, text: 'be', source: 'human' });
+    expect(m.clips[a].source).toBe('human'); // sin registro previo de procedencia
+  });
+  it('procedencia: marks manda, luego el manifiesto anterior; un .opus nuevo sin registro es human', () => {
+    const a = audioKey('a');
+    const b = audioKey('b');
+    const c = audioKey('c');
+    const prev = { version: 1, clips: { [a]: { file: `${a}.opus`, source: 'tts' as const }, [b]: { file: `${b}.opus`, source: 'tts' as const } } };
+    const m = buildManifest([`${a}.opus`, `${b}.opus`, `${c}.opus`], {}, prev, { [b]: 'human' });
+    expect(m.clips[a].source).toBe('tts'); // se conserva
+    expect(m.clips[b].source).toBe('human'); // tu grabación reemplaza al clip tts
+    expect(m.clips[c].source).toBe('human');
+    expect(buildManifest([`${c}.opus`], {}, undefined, { [c]: 'tts' }).clips[c].source).toBe('tts');
+  });
+  it('el bitrate de ffmpegArgs es configurable', () => {
+    const a = ffmpegArgs('a.wav', 'a.opus', '32k');
+    expect(a[a.indexOf('-b:a') + 1]).toBe('32k');
   });
   it('el ZIP de grabaciones trae un archivo por texto y un índice que se puede leer de vuelta', () => {
     const key = audioKey('Muy bien');

@@ -17,6 +17,7 @@ const opt = (name, fallback) => {
 const input = path.resolve(root, opt('--in', 'audio-work/grabaciones'));
 const outDir = path.resolve(root, opt('--out', 'public/audio'));
 const dryRun = flag('--dry-run');
+const bitrate = opt('--bitrate', '64k');
 
 function fail(msg) {
   console.error(`✖ ${msg}`);
@@ -70,9 +71,10 @@ await withApp(async (load) => {
   // 2. Convertir.
   await mkdir(outDir, { recursive: true });
   let done = 0;
+  const marks = {}; // los clips que salen de tus grabaciones son siempre 'human' (reemplazan a un clip tts)
   for (const s of sources) {
     const out = path.join(outDir, `${s.key}.opus`);
-    const cmd = ffmpegArgs(s.file, out);
+    const cmd = ffmpegArgs(s.file, out, bitrate);
     if (dryRun) {
       console.log(`ffmpeg ${cmd.map((a) => (a.includes(' ') ? `"${a}"` : a)).join(' ')}`);
       continue;
@@ -83,6 +85,7 @@ await withApp(async (load) => {
       continue;
     }
     done++;
+    marks[s.key] = 'human';
   }
 
   // 3. Manifiesto con todos los .opus que haya (los de antes y los nuevos).
@@ -94,7 +97,7 @@ await withApp(async (load) => {
   }
   const existing = (await readdir(outDir)).filter((f) => f.endsWith('.opus'));
   const files = dryRun ? [...new Set([...existing, ...sources.map((s) => `${s.key}.opus`)])] : existing;
-  const manifest = buildManifest(files, texts, previous);
+  const manifest = buildManifest(files, texts, previous, dryRun ? Object.fromEntries(sources.map((s) => [s.key, 'human'])) : marks);
   if (dryRun) {
     console.log(`\n(simulación) Habría ${Object.keys(manifest.clips).length} clips en el manifiesto.`);
     return;

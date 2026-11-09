@@ -7,10 +7,14 @@
  */
 import { audioKey } from './audioKey';
 
+/** Procedencia de un clip: voz neuronal sintética (`tts`) o grabación humana (`human`). */
+export type ClipSource = 'tts' | 'human';
 export interface ClipEntry {
   /** Nombre del archivo dentro de `audio/` (sin carpetas). */
   file: string;
   text?: string;
+  /** Quién habla. Los manifiestos antiguos no lo traen: se tratan como `human`. */
+  source?: ClipSource;
 }
 export interface AudioManifest {
   version: number;
@@ -39,7 +43,8 @@ export function parseManifest(raw: unknown): AudioManifest {
     const file = (value as { file?: unknown }).file;
     if (typeof file !== 'string' || !/^[\w.-]+$/.test(file) || file.startsWith('.')) continue;
     const text = (value as { text?: unknown }).text;
-    out[key] = { file, text: typeof text === 'string' ? text : undefined };
+    const source = (value as { source?: unknown }).source;
+    out[key] = { file, text: typeof text === 'string' ? text : undefined, source: source === 'tts' ? 'tts' : 'human' };
   }
   return { version: 1, clips: out };
 }

@@ -112,3 +112,10 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 - [ ] Probar la lógica de fechas en zonas con horario de verano y desfase positivo. En Windows, Node solo respeta `TZ=UTC`; el código no usa funciones UTC ni `Date` desde texto (auditado), pero conviene confirmarlo con `TZ=Pacific/Auckland npm test` en Linux/macOS o en la integración continua.
 - [ ] Probar en un dispositivo real: grabación con micrófono (voz del adulto y del niño, mp4 en iPad), `npm run audio:process` con ffmpeg y los clips Opus sin conexión.
 - [ ] Revisar con un fonoaudiólogo: clasificación de pronunciación (consolidado >= 80 %), sustituciones frecuentes, escalera y aproximaciones de sonidos aislados.
+
+## Fase 13a — Análisis y muestras de voz neuronal (Azure)
+
+- [x] `ClipEntry.source` (`tts` | `human`) en el manifiesto; los antiguos sin campo cuentan como `human`; `audio:process` marca `human`; `ffmpegArgs` con bitrate configurable
+- [x] `npm run audio:tts` con `--dry-run` (conteo, peso, tiempo, costo, tope de caracteres) y `--samples` (4 voces × ~12 textos + `index.html`); lógica pura en `src/lib/tts.ts` con pruebas
+- [ ] Probar `--samples` con credenciales reales y elegir voz y bitrate (el usuario)
+- [ ] Fase 13b: generación por tandas, precarga en el service worker, documentación

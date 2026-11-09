@@ -79,6 +79,21 @@ describe('manifiesto', () => {
     expect(parseManifest({ clips: 3 })).toEqual(EMPTY_MANIFEST);
     expect(parseManifest('x')).toEqual(EMPTY_MANIFEST);
   });
+  it('conserva la procedencia y trata los manifiestos antiguos (sin source) como human', () => {
+    const a = audioKey('a');
+    const b = audioKey('b');
+    const c = audioKey('c');
+    const m = parseManifest({
+      clips: {
+        [a]: { file: `${a}.opus`, source: 'tts' },
+        [b]: { file: `${b}.opus` },
+        [c]: { file: `${c}.opus`, source: 'robot' },
+      },
+    });
+    expect(m.clips[a].source).toBe('tts');
+    expect(m.clips[b].source).toBe('human');
+    expect(m.clips[c].source).toBe('human');
+  });
   it('la velocidad del reintento lento usa el mismo clip a ~0,9', () => {
     expect(clipRate(0.85)).toBe(1);
     expect(clipRate(1)).toBe(1);

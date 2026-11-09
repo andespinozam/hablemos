@@ -5,7 +5,7 @@
 import { isAudioKey } from './audioKey';
 import type { RecordingRecord } from './db';
 import { extensionFor } from './recorder';
-import type { AudioManifest } from './voice';
+import type { AudioManifest, ClipSource } from './voice';
 import type { ZipFile } from './zip';
 
 /** Objetivo de volumen (LUFS integrados) y bitrate pedidos. */
@@ -18,9 +18,9 @@ const TRIM = 'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=
  * Argumentos de ffmpeg: recorta el silencio del inicio y del final (se invierte el audio para
  * recortar el final con el mismo filtro), normaliza a ~-16 LUFS y convierte a Opus mono de 64 kbps.
  */
-export function ffmpegArgs(input: string, output: string): string[] {
+export function ffmpegArgs(input: string, output: string, bitrate: string = OPUS_BITRATE): string[] {
   const filters = [TRIM, 'areverse', TRIM, 'areverse', `loudnorm=I=${TARGET_LUFS}:TP=-1.5:LRA=11`].join(',');
-  return ['-y', '-v', 'error', '-i', input, '-af', filters, '-ac', '1', '-c:a', 'libopus', '-b:a', OPUS_BITRATE, '-application', 'voip', output];
+  return ['-y', '-v', 'error', '-i', input, '-af', filters, '-ac', '1', '-c:a', 'libopus', '-b:a', bitrate, '-application', 'voip', output];
 }
 
 const AUDIO_EXT = new Set(['webm', 'ogg', 'm4a', 'mp4', 'aac', 'wav', 'mp3', 'opus', 'bin']);
@@ -34,18 +34,21 @@ export function keyFromFileName(name: string): string | null {
 /**
  * Manifiesto a partir de los clips que existen. Conserva el texto de entradas anteriores y usa
  * `texts` (clave → texto) para las nuevas. Los archivos que no tienen forma de clave se ignoran.
+ * Procedencia: `marks[clave]` manda (clips recién procesados); si no, la del manifiesto anterior;
+ * y si tampoco hay, `human` (un .opus sin registro viene de una grabación).
  */
 export function buildManifest(
   opusFiles: readonly string[],
   texts: Record<string, string>,
   previous?: AudioManifest,
+  marks: Record<string, ClipSource> = {},
 ): AudioManifest {
   const clips: AudioManifest['clips'] = {};
   for (const file of [...opusFiles].sort()) {
     const m = /^([0-9a-f]{14})\.opus$/.exec(file);
     if (!m) continue;
     const key = m[1];
-    clips[key] = { file, text: texts[key] ?? previous?.clips[key]?.text };
+    clips[key] = { file, text: texts[key] ?? previous?.clips[key]?.text, source: marks[key] ?? previous?.clips[key]?.source ?? 'human' };
   }
   return { version: 1, clips };
 }
