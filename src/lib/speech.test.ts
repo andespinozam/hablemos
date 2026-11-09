@@ -11,6 +11,19 @@ describe('pickVoice', () => {
     expect(pickVoice(all.filter((x) => !['es-419', 'es-MX'].includes(x.lang)))?.lang).toBe('es-US');
     expect(pickVoice([v('en-US'), v('es-EC'), v('es-ES')])?.lang).toBe('es-EC');
   });
+  it('entre voces latinas prefiere la de mejor calidad (Premium/Mejorada) sobre la compacta', () => {
+    const compact = v('es-MX', 'Paulina (compact)');
+    const premium = v('es-MX', 'Paulina (Premium)');
+    const enhanced = v('es-US', 'Marisol (Mejorada)');
+    expect(pickVoice([compact, premium])).toBe(premium);
+    expect(pickVoice([v('es-419', 'Plain'), enhanced])).toBe(enhanced);
+    expect(pickVoice([enhanced, premium])).toBe(premium);
+    expect(pickVoice([v('es-MX', 'Microsoft Dalia Online (Natural)'), v('es-419', 'Otra')])?.name).toContain('Natural');
+  });
+  it('a igual calidad mantiene el orden de región; una voz premium de España no gana a una latina', () => {
+    expect(pickVoice([v('es-US', 'A'), v('es-MX', 'B')])?.name).toBe('B');
+    expect(pickVoice([v('es-ES', 'Monica (Premium)'), v('es-MX', 'Paulina')])?.name).toBe('Paulina');
+  });
   it('acepta guion bajo (Android) y mayúsculas distintas', () => {
     expect(pickVoice([v('es_MX')])?.lang).toBe('es_MX');
     expect(pickVoice([v('ES-mx')])?.lang).toBe('ES-mx');

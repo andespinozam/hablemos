@@ -15,13 +15,37 @@ function normLang(lang: string): string {
   return lang.replace('_', '-').toLowerCase(); // Android usa es_MX
 }
 
-/** es-419 > es-MX > es-US > es-EC > cualquier es-*; null si no hay voces en español. */
-export function pickVoice<T extends { lang: string }>(voices: readonly T[]): T | null {
-  for (const lang of PREFERRED_LANGS) {
-    const found = voices.find((v) => normLang(v.lang) === lang);
-    if (found) return found;
+/**
+ * Calidad aproximada por el nombre (el navegador no la informa): las voces "Premium", "Mejorada",
+ * "Natural"/"Neural" suenan mucho mejor que las "compactas" que trae el iPad por defecto.
+ */
+export function voiceQuality(name: string | undefined): number {
+  if (!name) return 0;
+  const n = name.toLowerCase();
+  if (/premium|natural|neural/.test(n)) return 3;
+  if (/enhanced|mejorad|siri/.test(n)) return 2;
+  if (/compact/.test(n)) return -1;
+  return 0;
+}
+
+/**
+ * Entre las voces latinas (es-419, es-MX, es-US, es-EC) elige la de mejor calidad; a igual calidad,
+ * respeta ese orden. Sin latinas, lo mismo con cualquier español. Null si no hay voces en español.
+ */
+export function pickVoice<T extends { lang: string; name?: string }>(voices: readonly T[]): T | null {
+  const latin = voices.filter((v) => PREFERRED_LANGS.includes(normLang(v.lang)));
+  const pool = latin.length > 0 ? latin : voices.filter((v) => /^es(-|$)/.test(normLang(v.lang)));
+  let best: T | null = null;
+  let bestScore = -Infinity;
+  for (const v of pool) {
+    const rank = PREFERRED_LANGS.indexOf(normLang(v.lang));
+    const score = voiceQuality(v.name) * 10 - (rank < 0 ? PREFERRED_LANGS.length : rank);
+    if (score > bestScore) {
+      best = v;
+      bestScore = score;
+    }
   }
-  return voices.find((v) => /^es(-|$)/.test(normLang(v.lang))) ?? null;
+  return best;
 }
 
 type SynthLike = Pick<SpeechSynthesis, 'getVoices' | 'addEventListener' | 'removeEventListener'>;
