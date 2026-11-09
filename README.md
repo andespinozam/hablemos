@@ -36,7 +36,8 @@ Abre <http://localhost:5173>. Comandos disponibles:
 | `npm run preview` | Sirve `dist/` en <http://localhost:4173> para probar la versión de producción |
 | `npm run icons` | Regenera los íconos PNG de `public/icons` a partir de `public/favicon.svg` |
 | `npm run audio:list` | Extrae todos los textos que la app puede decir (`audio-work/guion.csv` y `.json`) y la cobertura de `public/audio` |
-| `npm run audio:process` | Convierte las grabaciones (carpeta o `--in archivo.zip`) a Opus 64 kbps con ffmpeg (recorta silencios, ~-16 LUFS) en `public/audio` y regenera `manifest.json` |
+| `npm run audio:process` | Convierte tus grabaciones (carpeta o `--in archivo.zip`) a Opus con ffmpeg (64 kbps; `--bitrate 32k`; recorta silencios, ~-16 LUFS) en `public/audio` y regenera `manifest.json` marcándolas `human` |
+| `npm run audio:tts` | Genera los clips con voz neuronal de Azure AI Speech (ver «Voz neuronal pregenerada»). `--dry-run` estima, `--samples` crea muestras |
 
 ### Probarla en una tablet de verdad
 
@@ -107,7 +108,29 @@ La app habla con la voz del sistema. Si quieres una voz propia y consistente:
 2. **Exportar grabaciones (ZIP)**, descomprimirlo en `audio-work/grabaciones` (o usar `--in archivo.zip`) y correr `npm run audio:process` (necesita **ffmpeg** instalado). Genera `public/audio/*.opus` y `manifest.json`.
 3. `npm run build` y publicar. Los clips se precargan: funcionan sin conexión. Lo que no tenga clip sigue con la voz del sistema.
 
-`npm run audio:list` muestra cuántos textos tienen ya audio. El nombre de cada clip es `audioKey(texto)` (texto normalizado → hash estable): al cambiar la redacción de un texto hay que grabarlo de nuevo.
+`npm run audio:list` muestra cuántos textos tienen ya audio (y cuántos son `tts` y cuántos `human`). El nombre de cada clip es `audioKey(texto)` (texto normalizado → hash estable): al cambiar la redacción de un texto hay que grabarlo de nuevo.
+
+## Voz neuronal pregenerada (Azure AI Speech)
+
+Los clips de `public/audio` se generaron **en la computadora, antes de publicar**, con la voz neuronal sintética **es-EC-AndreaNeural** de Azure AI Speech (Opus mono de 32 kbps, velocidad -10 %, ~-16 LUFS). Así cualquier tablet suena igual y sin conexión; la app **no llama a Azure al ejecutarse**. Cada clip del `manifest.json` dice su procedencia: `source: "tts"` (voz neuronal) o `"human"` (tu voz). Los sonidos aislados («mmm», «bl»…) no se sintetizan: la TTS los lee mal y se graban a mano.
+
+**Regenerar o completar** (necesita ffmpeg y credenciales en `.env.local`, que git ignora: `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION`):
+
+```bash
+npm run audio:tts -- --dry-run                   # cuántos textos, caracteres, peso, tiempo y costo
+npm run audio:tts -- --bitrate 32k --allow-over  # genera lo que falte (reanuda solo; nunca pisa tus grabaciones)
+npm run audio:tts -- --category palabra --force  # rehacer una categoría (se cobra de nuevo)
+```
+
+Por tandas de prioridad (1, 2, 3…), con reintentos ante 429/5xx y subida gradual de la carga. Opciones: `--voice`, `--max-priority`, `--category`, `--limit`, `--rate`, `--bitrate`, `--max-chars` (tope, 450 000), `--tier f0|s0`, `--concurrency`. Con el plan F0 el límite es 20 peticiones por minuto (unas 5,5 h para todo el guion); con S0, unos 30 por segundo (≈ media hora).
+
+**Reemplazar un clip por tu voz:** grábalo en la app (Zona de adultos → Voz grabada), exporta el ZIP y corre `npm run audio:process`. El clip queda marcado `human` y `audio:tts` ya no lo toca, ni siquiera con `--force`.
+
+**Costo** (precio vigente, 15 USD por millón de caracteres): el guion completo son ~564 000 caracteres facturables, **≈ 8,46 USD** con S0 (el plan F0 incluye una cuota gratuita mensual de 500 000 caracteres). Azure también cobra las etiquetas SSML (`prosody`, `break`), por eso los caracteres facturables superan al texto (~242 000).
+
+**Precarga y sin conexión:** el service worker precarga solo los clips de **prioridad 1 a 3** (elogios, introducciones, instrucciones y escalera) y guarda el resto (palabras y repeticiones) la primera vez que suenan con conexión (CacheFirst, tope de 4 500 clips). Un clip que no esté en el caché ni llegue por red cae a la voz del sistema, como siempre. Si cambias el tope de prioridad: `PRECACHE_MAX_PRIORITY` en `src/lib/precache.ts`.
+
+**Términos de uso:** el audio es de una voz neuronal sintética de Microsoft; se avisa de ello en la Guía para adultos. Microsoft publica un [código de conducta para text to speech](https://learn.microsoft.com/en-us/legal/cognitive-services/speech-service/tts-code-of-conduct) que se suma a sus términos de producto (incluye pautas para informar que una voz es sintética). Revisa la versión vigente antes de publicar: aquí no se imita a ninguna persona real.
 
 ## Grabar al niño
 

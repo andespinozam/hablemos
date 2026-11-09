@@ -23,6 +23,7 @@ npm run preview   # sirve dist/ (puerto 4173), para probar offline
 npm run icons     # regenera los PNG de public/icons
 npm run audio:list     # todos los textos hablados -> audio-work/guion.csv (+ cobertura)
 npm run audio:process  # grabaciones -> public/audio/*.opus + manifest.json (necesita ffmpeg)
+npm run audio:tts      # voz neuronal Azure -> public/audio (--dry-run, --samples; ver «Voz neuronal pregenerada»)
 ```
 
 ## Convenciones
@@ -140,6 +141,15 @@ npm run audio:process  # grabaciones -> public/audio/*.opus + manifest.json (nec
 - `components/ChildRecorder.tsx` (con `lib/mic.ts`, envoltorio de MediaRecorder con tope de 15 s) graba al niño en la evaluación de pronunciación y en el escalón de sonido de la escalera. "Modelo y niño" = `speak(text)` (clip del adulto o voz del sistema) y luego el audio del niño. Nunca se sube nada.
 - **Respaldo v2** (`BACKUP_VERSION = 2`): agrega `pronunciation` y `ladders`; los v1 se importan igual (listas vacías, hay prueba con un archivo v1 literal). Las grabaciones del niño solo entran con `exportBackup(now, { includeRecordings: true })` (casilla explícita en Respaldo), en base64 (`lib/base64.ts`); se validan y decodifican ANTES de abrir la transacción. "Reemplazar" borra también `childRecordings` (si el respaldo no las trae). Las grabaciones del adulto (`recordings`) nunca van en el respaldo (se exportan en ZIP).
 - El Reporte trae "Resumen por sonido" (clasificación, sustitución, constancia y escalón) además de las tablas por posición y la comparación entre la primera y la última evaluación.
+
+## Voz neuronal pregenerada (Fase 13)
+
+- `npm run audio:tts` (`scripts/audio-tts.mjs`, lógica pura en `src/lib/tts.ts`) genera los clips con Azure AI Speech **en la computadora, antes de publicar**; la app no llama a Azure en ejecución. Credenciales solo de `AZURE_SPEECH_KEY` y `AZURE_SPEECH_REGION` (entorno o `.env.local`, ignorado por `*.local`); nunca imprimirlas. Valores elegidos: es-EC-AndreaNeural, velocidad -10 % (prosody), pausas `<break>` de 300 ms, Opus mono **32 kbps**, WAV 24 kHz → `ffmpegArgs(in, out, bitrate)`.
+- **Procedencia**: `ClipEntry.source` (`tts` | `human`; sin campo = `human`) y `priority`. `audio:process` marca `human`. **Nunca se sobrescribe un clip `human`**, ni con `--force` (`selectTexts` y red de seguridad en `doOne`). Un .opus sin entrada en el manifiesto se trata como `human`.
+- **No se sintetiza la categoría `sonido`** (fonemas aislados y onomatopeyas): se graban a mano.
+- **Facturación**: Azure cobra también las etiquetas SSML (`prosody` ≈ 31 caracteres por clip, `break` 24). Guion completo ≈ 564 000 caracteres facturables ≈ 8,46 USD (15 USD por millón). Tope de seguridad `--max-chars` (450 000) y `--allow-over`; `--dry-run` antes de cualquier tanda grande. F0: 20 peticiones por minuto y 500 000 caracteres gratis al mes; S0: 30 por segundo.
+- **Precarga**: `vite.config.ts` precarga solo prioridad ≤ 3 (`src/lib/precache.ts`, con `revision` = hash del archivo, porque el nombre es la clave del texto y no cambia al reemplazar un clip); el resto va por `runtimeCaching` CacheFirst (`hablemos-audio`, 4 500 entradas). Un clip no disponible cae a `speechSynthesis`.
+- Los clips y `manifest.json` van versionados en `public/audio`; `audio-work/` (guion, muestras, temporales) está ignorado. En Windows, ffmpeg (winget `Gyan.FFmpeg`) debe estar en el PATH de la terminal.
 
 ## Publicación
 

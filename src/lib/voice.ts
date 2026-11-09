@@ -15,6 +15,8 @@ export interface ClipEntry {
   text?: string;
   /** Quién habla. Los manifiestos antiguos no lo traen: se tratan como `human`. */
   source?: ClipSource;
+  /** Prioridad del texto en el guion (1 = lo primero). La usa el build para decidir qué se precarga. */
+  priority?: number;
 }
 export interface AudioManifest {
   version: number;
@@ -44,7 +46,13 @@ export function parseManifest(raw: unknown): AudioManifest {
     if (typeof file !== 'string' || !/^[\w.-]+$/.test(file) || file.startsWith('.')) continue;
     const text = (value as { text?: unknown }).text;
     const source = (value as { source?: unknown }).source;
-    out[key] = { file, text: typeof text === 'string' ? text : undefined, source: source === 'tts' ? 'tts' : 'human' };
+    const priority = (value as { priority?: unknown }).priority;
+    out[key] = {
+      file,
+      text: typeof text === 'string' ? text : undefined,
+      source: source === 'tts' ? 'tts' : 'human',
+      ...(typeof priority === 'number' && Number.isInteger(priority) && priority >= 1 && priority <= 9 ? { priority } : {}),
+    };
   }
   return { version: 1, clips: out };
 }

@@ -42,13 +42,20 @@ export function buildManifest(
   texts: Record<string, string>,
   previous?: AudioManifest,
   marks: Record<string, ClipSource> = {},
+  priorities: Record<string, number> = {},
 ): AudioManifest {
   const clips: AudioManifest['clips'] = {};
   for (const file of [...opusFiles].sort()) {
     const m = /^([0-9a-f]{14})\.opus$/.exec(file);
     if (!m) continue;
     const key = m[1];
-    clips[key] = { file, text: texts[key] ?? previous?.clips[key]?.text, source: marks[key] ?? previous?.clips[key]?.source ?? 'human' };
+    const priority = priorities[key] ?? previous?.clips[key]?.priority;
+    clips[key] = {
+      file,
+      text: texts[key] ?? previous?.clips[key]?.text,
+      source: marks[key] ?? previous?.clips[key]?.source ?? 'human',
+      ...(priority ? { priority } : {}),
+    };
   }
   return { version: 1, clips };
 }

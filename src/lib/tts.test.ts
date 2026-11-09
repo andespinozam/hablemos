@@ -144,3 +144,26 @@ describe('textos delicados y muestras', () => {
     expect(s.some((t) => t.category === 'sonido')).toBe(false);
   });
 });
+
+describe('tandas y precarga', () => {
+  it('planBatches agrupa por prioridad en orden ascendente', async () => {
+    const { planBatches } = await import('./tts');
+    const b = planBatches([at('c', 'palabra', 5), at('a', 'refuerzo', 1), at('b', 'instruccion', 3), at('a2', 'refuerzo', 1)]);
+    expect(b.map((x) => x.priority)).toEqual([1, 3, 5]);
+    expect(b[0].items.map((t) => t.text)).toEqual(['a', 'a2']);
+  });
+  it('el precaché incluye prioridad 1-3 y los clips sin prioridad; el resto se cachea en ejecución', async () => {
+    const { precacheFiles } = await import('./precache');
+    const f = (n: string, priority?: number) => ({ file: `${n}.opus`, ...(priority ? { priority } : {}) });
+    const m = { version: 1, clips: { [audioKey('a')]: f('a1', 1), [audioKey('b')]: f('b3', 3), [audioKey('c')]: f('c4', 4), [audioKey('d')]: f('d5', 5), [audioKey('e')]: f('e') } };
+    expect(precacheFiles(m)).toEqual(['a1.opus', 'b3.opus', 'e.opus']);
+  });
+  it('parseManifest conserva una prioridad válida y descarta las raras', async () => {
+    const { parseManifest } = await import('./voice');
+    const a = audioKey('a');
+    const b = audioKey('b');
+    const m = parseManifest({ clips: { [a]: { file: 'a.opus', priority: 3 }, [b]: { file: 'b.opus', priority: 'x' } } });
+    expect(m.clips[a].priority).toBe(3);
+    expect(m.clips[b].priority).toBeUndefined();
+  });
+});

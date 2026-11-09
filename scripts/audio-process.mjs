@@ -97,7 +97,9 @@ await withApp(async (load) => {
   }
   const existing = (await readdir(outDir)).filter((f) => f.endsWith('.opus'));
   const files = dryRun ? [...new Set([...existing, ...sources.map((s) => `${s.key}.opus`)])] : existing;
-  const manifest = buildManifest(files, texts, previous, dryRun ? Object.fromEntries(sources.map((s) => [s.key, 'human'])) : marks);
+  const { collectAudioTexts } = await load('/src/lib/audioTexts.ts');
+  const priorities = Object.fromEntries(collectAudioTexts().map((t) => [t.key, t.priority])); // define qué se precarga
+  const manifest = buildManifest(files, texts, previous, dryRun ? Object.fromEntries(sources.map((s) => [s.key, 'human'])) : marks, priorities);
   if (dryRun) {
     console.log(`\n(simulación) Habría ${Object.keys(manifest.clips).length} clips en el manifiesto.`);
     return;

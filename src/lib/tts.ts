@@ -116,6 +116,13 @@ export function selectTexts(texts: readonly AudioText[], existing: Readonly<Reco
   return out;
 }
 
+/** Tandas por prioridad (1, luego 2, …), cada una en el orden recibido. */
+export function planBatches(todo: readonly AudioText[]): { priority: number; items: AudioText[] }[] {
+  const by = new Map<number, AudioText[]>();
+  for (const t of todo) by.set(t.priority, [...(by.get(t.priority) ?? []), t]);
+  return [...by.entries()].sort((a, b) => a[0] - b[0]).map(([priority, items]) => ({ priority, items }));
+}
+
 // ---------- Estimaciones ----------
 
 export interface Totals {

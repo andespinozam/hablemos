@@ -81,6 +81,8 @@
         "Zona de adultos > Voz grabada muestra qué textos ya tienen audio y cuáles no. \"Grabar los pendientes\" te los propone por prioridad (elogios e introducciones primero) con una indicación de cómo decirlos: los sonidos se dicen como sonido, no como nombre de letra.",
         "Para cada texto: Grabar, Detener, Reescuchar y luego Guardar y seguir, Regrabar o Saltar. Las grabaciones se guardan solo en este dispositivo y se pueden borrar desde la misma pantalla.",
         "Grabar con el micrófono exige que la página esté en https (o en localhost) y que des permiso al micrófono. En iPad se graba en formato mp4 y en Chrome en webm; los dos sirven.",
+        "Las voces de la app que no son tuyas vienen de una voz sintética (neuronal) de Azure AI Speech, generada antes de publicar la app y guardada en el dispositivo: la app no se conecta a internet para hablar. Los sonidos sueltos («mmm», «bl»…) no usan esa voz: la inteligencia artificial los lee mal, y conviene grabarlos tú.",
+        "Tu voz siempre manda: si grabas un texto y procesas tus grabaciones con el proyecto (npm run audio:process), ese clip reemplaza al de la voz sintética y el generador (npm run audio:tts) ya no lo toca. Para regenerar la voz sintética hace falta una cuenta de Azure; el guion completo cuesta unos 8,5 USD.",
         "Para que las grabaciones queden dentro de la app para siempre: exporta el ZIP, descomprímelo y procésalo en la computadora con los scripts del proyecto (npm run audio:list y npm run audio:process, que necesita ffmpeg); después publica la app de nuevo. Los clips procesados funcionan sin conexión."
       ]
     },
@@ -196,7 +198,7 @@
     },
     {
       "q": "Grabé mi voz pero la app sigue usando la voz del sistema en algunos textos.",
-      "a": "Cada texto necesita su propia grabación. En Voz grabada verás cuáles faltan. Si un texto cambia (por ejemplo, otra palabra en la instrucción), necesita una grabación nueva."
+      "a": "Cada texto necesita su propio clip (grabado por ti o de la voz sintética). Los textos nuevos, o los que cambian de redacción, vuelven a la voz del sistema hasta generar o grabar su clip. En Voz grabada verás cuáles faltan. Si un texto cambia (por ejemplo, otra palabra en la instrucción), necesita una grabación nueva."
     }
   ]
 }

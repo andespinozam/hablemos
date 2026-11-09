@@ -2,6 +2,10 @@ import { defineConfig } from 'vitest/config';
 import type { Plugin } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync } from 'node:fs';
+import { parseManifest } from './src/lib/voice';
+import { precacheFiles } from './src/lib/precache';
 
 /**
  * Política de seguridad de contenido: la app no hace ninguna llamada de red al ejecutarse, así que se
@@ -28,6 +32,21 @@ const cspMeta = (): Plugin => ({
   apply: 'build',
   transformIndexHtml: () => [{ tag: 'meta', attrs: { 'http-equiv': 'Content-Security-Policy', content: CSP }, injectTo: 'head-prepend' }],
 });
+
+/**
+ * Clips de voz del precaché: solo prioridad 1-3 (ver `src/lib/precache.ts`). Cada entrada lleva como
+ * `revision` el hash del archivo: el nombre es la clave del texto, así que si reemplazas un clip por tu
+ * voz el nombre no cambia y sin revisión el service worker serviría el viejo.
+ */
+function audioPrecache(): { url: string; revision: string }[] {
+  const dir = new URL('./public/audio/', import.meta.url);
+  const manifestPath = new URL('manifest.json', dir);
+  if (!existsSync(manifestPath)) return [];
+  const manifest = parseManifest(JSON.parse(readFileSync(manifestPath, 'utf8')));
+  return precacheFiles(manifest)
+    .filter((f) => existsSync(new URL(f, dir)))
+    .map((f) => ({ url: `audio/${f}`, revision: createHash('md5').update(readFileSync(new URL(f, dir))).digest('hex') }));
+}
 
 export default defineConfig({
   // Rutas relativas: funciona en GitHub Pages (subruta) y en Netlify.
@@ -57,8 +76,22 @@ export default defineConfig({
       },
       workbox: {
         // Precarga todo (JS, CSS, fuentes, íconos, JSON de contenido) para uso sin conexión.
-        // Incluye los clips de voz grabada (audio/*.opus) y su manifiesto (json).
-        globPatterns: ['**/*.{js,css,html,svg,png,woff2,json,webmanifest,opus}'],
+        // Los clips de voz (audio/*.opus) NO van en el patrón: solo los de prioridad 1-3 se precargan
+        // (additionalManifestEntries) y el resto se guarda en ejecución (runtimeCaching). Sí va el manifiesto.
+        globPatterns: ['**/*.{js,css,html,svg,png,woff2,json,webmanifest}'],
+        additionalManifestEntries: audioPrecache(),
+        runtimeCaching: [
+          {
+            // Palabras y repeticiones: se guardan la primera vez que suenan con conexión; con tope.
+            urlPattern: ({ url }: { url: URL }) => /\/audio\/[0-9a-f]{14}\.opus$/.test(url.pathname),
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'hablemos-audio',
+              expiration: { maxEntries: 4500, purgeOnQuotaError: true },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+        ],
         navigateFallback: 'index.html',
         cleanupOutdatedCaches: true,
       },

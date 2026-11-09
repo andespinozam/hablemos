@@ -1,14 +1,17 @@
 // npm run audio:tts -- [--dry-run | --samples] [opciones]
-// Fase 13a: análisis (--dry-run) y muestras de voz (--samples). La generación completa es la Fase 13b.
+// --dry-run: análisis (conteo, peso, tiempo, costo). --samples: muestras de voz. Sin ninguna de las dos: genera los clips.
+// Generación: por tandas de prioridad, reanudable (salta los clips que ya existen salvo --force), nunca pisa un clip
+// 'human', y pasa el WAV de Azure por la misma tubería de audio:process (recorte, ~-16 LUFS, Opus mono).
 //
 // Credenciales: SOLO de las variables de entorno AZURE_SPEECH_KEY y AZURE_SPEECH_REGION
 // (también se leen de .env.local, que está en .gitignore). La clave nunca se imprime.
 //
 // Opciones: --voice <nombre>  --max-priority N  --category <c>  --limit N  --dry-run  --samples
 //           --force  --rate <porcentaje, defecto -10>  --bitrate <p. ej. 32k|64k>
-//           --max-chars N (tope, defecto 450000)  --allow-over  --tier f0|s0 (defecto f0)
+//           --max-chars N (tope, defecto 450000)  --allow-over  --tier f0|s0 (defecto s0)  --concurrency N (defecto 4 en s0, 1 en f0)
+import { spawn, spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, rename, stat, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { root, withApp } from './_load.mjs';
 
@@ -40,7 +43,7 @@ const SAMPLE_VOICES = ['es-EC-AndreaNeural', 'es-EC-LuisNeural', 'es-MX-DaliaNeu
 const voice = opt('--voice', 'es-EC-AndreaNeural');
 const ratePct = num('--rate', -10);
 const bitrate = opt('--bitrate', '64k');
-const tier = opt('--tier', 'f0');
+const tier = opt('--tier', 's0');
 if (!['f0', 's0'].includes(tier)) fail('--tier debe ser f0 o s0');
 const cap = num('--max-chars', 450_000);
 const audioDir = path.join(root, 'public', 'audio');
@@ -61,12 +64,14 @@ function credentials() {
 }
 
 /** Intervalo mínimo entre peticiones: F0 = 20 por minuto (no ajustable) → una cada 3,2 s. */
-const MIN_INTERVAL_MS = tier === 'f0' ? 3200 : 100;
-let lastRequest = 0;
+const MIN_INTERVAL_MS = tier === 'f0' ? 3200 : 60;
+let nextSlot = 0;
+/** Reserva un turno (seguro con varios trabajadores a la vez): nunca más rápido que el límite de peticiones. */
 async function throttle() {
-  const wait = lastRequest + MIN_INTERVAL_MS - Date.now();
+  const at = Math.max(Date.now(), nextSlot);
+  nextSlot = at + MIN_INTERVAL_MS;
+  const wait = at - Date.now();
   if (wait > 0) await sleep(wait);
-  lastRequest = Date.now();
 }
 
 /** POST de SSML con reintentos de espera creciente ante 429/5xx. Devuelve los bytes de audio. */
@@ -98,7 +103,7 @@ async function synthesize({ key, region }, ssml, outputFormat) {
       continue;
     }
     const detail = (await res.text().catch(() => '')).slice(0, 200);
-    if (res.status === 401 || res.status === 403) throw new Error(`Azure rechazó las credenciales (HTTP ${res.status}). Revisa AZURE_SPEECH_KEY y AZURE_SPEECH_REGION.`);
+    if (res.status === 401 || res.status === 403) throw Object.assign(new Error(`Azure rechazó las credenciales (HTTP ${res.status}). Revisa AZURE_SPEECH_KEY y AZURE_SPEECH_REGION.`), { fatal: true });
     throw new Error(`Azure respondió HTTP ${res.status}: ${detail}`);
   }
 }
@@ -143,11 +148,8 @@ await withApp(async (load) => {
   });
 
   if (flag('--samples')) return runSamples(texts);
-  if (!flag('--dry-run')) {
-    console.log('La generación completa llega en la Fase 13b. Por ahora usa --dry-run (análisis) o --samples (muestras).');
-    return;
-  }
-  return dryRun(sel, texts);
+  if (flag('--dry-run')) return dryRun(sel, texts);
+  return generate(sel, texts, manifest, existing);
 
   // ----- --dry-run -----
   function dryRun(sel, all) {
@@ -195,6 +197,117 @@ await withApp(async (load) => {
     const capResult = T.checkCharCap(tot.billable, cap, flag('--allow-over'));
     console.log(`\n${capResult.ok ? '✔' : '✖'} ${capResult.message}`);
     if (!capResult.ok) process.exit(2);
+  }
+
+  // ----- generación -----
+  async function generate(sel, all, manifest, existing) {
+    const creds = credentials();
+    const { ffmpegArgs, buildManifest } = await load('/src/lib/audioProcess.ts');
+    if (sel.todo.length === 0) {
+      console.log(`Nada pendiente (ya con clip tts: ${sel.skippedDone.length}, human: ${sel.skippedHuman.length}, sonidos sin sintetizar: ${sel.skippedSound.length}).`);
+      return;
+    }
+    const tot = T.totalsFor(sel.todo, voice, ratePct);
+    const capResult = T.checkCharCap(tot.billable, cap, flag('--allow-over'));
+    console.log(`Voz ${voice} · ${ratePct}% · Opus ${bitrate} · tier ${tier.toUpperCase()} · ${tot.count} clips · ${tot.billable} caracteres facturables (≈ $${T.estimateCostUsd(tot.billable).toFixed(2)})`);
+    console.log(`${capResult.ok ? '✔' : '✖'} ${capResult.message}`);
+    if (!capResult.ok) process.exit(2);
+    const probe = spawnSync('ffmpeg', ['-version'], { encoding: 'utf8' });
+    if (probe.error || probe.status !== 0) fail('No se encontró ffmpeg en el PATH. Instálalo y abre una terminal nueva.');
+    const available = await listVoices(creds);
+    if (!available.includes(voice)) fail(`La voz ${voice} no está disponible en la región ${creds.region}.`);
+
+    const tmpDir = path.join(root, 'audio-work', 'tts');
+    await mkdir(tmpDir, { recursive: true });
+    await mkdir(audioDir, { recursive: true });
+    const textByKey = Object.fromEntries(all.map((t) => [t.key, t.text]));
+    const prioByKey = Object.fromEntries(all.map((t) => [t.key, t.priority]));
+    const marks = {}; // claves generadas en esta corrida
+    const failed = [];
+    let done = 0;
+    let chars = 0;
+    let stopping = false;
+    let fatal = null;
+    const conc = Math.max(1, Math.floor(num('--concurrency', tier === 's0' ? 4 : 1)));
+
+    async function flush() {
+      const files = (await readdir(audioDir)).filter((f) => /^[0-9a-f]{14}\.opus$/.test(f));
+      const m = buildManifest(files, textByKey, manifest, marks, prioByKey);
+      await writeFile(path.join(audioDir, 'manifest.json'), JSON.stringify(m, null, 1) + '\n', 'utf8');
+    }
+    process.on('SIGINT', () => {
+      if (stopping) process.exit(130);
+      stopping = true;
+      console.log('\nDeteniendo: termino los clips en curso y guardo el manifiesto (Ctrl+C otra vez para salir ya)…');
+    });
+    const runFfmpeg = (cmd) =>
+      new Promise((resolve, reject) => {
+        const p = spawn('ffmpeg', cmd, { stdio: ['ignore', 'ignore', 'pipe'] });
+        let err = '';
+        p.stderr.on('data', (d) => (err += d));
+        p.on('error', reject);
+        p.on('close', (code) => (code === 0 ? resolve() : reject(new Error(`ffmpeg: ${err.trim().split('\n').pop()}`))));
+      });
+
+    async function doOne(t) {
+      if (existing[t.key] === 'human') return; // red de seguridad: nunca se pisa tu voz
+      const ssml = T.buildSsml(t.text, voice, ratePct);
+      const wav = await synthesize(creds, ssml, 'riff-24khz-16bit-mono-pcm');
+      const wavPath = path.join(tmpDir, `${t.key}.wav`);
+      const part = path.join(audioDir, `${t.key}.part.opus`);
+      await writeFile(wavPath, wav);
+      try {
+        await runFfmpeg(ffmpegArgs(wavPath, part, bitrate));
+        await rename(part, path.join(audioDir, `${t.key}.opus`));
+      } finally {
+        await unlink(wavPath).catch(() => {});
+        await unlink(part).catch(() => {});
+      }
+      marks[t.key] = 'tts';
+      chars += T.billableChars(ssml);
+    }
+
+    const started = Date.now();
+    for (const batch of T.planBatches(sel.todo)) {
+      if (stopping || fatal) break;
+      const queue = [...batch.items];
+      let n = 0;
+      console.log(`\nTanda de prioridad ${batch.priority}: ${queue.length} clips`);
+      // Subida gradual de la carga (recomendado por Azure): los trabajadores arrancan escalonados.
+      const worker = async (i) => {
+        await sleep(i * 1500);
+        while (!stopping && !fatal) {
+          const t = queue.shift();
+          if (!t) return;
+          try {
+            await doOne(t);
+            done++;
+          } catch (e) {
+            if (e.fatal) {
+              fatal = e;
+              return;
+            }
+            failed.push({ key: t.key, text: t.text, error: String(e.message).slice(0, 200) });
+          }
+          n++;
+          process.stdout.write(`\r  ${pad(n, 5)}/${batch.items.length} · total ${done}/${sel.todo.length} · fallos ${failed.length} · ${T.formatDuration((Date.now() - started) / 1000)}   `);
+          if (done % 50 === 0) await flush();
+        }
+      };
+      await Promise.all(Array.from({ length: Math.min(conc, queue.length) }, (_, i) => worker(i)));
+      await flush();
+    }
+    process.stdout.write('\n');
+    await flush();
+
+    let bytes = 0;
+    for (const f of await readdir(audioDir)) if (f.endsWith('.opus')) bytes += (await stat(path.join(audioDir, f))).size;
+    if (failed.length) await writeFile(path.join(root, 'audio-work', 'tts-fallidos.json'), JSON.stringify(failed, null, 1), 'utf8');
+    console.log(`\n✔ ${done} clips generados · caracteres facturados ≈ ${chars} (≈ $${T.estimateCostUsd(chars).toFixed(2)}) · public/audio pesa ahora ${T.formatBytes(bytes)}`);
+    if (fatal) console.log(`✖ Se detuvo: ${fatal.message}`);
+    if (failed.length) console.log(`⚠ ${failed.length} clips fallaron (lista en audio-work/tts-fallidos.json). Vuelve a correr el mismo comando: reanuda solo con los que faltan.`);
+    if (stopping) console.log('Detenido por ti: vuelve a correr el mismo comando para reanudar.');
+    if (fatal || failed.length) process.exitCode = 1;
   }
 
   // ----- --samples -----

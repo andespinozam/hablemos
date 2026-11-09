@@ -24,10 +24,18 @@ await withApp(async (load) => {
   }
   const cov = coverage(texts, (t) => t.key in manifest.clips);
 
+  const src = (t) => manifest.clips[t.key]?.source ?? 'human';
+  const has = texts.filter((t) => t.key in manifest.clips);
+  const nTts = has.filter((t) => src(t) === 'tts').length;
   console.log(`Textos distintos que la app puede decir: ${cov.total}`);
-  console.log(`Con clip en public/audio: ${cov.withAudio} · sin audio: ${cov.missing.length}\n`);
+  console.log(`Con clip en public/audio: ${cov.withAudio} (voz neuronal tts: ${nTts} · tu voz human: ${cov.withAudio - nTts}) · sin audio: ${cov.missing.length}\n`);
+  console.log(`  ${'categoría'.padEnd(36)} ${'con clip'.padStart(9)}  total   tts  human`);
   for (const [cat, v] of Object.entries(cov.byCategory)) {
-    console.log(`  ${String(CATEGORY_LABEL[cat]).padEnd(36)} ${String(v.withAudio).padStart(5)} / ${v.total}`);
+    const inCat = has.filter((t) => t.category === cat);
+    const tts = inCat.filter((t) => src(t) === 'tts').length;
+    console.log(`  ${String(CATEGORY_LABEL[cat]).padEnd(36)} ${String(v.withAudio).padStart(9)}  ${String(v.total).padStart(5)} ${String(tts).padStart(5)} ${String(inCat.length - tts).padStart(6)}`);
   }
+  const orphans = Object.keys(manifest.clips).filter((k) => !texts.some((t) => t.key === k)).length;
+  if (orphans) console.log(`\nClips del manifiesto que ya no corresponden a ningún texto del guion: ${orphans}`);
   console.log('\nGuion escrito en audio-work/guion.csv (clave, prioridad, categoría, texto, cómo decirlo).');
 });

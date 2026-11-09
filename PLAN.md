@@ -117,5 +117,13 @@ Al terminar cada fase: build, pruebas, commit, resumen en 5 líneas y esperar "c
 
 - [x] `ClipEntry.source` (`tts` | `human`) en el manifiesto; los antiguos sin campo cuentan como `human`; `audio:process` marca `human`; `ffmpegArgs` con bitrate configurable
 - [x] `npm run audio:tts` con `--dry-run` (conteo, peso, tiempo, costo, tope de caracteres) y `--samples` (4 voces × ~12 textos + `index.html`); lógica pura en `src/lib/tts.ts` con pruebas
-- [ ] Probar `--samples` con credenciales reales y elegir voz y bitrate (el usuario)
-- [ ] Fase 13b: generación por tandas, precarga en el service worker, documentación
+- [x] Muestras probadas por el usuario; elegida es-EC-AndreaNeural, Opus 32 kbps, prosody -10 % y pausas
+
+## Fase 13b — Generación con voz neuronal
+
+- [x] `npm run audio:tts` genera por tandas de prioridad, con reanudación, reintentos 429/5xx, concurrencia y subida gradual; WAV 24 kHz de Azure → tubería de `audio:process` (recorte, ~-16 LUFS, Opus mono 32 kbps); nunca pisa clips `human`
+- [x] `manifest.json` con `source` y `priority`; `audio:list` muestra cobertura por categoría y cuántos son `tts` y `human`
+- [x] Service worker: precarga de prioridad 1-3 (con revisión por hash) y CacheFirst con tope para el resto; verificado con build + preview, servidor apagado
+- [x] README, Guía para adultos y CLAUDE.md al día (costo, regeneración, reemplazo por tu voz, aviso de voz sintética)
+- [ ] Probar en un iPad real que el caché en ejecución (palabras y repeticiones) persiste y que Safari no lo borra
+- [ ] Grabar a mano los 51 textos de «sonido» (fonemas aislados y onomatopeyas)
