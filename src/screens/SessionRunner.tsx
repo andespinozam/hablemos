@@ -49,6 +49,8 @@ export interface AssessmentMode {
 }
 
 const PRAISE_MS = 1600;
+/** Tope de espera del elogio hablado (por si la voz del sistema nunca avisa que terminó). */
+const PRAISE_MAX_MS = 6000;
 
 /** Lo que se dice con calma tras un "Aún no": el modelo del ítem, sin puntuación doble. */
 export function retryText(item: Item): string {
@@ -74,13 +76,24 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
   const started = useRef(false);
   const finished = useRef(false);
   const timer = useRef<number | null>(null);
+  const capTimer = useRef<number | null>(null);
+  const praiseToken = useRef(0);
   const lastText = useRef('');
   const lastRate = useRef(SPEECH_RATE);
 
   const say = useCallback((text: string, rate: number = SPEECH_RATE) => {
     lastText.current = text;
     lastRate.current = rate;
-    void speak(text, rate);
+    return speak(text, rate);
+  }, []);
+
+  /** Cancela el avance automático tras el elogio (al salir o terminar). */
+  const clearPraiseTimers = useCallback(() => {
+    praiseToken.current++;
+    if (timer.current !== null) window.clearTimeout(timer.current);
+    if (capTimer.current !== null) window.clearTimeout(capTimer.current);
+    timer.current = null;
+    capTimer.current = null;
   }, []);
 
   // Preparar la sesión (una sola vez, aunque StrictMode repita el efecto).
@@ -149,9 +162,9 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
   useEffect(
     () => () => {
       cancelSpeech();
-      if (timer.current !== null) window.clearTimeout(timer.current);
+      clearPraiseTimers();
     },
-    [],
+    [clearPraiseTimers],
   );
 
   // Instrucción hablada al entrar a cada pantalla.
@@ -231,15 +244,34 @@ export function SessionRunner({ profile, onExit, assessment }: Props) {
       setPraise(text);
       setPos((p) => ({ ...p, stage: 'praise' }));
       playSound('star');
-      say(text);
-      timer.current = window.setTimeout(advance, PRAISE_MS);
+      // Se avanza cuando terminó de sonar el elogio Y pasó el tiempo mínimo (para no cortarlo).
+      // Un tope evita quedarse esperando si el navegador nunca avisa que terminó la voz.
+      const token = ++praiseToken.current;
+      let minPassed = false;
+      let spoke = false;
+      let moved = false;
+      const move = () => {
+        if (moved || token !== praiseToken.current) return;
+        moved = true;
+        clearPraiseTimers();
+        advance();
+      };
+      timer.current = window.setTimeout(() => {
+        minPassed = true;
+        if (spoke) move();
+      }, PRAISE_MS);
+      capTimer.current = window.setTimeout(move, PRAISE_MAX_MS);
+      void say(text).then(() => {
+        spoke = true;
+        if (minPassed) move();
+      });
     },
-    [plan, step, item, pos.stage, profile.id, advance, say],
+    [plan, step, item, pos.stage, profile.id, advance, say, clearPraiseTimers],
   );
 
   const endEarly = async () => {
     cancelSpeech();
-    if (timer.current !== null) window.clearTimeout(timer.current);
+    clearPraiseTimers();
     await finish(false);
     onExit();
   };

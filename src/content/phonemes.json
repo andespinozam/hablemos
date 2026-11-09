@@ -42,7 +42,7 @@
     },
     {
       "id": "k", "name": "k (c, qu, k)", "age": 3, "patterns": ["c(?=[aou])", "qu", "k"],
-      "words": ["ca-sa 🏠", "ca-ma 🛏️", "co-ne-jo 🐰", "ca-ba-llo 🐴", "que-so 🧀", "ca-mi-sa 👕", "co-che 🚗", "cu-chi-llo 🔪", "ko-a-la 🐨", "ca-ra-col 🐌", "co-he-te 🚀", "cu-cha-ra 🥄", "va-ca 🐮", "bo-ca 👄", "ta-co 🌮", "ra-que-ta 🎾"]
+      "words": ["ca-sa 🏠", "ca-ma 🛏️", "co-ne-jo 🐰", "ca-ba-llo 🐴", "que-so 🧀", "ca-mi-sa 👕", "co-che 🚗", "cu-chi-llo 🔪", "ko-a-la 🐨", "ca-ra-col 🐌", "co-he-te 🚀", "cu-cha-ra 🥄", "va-ca 🐮", "bo-ca 👄", "ta-co 🌮", "ca-ja 📦"]
     },
     {
       "id": "f", "name": "f", "age": 3, "patterns": ["f(?![lr])"],
@@ -117,7 +117,7 @@
 
     {
       "id": "rr", "name": "rr (avanzado)", "age": 5, "advanced": true, "patterns": ["rr", "^r"],
-      "words": ["ra-tón 🐭", "ra-na 🐸", "ro-sa 🌹", "re-loj ⏰", "ro-pa 👚", "re-gla 📏", "rey 🤴", "pe-rro 🐶", "ca-rro 🚗", "to-rre 🏰", "ce-rro ⛰️", "ca-rre-ta 🛒", "go-rro 🧢", "ra-que-ta 🎾", "ro-bot 🤖", "ro-jo 🔴", "gui-ta-rra 🎸", "co-rrer 🏃"]
+      "words": ["ra-tón 🐭", "ra-na 🐸", "ro-sa 🌹", "re-loj ⏰", "ro-pa 👚", "re-gla 📏", "rey 🤴", "pe-rro 🐶", "ca-rro 🚗", "to-rre 🏰", "ce-rro ⛰️", "ca-rre-ta 🛒", "go-rro 🧢", "ra-mo 💐", "ro-bot 🤖", "ro-jo 🔴", "gui-ta-rra 🎸", "co-rrer 🏃"]
     },
     {
       "id": "br", "name": "br (avanzado)", "age": 5, "advanced": true, "patterns": ["br"],
